@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "TimesTableViewController.h"
 
 @implementation AppDelegate
 
@@ -14,7 +15,12 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
+    TimesTableViewController *timesTable = [[TimesTableViewController alloc] init];
+    self.navigationController = [[UINavigationController alloc] initWithRootViewController:timesTable];
+//    self.navigationController.navigationBar.tintColor = [[UIColor alloc] initWithRed:0.13 green:0.13 blue:0.13 alpha:1.0];
+    self.navigationController.navigationBar.barStyle = UIStatusBarStyleBlackTranslucent;
+    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.18 green:0.18 blue:0.18 alpha:1];
+    self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
     return YES;
 }
