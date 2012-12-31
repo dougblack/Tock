@@ -13,4 +13,10 @@
 + (UIImage *) imageFromColor:(UIColor *)color;
 + (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize;
 
++(UIColor*) selectedColor;
++(UIColor*) backgroundColor;
++(UIColor*) outlineColor;
++(UIColor*) highlightColor;
++(UIColor*) weakTextColor;
+
 @end

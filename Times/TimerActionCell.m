@@ -17,10 +17,10 @@
         self.shouldShowStartAll = YES;
         
         UIView *shadowView = [[UIView alloc] initWithFrame:CGRectMake(7.0, 7.0, 306, 86)];
-        [shadowView setBackgroundColor:[UIColor blackColor]];
+        [shadowView setBackgroundColor:[CommonCLUtility outlineColor]];
         [self.contentView addSubview:shadowView];
         UIView *lightView = [[UIView alloc] initWithFrame:CGRectMake(9.0, 9.0, 302, 82)];
-        [lightView setBackgroundColor:[UIColor colorWithRed:0.35 green:0.35 blue:0.35 alpha:1]];
+        [lightView setBackgroundColor:[CommonCLUtility highlightColor]];
         [self.contentView addSubview:lightView];
         UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(10.0, 10.0, 300, 80)];
         [backView setBackgroundColor:[UIColor colorWithRed:0.1 green:0.4 blue:0.13 alpha:1]];

@@ -32,5 +32,6 @@
 -(void)lap;
 -(void)stop;
 -(void)toggle;
+-(void)reset;
 
 @end

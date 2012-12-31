@@ -25,7 +25,7 @@
         [navBarLabel setBackgroundColor:[UIColor clearColor]];
         [navBarLabel setFont:[UIFont boldSystemFontOfSize:22]];
         [navBarLabel setTextAlignment:NSTextAlignmentCenter];
-        [navBarLabel setTextColor:[UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1]];
+        [navBarLabel setTextColor:[UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1]];
         [navBarLabel setShadowColor:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1]];
         [navBarLabel setShadowOffset:CGSizeMake(1,1)];
         [navBarLabel sizeToFit];
@@ -41,7 +41,7 @@
     [timesTableView registerClass:[NewTimerCell class] forCellReuseIdentifier:@"New"];
     [timesTableView registerClass:[TimerActionCell class] forCellReuseIdentifier:@"Action"];
 
-    [timesTableView setRowHeight:100];
+    [timesTableView setRowHeight:95];
     [timesTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [timesTableView setDelegate:self];
     [timesTableView setDataSource:self];
@@ -53,8 +53,8 @@
 - (void)newTimer
 {
     self.numTimers++;;
-    if (self.numTimers == 3)
-        self.numTimers++;
+//    if (self.numTimers == 3)
+//        self.numTimers++;
     Timer* newTimer = [[Timer alloc] init];
     [newTimer setRow:numTimers-1];
     [[self timers] addObject:[[Timer alloc] init]];
@@ -74,7 +74,7 @@
     
     CAGradientLayer *gradient = [CAGradientLayer layer];
     UIColor *topColor = [UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1];
-    UIColor *bottomColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];
+    UIColor *bottomColor = [UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1];
     gradient.frame = self.view.frame;
     gradient.colors = [NSArray arrayWithObjects:(id)topColor.CGColor, (id)bottomColor.CGColor, nil];
     gradient.startPoint = CGPointMake(0.5f, 0.0f);
@@ -83,10 +83,7 @@
     
     [(TimesTableView*)self.view setBackgroundColor:nil];
     [(TimesTableView*)self.view setBackgroundView:backgroundView];
-    
-
-
-    
+      
 }
 
 - (void)didReceiveMemoryWarning
@@ -115,47 +112,33 @@
     static NSString *NewIdentifier = @"New";
     static NSString *ActionIdentifier = @"Action";
     
-    if (self.numTimers > 2 && [indexPath row] == 0)
-    {
-        TimerActionCell *actionCell = (TimerActionCell*)[[TimerActionCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ActionIdentifier];
-        [actionCell setTimesController:self];
-        return actionCell;
-    }
+//    if (self.numTimers > 2 && [indexPath row] == 0)
+//    {
+//        TimerActionCell *actionCell = (TimerActionCell*)[[TimerActionCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ActionIdentifier];
+//        [actionCell setTimesController:self];
+//        return actionCell;
+//    }
     
     if ([indexPath row] == self.numTimers-1) {
         NewTimerCell *new = (NewTimerCell *)[[NewTimerCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NewIdentifier andTimesTable:self];
         [new setTimesTable:self];
         return new;
     }
+    
     Timer *timer;
-    if (self.numTimers <= 3)
+//    if (self.numTimers <= 3)
         timer = [[self timers] objectAtIndex:[indexPath row]];
-    else
-        timer = [[self timers] objectAtIndex:[indexPath row]-1];
+//    else
+//        timer = [[self timers] objectAtIndex:[indexPath row]-1];
 
     TimerCell *timerCell = (TimerCell *)[currentTableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (timerCell == nil) {
         timerCell = (TimerCell *)[[TimerCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
-    
-    NSLog(@"Row: %d", [indexPath row]);
+        [timerCell setSelectionStyle:UITableViewCellEditingStyleNone];
 
+    }
     [timerCell setTimesTable:self];
-    
-    [timerCell setSelectionStyle:UITableViewCellSelectionStyleNone];
-
-    [timerCell setLapNumber:[NSString stringWithFormat:@"%d", (int)[timer lapNumber]]];
     [[timerCell timer] setDelegate:nil];
-    
-    if ([timerCell lastRow] == -1 || ([timerCell lastRow] != [indexPath row]))
-    {
-        // Recycle the cell
-        [timerCell cleanse];
-    }
-    
-    [timerCell setTime:[timer timeString]];
-    [timerCell setThumb:[timer thumb]];
-    [timerCell setLastLap:[timer lastLapString]];
     [timer setDelegate:timerCell];
     [timerCell setLastRow:[indexPath row]];
     [timerCell setTimer:timer];

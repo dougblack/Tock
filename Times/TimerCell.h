@@ -34,7 +34,6 @@
 -(void) start;
 -(void) stop;
 -(void) reset;
--(void) cleanse;
 -(void) refresh;
 
 @end

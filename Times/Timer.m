@@ -118,4 +118,16 @@
     
 }
 
+-(void) reset
+{
+    [self setRunning:NO];
+    [self setStarted:NO];
+    [self setStopped:NO];
+    [self setTimeString:@"00:00.0"];
+    [self setLastLapString:@"LAST LAP: --:--.-"];
+    [self setLapNumber:1];
+    [self setLaps:[[NSMutableArray alloc] init]];
+    [self setTimeDelta:0];
+}
+
 @end

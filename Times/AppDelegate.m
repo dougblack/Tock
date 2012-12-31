@@ -22,9 +22,6 @@
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:timesTable];
     [navigationController.navigationBar setBackgroundImage:navBarImage forBarMetrics:UIBarMetricsDefault];
     [self setNavigationController:navigationController];
-
-    
-    
     [self.window setRootViewController:self.navigationController];
     [self.window addSubview:self.navigationController.view];
     [self.window makeKeyAndVisible];

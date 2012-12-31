@@ -32,4 +32,39 @@
     return newImage;
 }
 
++(UIColor*) selectedColor
+{
+    static UIColor* selected = nil;
+    if (!selected) selected = [UIColor colorWithRed:0.15 green:0.15 blue:0.15 alpha:1];
+    return selected;
+}
+
++(UIColor*) backgroundColor
+{
+    static UIColor* background = nil;
+    if (!background) background = [UIColor colorWithRed:0.26 green:0.26 blue:0.26 alpha:1];
+    return background;
+}
+
++(UIColor*) outlineColor
+{
+    static UIColor *outline = nil;
+    if (!outline) outline = [UIColor blackColor];
+    return outline;
+}
+
++(UIColor*) highlightColor
+{
+    static UIColor *highlight = nil;
+    if (!highlight) highlight = [UIColor colorWithRed:0.35 green:0.35 blue:0.35 alpha:1];
+    return highlight;
+}
+
++(UIColor*) weakTextColor
+{
+    static UIColor *weakText = nil;
+    if (!weakText) weakText = [UIColor colorWithRed:0.4 green:0.4 blue:0.4 alpha:1];
+    return weakText;
+}
+
 @end
