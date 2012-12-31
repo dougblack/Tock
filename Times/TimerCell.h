@@ -9,27 +9,32 @@
 #import <UIKit/UIKit.h>
 
 #import "Timer.h"
-#import "TimerCellContentView.h"
-#import "TimesTableViewController.h"
+#import "TimesViewController.h"
+#import "CommonCLUtility.h"
+#import "TriangleView.h"
 
 @class TimerCellContentView;
-@class TimesTableViewController;
+@class TimesViewController;
 @class Timer;
-@interface TimerCell : UITableViewCell <UIImagePickerControllerDelegate>
+@interface TimerCell : UITableViewCell <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
-@property TimesTableViewController *timesTable;
-@property TimerCellContentView *timerCellContentView;
+@property TimesViewController *timesTable;
 @property UIImagePickerController* imagePickerController;
-@property UIView *thumb;
-@property NSString *currentTime;
+@property UIColor *thumb;
+@property NSString *time;
 @property NSString *lapNumber;
+@property NSString *lastLap;
 @property Timer *timer;
 @property BOOL running;
+@property NSInteger lastRow;
 
--(void) tick:(NSString*)time withLap:(NSInteger*)lapNumber;
+
+-(void) tick:(NSString*)time withLap:(NSInteger)lapNumber;
 -(void) lastLapTimeChanged:(NSString*)lastLap;
+-(void) start;
 -(void) stop;
 -(void) reset;
--(void) getThumb;
+-(void) cleanse;
+-(void) refresh;
 
 @end

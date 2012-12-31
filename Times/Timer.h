@@ -17,13 +17,18 @@
 @property NSInteger lapNumber;
 @property BOOL running;
 @property BOOL started;
+@property BOOL stopped;
 @property NSString *timeString;
+@property NSTimeInterval currentTime;
+@property NSString *lastLapString;
 @property NSMutableArray *laps;
 @property TimerCell *delegate;
+@property NSInteger row;
+@property UIColor *thumb;
+@property NSTimeInterval timeDelta;
 
 
 -(void)start;
--(void)pause;
 -(void)lap;
 -(void)stop;
 -(void)toggle;

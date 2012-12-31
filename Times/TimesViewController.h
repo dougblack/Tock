@@ -11,14 +11,16 @@
 
 #import "TimerCell.h"
 #import "NewTimerCell.h"
+#import "TimerActionCell.h"
 #import "TimesTableView.h"
 #import "Timer.h"
 
-@interface TimesTableViewController : UITableViewController
+@interface TimesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property NSInteger numTimers;
 @property NSInteger numSections;
 @property NSMutableArray *timers;
+@property TimesTableView *tableView;
 
 -(void)newTimer;
 

@@ -8,18 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-#import "NewTimerCellContentView.h"
-#import "TimesTableViewController.h"
+#import "TimesViewController.h"
+#import "CommonCLUtility.h"
 
-@class TimesTableViewController;
+@class TimesViewController;
 @class NewTimerCellContentView;
 @interface NewTimerCell : UITableViewCell
 
-@property NewTimerCellContentView *content;
-@property TimesTableViewController *timesTable;
+@property TimesViewController *timesTable;
 
--(void)setTimesTable:(TimesTableViewController*)timesTable;
+-(void)setTimesTable:(TimesViewController*)timesTable;
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier andTimesTable:(TimesTableViewController*)timesTable;
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier andTimesTable:(TimesViewController*)timesTable;
 
 @end

@@ -10,7 +10,7 @@
 
 @implementation Timer
 
-@synthesize startTime, running, timeString, delegate, started, laps, lapNumber;
+@synthesize startTime, running, timeString, delegate, started, laps, lapNumber, stopped, row, thumb, lastLapString, timeDelta;
 
 -(id) init
 {
@@ -18,24 +18,32 @@
     if (self)
     {
         running = NO;
+        [self setTimeString:@"00:00.0"];
+        [self setLastLapString:@"LAST LAP: --:--.-"];
+        [self setLapNumber:1];
+        [self setTimeDelta:0];
     }
     return self;
 }
 
 -(void) start
 {
-    self.lapNumber = 1;
+    if (self.started == YES)
+    {
+        [self setTimeDelta:[self currentTime]];
+    }
+    
+    [self setLapNumber:1];
     [self setStarted:YES];
     [self setRunning:YES];
+    [self setStopped:NO];
     [self setStartTime:[NSDate timeIntervalSinceReferenceDate]];
     [self setLastLapTime:[self startTime]];
-    self.laps = [NSMutableArray array];
+    [self setLaps:[NSMutableArray array]];
+    
+    [[self delegate] start];
+    
     [self updateTime];
-}
-
--(void) pause
-{
-    [self setRunning:NO];
 }
 
 -(void) updateTime
@@ -44,12 +52,12 @@
         [[self delegate] stop];
         return;
     }
-
+    
     [self performSelector:@selector(updateTime) withObject:self afterDelay:0.1];
     
     NSTimeInterval currentTime = [NSDate timeIntervalSinceReferenceDate];
-    NSTimeInterval elapsed = currentTime - startTime;
-    
+    NSTimeInterval elapsed = currentTime - startTime + timeDelta;
+    [self setCurrentTime:elapsed];
     int mins = (int) (elapsed / 60.0);
     elapsed = elapsed - (mins * 60);
     int secs = (int) (elapsed);
@@ -57,14 +65,9 @@
     int tenths = elapsed * 10.0;
     elapsed = elapsed - tenths;
     
-    [[self delegate] tick:[NSString stringWithFormat: @"%02u:%02u.%u", mins, secs, tenths] withLap:self.lapNumber];
+    [self setTimeString:[NSString stringWithFormat: @"%02u:%02u.%u", mins, secs, tenths]];
+    [[self delegate] tick:[self timeString] withLap:self.lapNumber];
 
-}
-
--(void) resume
-{
-    self.running = YES;
-    
 }
 
 -(void) tick:(NSString *)time withLap:(NSInteger*)lap
@@ -74,6 +77,11 @@
 
 -(void) lap
 {
+    if (self.running == NO || self.stopped == YES)
+    {
+        return;
+    }
+    
     NSTimeInterval currentTime = [NSDate timeIntervalSinceReferenceDate];
     NSTimeInterval elapsed = currentTime - self.lastLapTime;
     
@@ -85,23 +93,26 @@
     elapsed = elapsed - tenths;
     
     [self.laps addObject:[NSNumber numberWithDouble:elapsed]];
-    NSLog(@"Added lap %@", [NSString stringWithFormat: @"%02u:%02u.%u", mins, secs, tenths]);
-    self.lastLapTime = currentTime;
-    self.lapNumber = self.lapNumber + 1;
+    [self setLastLapTime:currentTime];
+    [self setLastLapString:[NSString stringWithFormat:@"%02u:%02u.%u", mins, secs,tenths]];
+    [self setLapNumber:self.lapNumber+1];
     
-    [[self delegate] lastLapTimeChanged:[NSString stringWithFormat: @"%02u:%02u.%u", mins, secs, tenths]];
+    [[self delegate] lastLapTimeChanged:self.lastLapString];
 }
 
 -(void) stop
 {
     [self setRunning:NO];
+    [self setStopped:YES];
+    
+    [[self delegate] stop];
 }
 
 -(void) toggle
 {
     if (self.running && self.started) {
         [self stop];
-    } else if (!self.started) {
+    } else if (!self.started || self.stopped) {
         [self start];
     }
     
