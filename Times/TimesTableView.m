@@ -15,7 +15,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self setOpaque:YES];
-        [self setUserInteractionEnabled:YES];
+        [self setUserInteractionEnabled:NO];
         [self setShowsVerticalScrollIndicator:NO];
 
     }
@@ -24,7 +24,7 @@
 
 -(BOOL)touchesShouldCancelInContentView:(UIView *)view
 {
-    return YES;
+    return NO;
 }
 
 

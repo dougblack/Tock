@@ -35,14 +35,14 @@
 +(UIColor*) selectedColor
 {
     static UIColor* selected = nil;
-    if (!selected) selected = [UIColor colorWithRed:0.15 green:0.15 blue:0.15 alpha:1];
+    if (!selected) selected = [UIColor colorWithRed:0.1 green:0.1 blue:0.8 alpha:1];
     return selected;
 }
 
 +(UIColor*) backgroundColor
 {
     static UIColor* background = nil;
-    if (!background) background = [UIColor colorWithRed:0.26 green:0.26 blue:0.26 alpha:1];
+    if (!background) background = [UIColor colorWithRed:0.18 green:0.18 blue:0.18 alpha:1];
     return background;
 }
 
@@ -56,7 +56,7 @@
 +(UIColor*) highlightColor
 {
     static UIColor *highlight = nil;
-    if (!highlight) highlight = [UIColor colorWithRed:0.35 green:0.35 blue:0.35 alpha:1];
+    if (!highlight) highlight = [UIColor colorWithRed:0.25 green:0.25 blue:0.25 alpha:1];
     return highlight;
 }
 
@@ -65,6 +65,40 @@
     static UIColor *weakText = nil;
     if (!weakText) weakText = [UIColor colorWithRed:0.4 green:0.4 blue:0.4 alpha:1];
     return weakText;
+}
+
++(UIColor*) viewBackgroundColor
+{
+    static UIColor *viewBackground = nil;
+    if (!viewBackground) viewBackground = [UIColor colorWithRed:0.15 green:0.15 blue:0.15 alpha:1];
+    return viewBackground;
+}
++(UIColor*) lapTimerBackColor
+{
+    static UIColor *lapTimerBack = nil;
+    if (!lapTimerBack) lapTimerBack = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1];
+    return lapTimerBack;
+}
+
++(UIColor*) viewDarkBackColor
+{
+    static UIColor *viewBack = nil;
+    if (!viewBack) viewBack = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1];
+    return viewBack;
+}
+
++(UIColor*) viewDarkerBackColor
+{
+    static UIColor *darker = nil;
+    if (!darker) darker = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];
+    return darker;
+}
+
++(UIColor*) viewLightBackColor
+{
+    static UIColor *viewLightBack = nil;
+    if (!viewLightBack) viewLightBack = [UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1];
+    return viewLightBack;
 }
 
 @end

@@ -8,11 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "Timer.h"
-#import "TimesViewController.h"
-#import "CommonCLUtility.h"
-#import "TriangleView.h"
-
 @class TimerCellContentView;
 @class TimesViewController;
 @class Timer;
@@ -25,15 +20,18 @@
 @property NSString *lapNumber;
 @property NSString *lastLap;
 @property Timer *timer;
-@property BOOL running;
 @property NSInteger lastRow;
+@property NSMutableArray *movableViews;
+@property BOOL isInDeleteMode;
+@property BOOL allowEdit;
+@property BOOL running;
+@property UILabel *deleteButton;
 
 
 -(void) tick:(NSString*)time withLap:(NSInteger)lapNumber;
 -(void) lastLapTimeChanged:(NSString*)lastLap;
 -(void) start;
 -(void) stop;
--(void) reset;
 -(void) refresh;
 
 @end

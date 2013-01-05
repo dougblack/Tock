@@ -7,31 +7,42 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TimerCell.h"
+
 
 @class TimerCell;
-@interface Timer : NSObject
+@interface Timer : NSObject <NSCopying>
 
-@property NSTimeInterval startTime;
-@property NSTimeInterval lastLapTime;
-@property NSInteger lapNumber;
 @property BOOL running;
 @property BOOL started;
 @property BOOL stopped;
-@property NSString *timeString;
+@property BOOL recentlyStopped;
+
+@property NSTimeInterval startTime;
+@property NSTimeInterval lastLapTime;
 @property NSTimeInterval currentTime;
-@property NSString *lastLapString;
-@property NSMutableArray *laps;
-@property TimerCell *delegate;
-@property NSInteger row;
-@property UIColor *thumb;
 @property NSTimeInterval timeDelta;
+@property NSTimeInterval currentLapDelta;
+@property NSTimeInterval timeOfLastStop;
 
+@property NSInteger lapNumber;
+@property NSInteger row;
 
+@property NSString *timeString;
+@property NSString *lastLapString;
+
+@property NSMutableArray *laps;
+@property NSMutableArray *lapStrings;
+@property NSMutableArray *timesAtLaps;
+
+@property TimerCell *delegate;
+@property UIColor *thumb;
+
++(NSString*)stringFromTimeInterval:(NSTimeInterval)timeInterval;
+
+-(void)toggle;
 -(void)start;
 -(void)lap;
 -(void)stop;
--(void)toggle;
 -(void)reset;
 
 @end

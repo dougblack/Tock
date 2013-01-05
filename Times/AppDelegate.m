@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "TimesViewController.h"
+#import "CommonCLUtility.h"
 
 @implementation AppDelegate
 
@@ -16,15 +17,13 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     TimesViewController *timesTable = [[TimesViewController alloc] init];
 
-    UIImage *navBarImage = [UIImage imageNamed:@"NavBar.png"];
-
-
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:timesTable];
-    [navigationController.navigationBar setBackgroundImage:navBarImage forBarMetrics:UIBarMetricsDefault];
+    [navigationController.navigationBar setTintColor:[UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1]];
     [self setNavigationController:navigationController];
     [self.window setRootViewController:self.navigationController];
     [self.window addSubview:self.navigationController.view];
     [self.window makeKeyAndVisible];
+    [[UIBarButtonItem appearance] setTintColor:[CommonCLUtility backgroundColor]];
     return YES;
 }
 

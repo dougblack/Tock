@@ -33,9 +33,9 @@
     CGContextClosePath(ctx);
     
     if (self.red == NO)
-        CGContextSetRGBFillColor(ctx, 0.1, 0.6, 0.1, 1);
+        CGContextSetRGBFillColor(ctx, 0.1, 0.8, 0.1, 1);
     else
-        CGContextSetRGBFillColor(ctx, 0.6, 0.1, 0.1, 1);
+        CGContextSetRGBFillColor(ctx, 0.8, 0.1, 0.1, 1);
     
     CGContextFillPath(ctx);
 }

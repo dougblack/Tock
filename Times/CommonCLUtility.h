@@ -18,5 +18,10 @@
 +(UIColor*) outlineColor;
 +(UIColor*) highlightColor;
 +(UIColor*) weakTextColor;
++(UIColor*) viewBackgroundColor;
++(UIColor*) lapTimerBackColor;
++(UIColor*) viewDarkBackColor;
++(UIColor*) viewDarkerBackColor;
++(UIColor*) viewLightBackColor;
 
 @end

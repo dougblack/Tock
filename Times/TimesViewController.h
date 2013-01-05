@@ -9,11 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-#import "TimerCell.h"
-#import "NewTimerCell.h"
-#import "TimerActionCell.h"
-#import "TimesTableView.h"
-#import "Timer.h"
+@class BottomActionView;
+@class TimesTableView;
 
 @interface TimesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
@@ -21,7 +18,10 @@
 @property NSInteger numSections;
 @property NSMutableArray *timers;
 @property TimesTableView *tableView;
+@property BottomActionView *bottomActionView;
 
 -(void)newTimer;
+-(void)startAll;
+-(void)checkTimers;
 
 @end
