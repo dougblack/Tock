@@ -27,8 +27,8 @@
         UILabel *timerLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 100, 60)];
         [timerLabel setTextAlignment:NSTextAlignmentLeft];
         [timerLabel setTextColor:[UIColor whiteColor]];
-        [timerLabel setShadowColor:[UIColor darkGrayColor]];
-        [timerLabel setShadowOffset:CGSizeMake(-1, -1)];
+        [timerLabel setShadowColor:[UIColor blackColor]];
+        [timerLabel setShadowOffset:CGSizeMake(0, 1)];
         [timerLabel setText:@"Timer"];
         [timerLabel setFont:[UIFont boldSystemFontOfSize:25]];
         [timerLabel setBackgroundColor:[UIColor clearColor]];
@@ -37,8 +37,8 @@
         UILabel* numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(280, 0, 30, 60)];
         [numberLabel setTextAlignment:NSTextAlignmentCenter];
         [numberLabel setTextColor:[UIColor whiteColor]];
-        [numberLabel setShadowColor:[UIColor darkGrayColor]];
-        [numberLabel setShadowOffset:CGSizeMake(-1, -1)];
+        [numberLabel setShadowColor:[UIColor blackColor]];
+        [numberLabel setShadowOffset:CGSizeMake(0, 1)];
         [numberLabel setText:[NSString stringWithFormat:@"%d", timerNumber]];
         [numberLabel setFont:[UIFont boldSystemFontOfSize:25]];
         [numberLabel setBackgroundColor:[UIColor clearColor]];
@@ -47,14 +47,5 @@
     }
     return self;
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 @end

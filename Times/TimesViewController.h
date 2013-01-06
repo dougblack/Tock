@@ -19,6 +19,8 @@
 @property NSMutableArray *timers;
 @property TimesTableView *tableView;
 @property BottomActionView *bottomActionView;
+@property NSArray *colors;
+@property NSInteger colorIndex;
 
 -(void)newTimer;
 -(void)startAll;

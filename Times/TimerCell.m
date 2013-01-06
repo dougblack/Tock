@@ -104,7 +104,7 @@
         [self.movableViews addObject:timeLightView];
         
         UILongPressGestureRecognizer *timeResetRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
-        [timeResetRecognizer setMinimumPressDuration:1];
+        [timeResetRecognizer setMinimumPressDuration:2];
         
         UIView *timeBackView = [[UIView alloc] initWithFrame:CGRectMake(77, 10.0, 166, 80)];
         [timeBackView setBackgroundColor:[CommonCLUtility backgroundColor]];

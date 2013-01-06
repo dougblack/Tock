@@ -21,13 +21,13 @@
 - (id)init{
     self = [super init];
     if (self) {
-        self.title = NSLocalizedString(@"Times", @"Times");
+        self.title = NSLocalizedString(@"Tock", @"Tock");
         self.numTimers = 0;
         self.numSections = 1;
         self.timers = [[NSMutableArray alloc] init];
         
         UILabel *navBarLabel = [[UILabel alloc] init];
-        [navBarLabel setText:@"Times"];
+        [navBarLabel setText:@"Tock"];
         [navBarLabel setBackgroundColor:[UIColor clearColor]];
         [navBarLabel setFont:[UIFont boldSystemFontOfSize:20]];
         [navBarLabel setTextAlignment:NSTextAlignmentCenter];
@@ -42,6 +42,26 @@
         [self.navigationItem setLeftBarButtonItem:addButton];
         [self.navigationItem setRightBarButtonItem:summaryButton];
         
+        
+        // 40 - .15
+        // 120 - .47
+        // 240 -.94
+        self.colors = [NSArray arrayWithObjects:
+                       [UIColor colorWithRed:0.94 green:0.94 blue:0.15 alpha:1],
+                       [UIColor colorWithRed:0.94 green:0.15 blue:0.15 alpha:1],
+                       [UIColor colorWithRed:0.47 green:0.47 blue:0.94 alpha:1],
+                       [UIColor colorWithRed:0.15 green:0.47 blue:0.94 alpha:1],
+                       [UIColor colorWithRed:0.94 green:0.47 blue:0.15 alpha:1],
+                       [UIColor colorWithRed:0.47 green:0.94 blue:0.15 alpha:1],
+                       [UIColor colorWithRed:0.94 green:0.15 blue:0.94 alpha:1],
+                       [UIColor colorWithRed:0.94 green:0.15 blue:0.47 alpha:1],
+                       [UIColor colorWithRed:0.15 green:0.15 blue:0.94 alpha:1],
+                       [UIColor colorWithRed:0.15 green:0.15 blue:0.15 alpha:1],
+                       [UIColor colorWithRed:0.47 green:0.94 blue:0.47 alpha:1],
+                       [UIColor colorWithRed:0.94 green:0.47 blue:0.94 alpha:1],
+                       nil];
+        
+        self.colorIndex = (arc4random() % 11);
         [self newTimer];
         [self newTimer];
     }
@@ -121,10 +141,19 @@
 {
     self.numTimers++;;
     Timer* newTimer = [[Timer alloc] init];
-    CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
-    CGFloat saturation = 1;
-    CGFloat brightness = 0.9;  //  0.5 to 1.0, away from black
-    UIColor *color = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
+//    CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
+//    CGFloat saturation = 1;
+//    CGFloat brightness = 0.9;  //  0.5 to 1.0, away from black
+//    UIColor *color = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
+//    NSArray *choicesArray = [NSArray arrayWithObjects: [NSNumber numberWithFloat:0], [NSNumber numberWithFloat:40.0f/255], [NSNumber numberWithFloat:120.0f/255], [NSNumber numberWithFloat:240.0f/255], nil];
+//    NSInteger redChoice = ( arc4random() % 4 );
+//    NSInteger blueChoice = ( arc4random() % 4);
+//    NSInteger greenChoice = ( arc4random() % 4);
+//    NSNumber *red = [choicesArray objectAtIndex:redChoice];
+//    NSNumber *green = [choicesArray objectAtIndex:greenChoice];
+//    NSNumber *blue = [choicesArray objectAtIndex:blueChoice];
+    UIColor *color = [self.colors objectAtIndex:self.colorIndex];
+    self.colorIndex = (self.colorIndex + 1) % 11;
     [newTimer setThumb:color];
     [newTimer setMiniThumb:color];
     [newTimer setRow:numTimers-1];
