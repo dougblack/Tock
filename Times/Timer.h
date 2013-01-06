@@ -36,6 +36,7 @@
 
 @property TimerCell *delegate;
 @property UIColor *thumb;
+@property UIColor *miniThumb;
 
 +(NSString*)stringFromTimeInterval:(NSTimeInterval)timeInterval;
 

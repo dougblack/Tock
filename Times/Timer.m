@@ -22,16 +22,15 @@
         [self setLapNumber:1];
         [self setTimeDelta:0];
         [self setCurrentLapDelta:0];
+        [self setRecentlyStopped:NO];
     }
     return self;
 }
 
 -(void) start
 {
+
     [self setStartTime:[NSDate timeIntervalSinceReferenceDate]];
-    [self setStarted:YES];
-    [self setRunning:YES];
-    [self setStopped:NO];
     
     if (self.started == YES)
     {
@@ -45,6 +44,10 @@
         [self setLapStrings:[NSMutableArray array]];
     }
     
+    [self setStarted:YES];
+    [self setRunning:YES];
+    [self setStopped:NO];
+
     [[self delegate] start];
     [self updateTime];
 }

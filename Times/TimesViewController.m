@@ -51,7 +51,7 @@
 -(void)openSummary
 {
     SummaryViewController *summaryViewController = [[SummaryViewController alloc] init];
-    [summaryViewController setTimerLaps:[self timers]];
+    [summaryViewController setTimers:[self timers]];
     [self.navigationController pushViewController:summaryViewController animated:YES];
 }
 
@@ -121,8 +121,14 @@
 {
     self.numTimers++;;
     Timer* newTimer = [[Timer alloc] init];
+    CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
+    CGFloat saturation = 1;
+    CGFloat brightness = 0.9;  //  0.5 to 1.0, away from black
+    UIColor *color = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
+    [newTimer setThumb:color];
+    [newTimer setMiniThumb:color];
     [newTimer setRow:numTimers-1];
-    [[self timers] addObject:[[Timer alloc] init]];
+    [[self timers] addObject:newTimer];
     [self.tableView reloadData];
 
 }

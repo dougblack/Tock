@@ -13,8 +13,9 @@
 
 @property SummaryTableView *tableView;
 
-@property NSMutableArray *timerLaps;
+@property NSMutableArray *timers;
 
 @property NSIndexPath *selectedRow;
+@property NSArray *colorArray;
 
 @end

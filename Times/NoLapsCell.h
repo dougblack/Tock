@@ -1,5 +1,5 @@
 //
-//  DropDownLapCell.h
+//  NoLapsCell.h
 //  Times
 //
 //  Created by Douglas Black on 1/5/13.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DropDownLapCell : UITableViewCell
+@interface NoLapsCell : UITableViewCell
 
 @end

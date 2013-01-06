@@ -89,6 +89,15 @@
         [self.contentView addSubview:thumbBackView];
         [self.movableViews addObject:thumbBackView];
         
+        UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 10.0, 63, 20)];
+        [nameLabel setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.3]];
+        [nameLabel setTextAlignment:NSTextAlignmentCenter];
+        [nameLabel setTextColor:[UIColor whiteColor]];
+        [nameLabel setFont:[UIFont boldSystemFontOfSize:18]];
+        [nameLabel setText:@"CHRISTIAN"];
+        [nameLabel setAdjustsFontSizeToFitWidth:YES];
+//        [self.contentView addSubview:nameLabel];
+        
         UIView *timeLightView = [[UIView alloc] initWithFrame:CGRectMake(76, 9.0, 168, 82)];
         [timeLightView setBackgroundColor:[CommonCLUtility highlightColor]];
         [self.contentView addSubview:timeLightView];
@@ -311,16 +320,20 @@
 {
     for (UITouch *touch in touches) {
         UIView *view = [touch view];
-        CGPoint point = [touch locationInView:self];
         if (view.tag == 3 || view.tag == 4 || view.tag == 5)
         {
             view.backgroundColor = [CommonCLUtility backgroundColor];
         }
-        if (self.isInDeleteMode && point.x >= deleteButton.frame.origin.x && point.x <= deleteButton.frame.origin.x + deleteButton.frame.size.width && point.y >= deleteButton.frame.origin.y && point.y <= deleteButton.frame.origin.y + deleteButton.frame.size.height)
+        if (self.isInDeleteMode)
         {
             [deleteButton setBackgroundColor:[UIColor colorWithRed:0.52 green:0 blue:0.08 alpha:1]];
         }
     }
+}
+
+-(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    
 }
 
 -(void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -348,6 +361,9 @@
             [[[self timesTable] tableView] deleteRowsAtIndexPaths:[NSArray arrayWithObject:pathForThisCell] withRowAnimation:UITableViewRowAnimationLeft];
             self.timesTable.numTimers--;
             [[[self timesTable] tableView] endUpdates];
+        } else if (self.isInDeleteMode)
+        {
+            [deleteButton setBackgroundColor:[UIColor colorWithRed:0.52 green:0 blue:0.08 alpha:1]];
         }
     }
 }
@@ -396,7 +412,9 @@
     UIImage *pickedImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     if (pickedImage != nil) {
         [self setThumb:[UIColor colorWithPatternImage:[CommonCLUtility imageWithImage:pickedImage scaledToSize:CGSizeMake(63, 80)]]];
+        [self setMiniThumb:[UIColor colorWithPatternImage:[CommonCLUtility imageWithImage:pickedImage scaledToSize:CGSizeMake(31.5, 40)]]];
         [[self timer] setThumb:[self thumb]];
+        [[self timer] setMiniThumb:[self miniThumb]];
         [[[self contentView] viewWithTag:3] setBackgroundColor:[self thumb]];
     }
 

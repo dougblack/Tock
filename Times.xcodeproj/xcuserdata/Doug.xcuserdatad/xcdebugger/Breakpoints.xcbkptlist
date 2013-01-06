@@ -7,13 +7,13 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "Times/SummaryCell.m"
-         timestampString = "379102658.215572"
+         filePath = "Times/TimesViewController.m"
+         timestampString = "379113841.06671"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "67"
-         endingLineNumber = "67"
-         landmarkName = "-cellClicked:"
+         startingLineNumber = "128"
+         endingLineNumber = "128"
+         landmarkName = "-newTimer"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

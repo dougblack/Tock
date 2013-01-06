@@ -11,18 +11,17 @@
 @class DropDownTableView;
 @class SummaryViewController;
 
-@interface SummaryCell : UITableViewCell <UITableViewDataSource, UITableViewDelegate>
+@interface SummaryCell : UITableViewCell
 
 @property NSInteger lapNumber;
-@property NSMutableArray *laps;
-@property NSMutableArray *thumbs;
+@property NSTimeInterval lapTime;
+@property NSString *lapTimeString;
+@property NSTimeInterval deltaFromPrevious;
+@property NSTimeInterval deltaFromAverage;
+@property NSTimeInterval deltaFromGoal;
 
 @property SummaryViewController *controller;
 
-@property DropDownTableView *dropDown;
-@property CGFloat height;
-@property BOOL cellSelected;
-
-@property NSIndexPath *cellPath;
+-(void)refresh;
 
 @end

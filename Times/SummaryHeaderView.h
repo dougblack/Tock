@@ -1,5 +1,5 @@
 //
-//  DropDownTableView.h
+//  SummaryHeaderView.h
 //  Times
 //
 //  Created by Douglas Black on 1/5/13.
@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DropDownTableView : UITableView
+
+@interface SummaryHeaderView : UIView
+
+- (id)initWithThumb:(UIColor*)thumb andTimerNumber:(NSInteger)timerNumber;
 
 @end

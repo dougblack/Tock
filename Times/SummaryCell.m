@@ -6,12 +6,20 @@
 //  Copyright (c) 2013 Doug Black. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
+
 #import "SummaryCell.h"
 #import "CommonCLUtility.h"
-#import "DropDownLapCell.h"
-#import "DropDownTableView.h"
 #import "SummaryViewController.h"
 #import "SummaryTableView.h"
+
+@interface SummaryCell ()
+
+@property UILabel *lapNumberLabel;
+@property UILabel *lapStringLabel;
+@property UILabel *lapDeltaLabel;
+
+@end
 
 @implementation SummaryCell
 
@@ -19,85 +27,60 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(7, 3, 306, 64)];
-        [backView setBackgroundColor:[CommonCLUtility outlineColor]];
-        [self.contentView addSubview:backView];
         
-        UIView *highlightView = [[UIView alloc] initWithFrame:CGRectMake(9, 5, 302, 60)];
-        [highlightView setBackgroundColor:[CommonCLUtility highlightColor]];
-        [self.contentView addSubview:highlightView];
+        UIColor *foreColor = [CommonCLUtility backgroundColor];
         
-        UIView *mainView = [[UIView alloc] initWithFrame:CGRectMake(10, 6, 300, 58)];
-        [mainView setBackgroundColor:[CommonCLUtility backgroundColor]];
-        [self.contentView addSubview:mainView];
+        UILabel* lapNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 40, 40)];
+        [lapNumberLabel setTextAlignment:NSTextAlignmentCenter];
+        [lapNumberLabel setTextColor:[UIColor whiteColor]];
+        [lapNumberLabel setText:[NSString stringWithFormat:@"%d", self.lapNumber]];
+        [lapNumberLabel setFont:[UIFont boldSystemFontOfSize:25]];
+        [lapNumberLabel setBackgroundColor:foreColor];
+        [lapNumberLabel.layer setCornerRadius:2];
+        self.lapNumberLabel = lapNumberLabel;
+        [self.contentView addSubview:lapNumberLabel];
         
-        UILabel *cellLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 6, 300, 58)];
-        [cellLabel setBackgroundColor:[UIColor clearColor]];
-        [cellLabel setText:@"TIMER #"];
-        [cellLabel setTextColor:[UIColor whiteColor]];
-        [cellLabel setFont:[UIFont boldSystemFontOfSize:25]];
-        [cellLabel setTextAlignment:NSTextAlignmentCenter];
-        [self.contentView addSubview:cellLabel];
+        UILabel* lapStringLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 10, 110, 40)];
+        [lapStringLabel setTextAlignment:NSTextAlignmentCenter];
+        [lapStringLabel setTextColor:[UIColor whiteColor]];
+        [lapStringLabel setText:self.lapTimeString];
+        [lapStringLabel setFont:[UIFont boldSystemFontOfSize:25]];
+        [lapStringLabel setBackgroundColor:foreColor];
+        [lapStringLabel.layer setCornerRadius:2];
+        self.lapStringLabel = lapStringLabel;
+        [self.contentView addSubview:lapStringLabel];
         
-        DropDownTableView *dropDown = [[DropDownTableView alloc] initWithFrame:CGRectMake(10, 68, 300, 500)];
-        [dropDown setDelegate:self];
-        [dropDown setDataSource:self];
-        [dropDown setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-        [dropDown setBackgroundColor:[CommonCLUtility viewDarkerBackColor]];
-        [dropDown setHidden:YES];
-        [dropDown setTag:51];
-        [dropDown setRowHeight:60];
-        [self.contentView addSubview:dropDown];
+        UILabel *lapDeltaLabel = [[UILabel alloc] initWithFrame:CGRectMake(110, 10, 80, 40)];
+        [lapDeltaLabel setTextAlignment:NSTextAlignmentCenter];
+        [lapDeltaLabel setTextColor:[CommonCLUtility green]];
+        [lapDeltaLabel setText:@"---"];
+        [lapDeltaLabel setFont:[UIFont boldSystemFontOfSize:25]];
+        [lapDeltaLabel setBackgroundColor:foreColor];
+        [lapDeltaLabel.layer setCornerRadius:2];
+        self.lapDeltaLabel = lapDeltaLabel;
+//        [self.contentView addSubview:lapDeltaLabel];
         
-        UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(cellClicked:)];
+        UIView *bottomBar = [[UIView alloc] initWithFrame:CGRectMake(0, 58, 320, 2)];
+        [bottomBar setBackgroundColor:foreColor];
+        [self.contentView addSubview:bottomBar];
         
-        [self addGestureRecognizer:tapRecognizer];
-        self.height = 70;
-        self.selectionStyle = UITableViewCellSeparatorStyleNone;
-        self.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-        self.clipsToBounds = YES;
-        self.userInteractionEnabled = YES;
-        
+        [self.contentView setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
+        self.opaque = YES;
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }
 
--(void)cellClicked:(UITapGestureRecognizer*)sender
+-(void)refresh
 {
-    if (self.cellSelected)
-    {
-        self.controller.selectedRow = nil;
-        [[self.controller tableView] beginUpdates];
-        [[self.controller tableView] endUpdates];
-        self.cellSelected = NO;
-        UIView *dropDown = [self.contentView viewWithTag:51];
-        [dropDown performSelector:@selector(setHidden:) withObject:self afterDelay:0.3];
-    } else
-    {
-        self.controller.selectedRow = self.cellPath;
-        [[self.controller tableView] beginUpdates];
-        [[self.controller tableView] endUpdates];
-        [[self dropDown] setHidden:NO];
-        self.cellSelected = YES;
-        [[self.contentView viewWithTag:51] setHidden:NO];
-    }
-
+    [self.lapDeltaLabel setText:@"---"];
+    [self.lapStringLabel setText:self.lapTimeString];
+    [self.lapNumberLabel setText:[NSString stringWithFormat:@"%d", self.lapNumber]];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return 7;
-}
-
--(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    DropDownLapCell *dropDownLapCell = [[DropDownLapCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@""];
-    return dropDownLapCell;
 }
 
 @end

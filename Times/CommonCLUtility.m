@@ -10,6 +10,119 @@
 
 @implementation CommonCLUtility
 
+
++(UIColor*) moreBack
+{
+    static UIColor *moreBack = nil;
+    if (!moreBack) moreBack = [UIColor colorWithRed:.129411765 green:.129411765 blue:.129411765 alpha:1];
+    return moreBack;
+}
+
++(UIColor*) back
+{
+    static UIColor *back = nil;
+    if (!back) back = [UIColor colorWithRed:.164705882 green:.160784314 blue:.149019608 alpha:1];
+    return back;
+}
+
++(UIColor*) midBack
+{
+    static UIColor *back = nil;
+    if (!back) back = [UIColor colorWithRed:.211764706 green:.211764706 blue:.211764706 alpha:1];
+    return back;
+}
+
++(UIColor*) fore
+{
+    static UIColor *fore = nil;
+    if (!fore) fore = [UIColor colorWithRed:.282352941 green:.282352941 blue:.282352941 alpha:1];
+    return fore;
+}
+
++(UIColor*) moreFore
+{
+    static UIColor *moreFore = nil;
+    if (!moreFore) moreFore = [UIColor colorWithRed:.28627451 green:.282352941 blue:.301960784 alpha:1];
+    return moreFore;
+}
+
++(UIColor*) moreMoreFore
+{
+    static UIColor *moreMoreFore = nil;
+    if (!moreMoreFore) moreMoreFore = [UIColor colorWithRed:.329411765 green:.329411765 blue:.329411765 alpha:1];
+    return moreMoreFore;
+}
+
++(UIColor*) text
+{
+    static UIColor *text = nil;
+    if (!text) text = [UIColor colorWithRed:.560784314 green:.560784314 blue:.560784314 alpha:1];
+    return text;
+}
+
++(UIColor*)darkGray
+{
+    static UIColor *darkGray = nil;
+    if (!darkGray) darkGray = [UIColor colorWithRed:.211764706 green:.211764706 blue:.211764706 alpha:.211764706];
+    return darkGray;
+}
+
++(UIColor*) darkBlue
+{
+    static UIColor *darkBlue = nil;
+    if (!darkBlue) darkBlue = [UIColor colorWithRed:.180392157 green:.290196078 blue:.647058824 alpha:1];
+    return darkBlue;
+}
+
++(UIColor*)lightBlue
+{
+    static UIColor *lightBlue = nil;
+    if (!lightBlue) lightBlue = [UIColor colorWithRed:.239215686 green:.435294118 blue:.717647059 alpha:1];
+    return lightBlue;
+}
+
++(UIColor*)black
+{
+    static UIColor *black = nil;
+    if (!black) black = [UIColor colorWithRed:66.0f/255 green:58.0f/255 blue:74.0f/255 alpha:1];
+    return black;
+}
+
++(UIColor*) green
+{
+    static UIColor *green = nil;
+    if (!green) green = [UIColor colorWithRed:66.0f/255 green:120.0f/255 blue:33.0f/255 alpha:1];
+    return green;
+}
+
++(UIColor*) red
+{
+    static UIColor *red = nil;
+    if (!red) red = [UIColor colorWithRed:149.0f/255 green:0 blue:0 alpha:1];
+    return red;
+}
+
++(UIColor*)lighterGreen
+{
+    static UIColor *lightGreen = nil;
+    if (!lightGreen) lightGreen = [UIColor colorWithRed:94.0f/255 green:153.0f/255 blue:57.0f/255 alpha:1];
+    return lightGreen;
+}
+
++(UIColor*) yellow
+{
+    static UIColor *yellow = nil;
+    if (!yellow) yellow = [UIColor colorWithRed:239.0f/255 green:188.0f/255 blue:58.0f/255 alpha:1];
+    return yellow;
+}
+
++(UIColor*) orange
+{
+    static UIColor *orange = nil;
+    if (!orange) orange = [UIColor colorWithRed:186.0f/255 green:114.0f/255 blue:51.0f/255 alpha:1];
+    return orange;
+}
+
 + (UIImage *) imageFromColor:(UIColor *)color
 {
     CGRect rect = CGRectMake(0, 0, 1, 1);

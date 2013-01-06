@@ -16,6 +16,7 @@
 @property TimesViewController *timesTable;
 @property UIImagePickerController* imagePickerController;
 @property UIColor *thumb;
+@property UIColor *miniThumb;
 @property NSString *time;
 @property NSString *lapNumber;
 @property NSString *lastLap;

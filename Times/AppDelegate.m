@@ -23,7 +23,7 @@
     [self.window setRootViewController:self.navigationController];
     [self.window addSubview:self.navigationController.view];
     [self.window makeKeyAndVisible];
-    [[UIBarButtonItem appearance] setTintColor:[CommonCLUtility backgroundColor]];
+    [[UIBarButtonItem appearance] setTintColor:[CommonCLUtility viewDarkBackColor]];
     return YES;
 }
 
