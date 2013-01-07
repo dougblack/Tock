@@ -16,6 +16,7 @@ typedef enum {
 } DeltaType;
 
 @class SummaryTableView;
+@class TimesViewController;
 @interface SummaryViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property SummaryTableView *tableView;
@@ -25,6 +26,7 @@ typedef enum {
 
 @property NSIndexPath *selectedRow;
 @property NSArray *colorArray;
+@property TimesViewController* timesViewController;
 
 @property DeltaType deltaType;
 

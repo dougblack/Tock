@@ -10,10 +10,16 @@
 
 #import "SummaryHeaderView.h"
 #import "CommonCLUtility.h"
+#import "Timer.h"
+
+@interface SummaryHeaderView ()
+
+@end
+
 
 @implementation SummaryHeaderView
 
-- (id)initWithThumb:(UIColor*)thumb andTimerNumber:(NSInteger)timerNumber
+- (id)initWithThumb:(UIColor*)thumb andTimerNumber:(NSInteger)timerNumber andTimer:(Timer*)timer;
 {
     self = [super init];
     if (self) {
@@ -24,21 +30,22 @@
 //        [thumbView.layer setCornerRadius:3];
         [self addSubview:thumbView];
         
-        UILabel *timerLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 100, 60)];
-        [timerLabel setTextAlignment:NSTextAlignmentLeft];
-        [timerLabel setTextColor:[UIColor whiteColor]];
-        [timerLabel setShadowColor:[UIColor blackColor]];
-        [timerLabel setShadowOffset:CGSizeMake(0, 1)];
-        [timerLabel setText:@"Timer"];
-        [timerLabel setFont:[UIFont boldSystemFontOfSize:25]];
-        [timerLabel setBackgroundColor:[UIColor clearColor]];
-        [self addSubview:timerLabel];
+        UITextField *nameTextField = [[UITextField alloc] initWithFrame:CGRectMake(10, 0, 100, 60)];
+        [nameTextField setTextAlignment:NSTextAlignmentLeft];
+        [nameTextField setTextColor:[UIColor whiteColor]];
+        
+        [nameTextField setText:[timer name]];
+        [nameTextField setFont:[UIFont boldSystemFontOfSize:25]];
+        [nameTextField setBackgroundColor:[UIColor clearColor]];
+        [nameTextField setBorderStyle:UITextBorderStyleNone];
+        [nameTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
+        self.nameTextField = nameTextField;
+        self.nameTextField.delegate = self;
+        [self addSubview:nameTextField];
         
         UILabel* numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(280, 0, 30, 60)];
         [numberLabel setTextAlignment:NSTextAlignmentCenter];
         [numberLabel setTextColor:[UIColor whiteColor]];
-        [numberLabel setShadowColor:[UIColor blackColor]];
-        [numberLabel setShadowOffset:CGSizeMake(0, 1)];
         [numberLabel setText:[NSString stringWithFormat:@"%d", timerNumber]];
         [numberLabel setFont:[UIFont boldSystemFontOfSize:25]];
         [numberLabel setBackgroundColor:[UIColor clearColor]];
@@ -46,6 +53,17 @@
         [self setOpaque:YES];
     }
     return self;
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    [self.timer setName:textField.text];
 }
 
 @end

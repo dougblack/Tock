@@ -11,9 +11,16 @@
 #import "SummaryCell.h"
 #import "SummaryHeaderView.h"
 #import "SummaryHeaderCell.h"
+#import "TimesViewController.h"
 #import "Timer.h"
 #import "CommonCLUtility.h"
 #import "NoLapsCell.h"
+
+@interface SummaryViewController ()
+
+@property NSMutableArray *headerViews;
+
+@end
 
 @implementation SummaryViewController
 
@@ -34,7 +41,9 @@
         [self.navigationItem.leftBarButtonItem setTitle:@"Back"];
         
         self.timersData = [NSMutableArray array];
+        self.headerViews = [NSMutableArray array];
         
+        int i = 1;
         for (Timer *timer in timers)
         {
             NSMutableDictionary *thisTimersDeltas = [[NSMutableDictionary alloc] init];
@@ -62,6 +71,9 @@
             [thisTimersDeltas setObject:goalLapDeltas forKey:@"Goal"];
             [thisTimersDeltas setObject:avgLapDeltas forKey:@"Avg"];
             [self.timersData addObject:thisTimersDeltas];
+            SummaryHeaderView *headerView = [[SummaryHeaderView alloc] initWithThumb:timer.thumb andTimerNumber:i andTimer:timer];
+            [self.headerViews addObject:headerView];
+            i++;
         }
         self.timers = timers;
     }
@@ -84,6 +96,9 @@
     UISwipeGestureRecognizer *backRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(back:)];
     [backRecognizer setDirection:UISwipeGestureRecognizerDirectionRight];
     
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
+    [tapRecognizer setNumberOfTapsRequired:1];
+    
     SummaryTableView *summaryTableView = [[SummaryTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [summaryTableView registerClass:[SummaryCell class] forCellReuseIdentifier:@"SummaryCell"];
     [summaryTableView registerClass:[NoLapsCell class] forCellReuseIdentifier:@"NoLapsCell"];
@@ -94,14 +109,15 @@
     [summaryTableView setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
     [summaryTableView setShowsVerticalScrollIndicator:NO];
     [summaryTableView addGestureRecognizer:backRecognizer];
+    [summaryTableView addGestureRecognizer:tapRecognizer];
     [self setTableView:summaryTableView];
     [self.view addSubview:summaryTableView];
     
 }
 
--(void)back:(UISwipeGestureRecognizer*)sender
+-(void)back
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.timesViewController.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -135,10 +151,7 @@
 
 -(UIView*) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    
-    Timer* timer = [[self timers] objectAtIndex:section];
-    SummaryHeaderView *headerView = [[SummaryHeaderView alloc] initWithThumb:[timer miniThumb] andTimerNumber:section+1];
-    return headerView;
+    return [self.headerViews objectAtIndex:section];
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -205,7 +218,7 @@
                 if ([lapDeltaString isEqualToString:@"-0.0"] || [lapDeltaString isEqualToString:@"+0.0"])
                 {
                     lapDeltaString = @"0.0";
-                    [summaryCell setDeltaColor:DeltaIsGreen];
+                    [summaryCell setDeltaColor:DeltaIsGray];
                 }
                 
                 [summaryCell setLapDelta:lapDeltaString];
@@ -254,5 +267,12 @@
     return summaryCell;
 }
 
+-(void)tapped:(UITapGestureRecognizer*)recognizer
+{
+    for (SummaryHeaderView *header in self.headerViews)
+    {
+        [[header nameTextField] resignFirstResponder];
+    }
+}
 
 @end

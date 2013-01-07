@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class Timer;
+@interface SummaryHeaderView : UIView <UITextFieldDelegate>
 
-@interface SummaryHeaderView : UIView
+@property UITextField *nameTextField;
+@property Timer *timer;
 
-- (id)initWithThumb:(UIColor*)thumb andTimerNumber:(NSInteger)timerNumber;
+- (id)initWithThumb:(UIColor*)thumb andTimerNumber:(NSInteger)timerNumber andTimer:(Timer*)timer;
 
 @end

@@ -269,12 +269,12 @@
                 break;
             case 4: // time
                 [self highlight:senderView withDuration:0.5 andWait:0];
-                [[self timesTable] performSelector:@selector(checkTimers) withObject:[self timesTable] afterDelay:0.5];
+                [[self timesTable] performSelector:@selector(checkTimers) withObject:[self timesTable] afterDelay:0];
                 [[self timer] toggle];
                 break;
             case 5: // lap
                 [self highlight:senderView withDuration:0.5 andWait:0];
-                [[self timesTable] performSelector:@selector(checkTimers) withObject:[self timesTable] afterDelay:0.5];
+                [[self timesTable] performSelector:@selector(checkTimers) withObject:[self timesTable] afterDelay:0];
                 [[self timer] lap];
                 break;
             default:
@@ -375,6 +375,7 @@
     [(UILabel*)[[self contentView] viewWithTag:1] setText:[[self timer] timeString]];
     [(UILabel*)[[self contentView] viewWithTag:6] setText:[[self timer] lastLapString]];
     [(UILabel*)[[self contentView] viewWithTag:2] setText:[NSString stringWithFormat:@"%d", [[self timer]lapNumber]]];
+    
     if ([[self timer] thumb] != nil)
     {
         [[[self contentView] viewWithTag:3] setBackgroundColor:[[self timer] thumb]];
@@ -384,18 +385,28 @@
         [[[self contentView] viewWithTag:10] setBackgroundColor:lightColor];
     } else
         [[[self contentView] viewWithTag:3] setBackgroundColor:[CommonCLUtility backgroundColor]];
-    if ([[self timer] running]) {
-        [(TriangleView*)[[self contentView] viewWithTag:7] setHidden:NO];
-        [(TriangleView*)[[self contentView] viewWithTag:7] setRed:NO];
-    }
-    else if ([[self timer] stopped]) {
-        [(TriangleView*)[[self contentView] viewWithTag:7] setHidden:NO];
-        [(TriangleView*)[[self contentView] viewWithTag:7] setRed:YES];
-    }
-    else
-        [(TriangleView*)[[self contentView] viewWithTag:7] setHidden:YES];
     
-    [[self timesTable] performSelector:@selector(checkTimers) withObject:nil afterDelay:0.5];
+    
+    // Set triangle type!
+    TriangleView *triangle = (TriangleView*)[self.contentView viewWithTag:7];
+    switch ([self.timer flagType]) {
+            
+        case FlagTypeGreen:
+            triangle.hidden = NO;
+            triangle.red = NO;
+            break;
+        case FlagTypeRed:
+            triangle.hidden = NO;
+            triangle.red = YES;
+            break;
+        case FlagTypeNone:
+            triangle.hidden = YES;
+            break;
+
+            
+    }
+    [triangle setNeedsDisplay];    
+    [[self timesTable] performSelector:@selector(checkTimers) withObject:nil afterDelay:0];
 }
 
 -(void)highlight:(UIView *)view withDuration:(NSTimeInterval)duration andWait:(NSTimeInterval)wait

@@ -39,21 +39,21 @@
         self.lapNumberLabel = lapNumberLabel;
         [self.contentView addSubview:lapNumberLabel];
         
-        UILabel* lapStringLabel = [[UILabel alloc] initWithFrame:CGRectMake(200, 10, 110, 40)];
+        UILabel* lapStringLabel = [[UILabel alloc] initWithFrame:CGRectMake(120, 10, 80, 40)];
         [lapStringLabel setTextAlignment:NSTextAlignmentCenter];
         [lapStringLabel setTextColor:[UIColor whiteColor]];
         [lapStringLabel setText:self.lapTimeString];
-        [lapStringLabel setFont:[UIFont boldSystemFontOfSize:25]];
+        [lapStringLabel setFont:[UIFont boldSystemFontOfSize:20]];
         [lapStringLabel setBackgroundColor:foreColor];
 //        [lapStringLabel.layer setCornerRadius:2];
         self.lapStringLabel = lapStringLabel;
         [self.contentView addSubview:lapStringLabel];
         
-        UILabel *lapDeltaLabel = [[UILabel alloc] initWithFrame:CGRectMake(110, 10, 80, 40)];
+        UILabel *lapDeltaLabel = [[UILabel alloc] initWithFrame:CGRectMake(230, 10, 80, 40)];
         [lapDeltaLabel setTextAlignment:NSTextAlignmentCenter];
         [lapDeltaLabel setTextColor:[CommonCLUtility green]];
         [lapDeltaLabel setText:@"---"];
-        [lapDeltaLabel setFont:[UIFont boldSystemFontOfSize:25]];
+        [lapDeltaLabel setFont:[UIFont boldSystemFontOfSize:20]];
         [lapDeltaLabel setBackgroundColor:foreColor];
 //        [lapDeltaLabel.layer setCornerRadius:2];
         [lapDeltaLabel setAdjustsFontSizeToFitWidth:YES];

@@ -34,7 +34,6 @@
         [currentTimeLabel setFont:textFont];
         [currentTimeLabel setTextAlignment:NSTextAlignmentCenter];
         [currentTimeLabel setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
-        [currentTimeLabel.layer setCornerRadius:2];
         currentTimeLabel.adjustsFontSizeToFitWidth = YES;
         self.currentTimeLabel = currentTimeLabel;
         [self.contentView addSubview:currentTimeLabel];
@@ -44,7 +43,6 @@
         [averageLapLabel setFont:textFont];
         [averageLapLabel setTextAlignment:NSTextAlignmentCenter];
         [averageLapLabel setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
-        [averageLapLabel.layer setCornerRadius:2];
         averageLapLabel.adjustsFontSizeToFitWidth = YES;
         self.averageTimeLabel = averageLapLabel;
         [self.contentView addSubview:averageLapLabel];
@@ -54,7 +52,6 @@
         [goalLapLabel setFont:textFont];
         [goalLapLabel setTextAlignment:NSTextAlignmentCenter];
         [goalLapLabel setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
-        [goalLapLabel.layer setCornerRadius:2];
         goalLapLabel.adjustsFontSizeToFitWidth = YES;
         self.goalLapLabel = goalLapLabel;
         [self.contentView addSubview:goalLapLabel];

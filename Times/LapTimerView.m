@@ -118,7 +118,6 @@
         [[self timer] setDelegate:self];
         
         [self setUserInteractionEnabled:YES];
-        
     }
     return self;
 }
@@ -169,6 +168,17 @@
         if (view.tag == 13 || view.tag == 14 || view.tag == 15)
         {
             view.backgroundColor = [CommonCLUtility selectedColor];
+        }
+    }
+}
+
+-(void) touchesMoved:(NSSet*)touches withEvent:(UIEvent *)event
+{
+    for (UITouch *touch in touches) {
+        UIView *view = [touch view];
+        if (view.tag == 13 || view.tag == 14 || view.tag == 15)
+        {
+            view.backgroundColor = [CommonCLUtility backgroundColor];
         }
     }
 }

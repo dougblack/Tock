@@ -39,8 +39,8 @@
         [self.navigationItem setTitleView:navBarLabel];
         UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(newTimer)];
         UIBarButtonItem *summaryButton = [[UIBarButtonItem alloc] initWithTitle:@"Summary" style:UIBarButtonItemStylePlain target:self action:@selector(openSummary)];
-        [self.navigationItem setLeftBarButtonItem:addButton];
-        [self.navigationItem setRightBarButtonItem:summaryButton];
+        [self.navigationItem setLeftBarButtonItem:summaryButton];
+        [self.navigationItem setRightBarButtonItem:addButton];
         
         
         // 40 - .15
@@ -72,7 +72,12 @@
 {
     SummaryViewController *summaryViewController = [[SummaryViewController alloc] initWithTimers:[self timers]];
     [summaryViewController setDeltaType:DeltaFromPreviousLap];
-    [self.navigationController pushViewController:summaryViewController animated:YES];
+    [summaryViewController setTimesViewController:self];
+    UINavigationController *summaryController = [[UINavigationController alloc] initWithRootViewController:summaryViewController];
+    [summaryController.navigationBar setTintColor:[UIColor colorWithRed:0.05 green:0.05 blue:0.05 alpha:1]];
+    [summaryViewController.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:summaryViewController action:@selector(back)]];
+    [self.navigationController presentViewController:summaryController animated:YES completion:nil];
+
 }
 
 -(void)loadView
@@ -119,7 +124,7 @@
     [[self tableView] setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDelay:0];
-    [UIView setAnimationDuration:0.5];
+    [UIView setAnimationDuration:0.3];
     [self.bottomActionView setFrame:CGRectMake(0, self.view.frame.size.height+74, self.view.frame.size.width, self.bottomActionView.frame.size.height)];
     [UIView commitAnimations];
 }
@@ -129,7 +134,7 @@
 
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDelay:0];
-    [UIView setAnimationDuration:0.5];
+    [UIView setAnimationDuration:0.3];
     [self.bottomActionView setFrame:CGRectMake(0, self.view.frame.size.height-74, self.view.frame.size.width, self.bottomActionView.frame.size.height)];
     [[self tableView] setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-74)];
     [UIView commitAnimations];
@@ -152,6 +157,8 @@
     [newTimer setRow:numTimers-1];
     [[self timers] addObject:newTimer];
     [self.tableView reloadData];
+    NSIndexPath *indexOfNew = [NSIndexPath indexPathForRow:[self numTimers]-1 inSection:0];
+    [self.tableView scrollToRowAtIndexPath:indexOfNew atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 
 }
 

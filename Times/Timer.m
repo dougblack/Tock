@@ -24,6 +24,8 @@
         self.currentLapDelta = 0;
         self.recentlyStopped = NO;
         self.avgLap = 0;
+        self.flagType = FlagTypeNone;
+        self.name = @"Timer";
     }
     return self;
 }
@@ -48,6 +50,7 @@
     [self setStarted:YES];
     [self setRunning:YES];
     [self setStopped:NO];
+    [self setFlagType:FlagTypeGreen];
 
     [[self delegate] start];
     [self updateTime];
@@ -89,7 +92,6 @@
     NSTimeInterval elapsed = (currentTime - [self lastLapTime]) - [self currentLapDelta];
     
     NSString* thisLapString = [Timer stringFromTimeInterval:elapsed];
-    
     [self.laps addObject:[NSNumber numberWithDouble:elapsed]];
     [self.timesAtLaps addObject:[NSNumber numberWithDouble:[self currentTime]]];
     [self setLastLapTime:currentTime];
@@ -118,6 +120,7 @@
     [self setCurrentLapDelta:elapsedSinceLastLap];
     [self setTimeOfLastStop:[NSDate timeIntervalSinceReferenceDate]];
     
+    [self setFlagType:FlagTypeRed];
     [[self delegate] stop];
 }
 
@@ -143,6 +146,7 @@
     [self setLaps:[NSMutableArray array]];
     [self setLapStrings:[NSMutableArray array]];
     [self setTimeDelta:0];
+    [self setFlagType:FlagTypeNone];
 }
 
 -(id) copyWithZone:(NSZone *)zone
@@ -174,7 +178,26 @@
     timeInterval = timeInterval - (secs);
     int tenths = timeInterval * 10.0;
     timeInterval = timeInterval - tenths;
+    
     return [NSString stringWithFormat:@"%02u:%02u.%u", mins, secs,tenths];
+}
+
++(NSString*) minimizedStringFromTimeInterval:(NSTimeInterval)timeInterval
+{
+    NSTimeInterval elapsed = timeInterval;
+    int mins = (int) (elapsed / 60.0);
+    elapsed = elapsed - (mins * 60);
+    int secs = (int) (elapsed);
+    elapsed = elapsed - (secs);
+    int tenths = elapsed * 10.0;
+    elapsed = elapsed - tenths;
+    if (elapsed > 60)
+        return [NSString stringWithFormat:@"%02u:%02u.%u", mins, secs,tenths];
+    else if (elapsed >= 10)
+        return [NSString stringWithFormat:@"%02u.%u", secs, tenths];
+    else
+        return [NSString stringWithFormat:@"%u.%u", secs, tenths];
+    
 }
 
 @end

@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum {
+    FlagTypeNone,
+    FlagTypeGreen,
+    FlagTypeRed
+} FlagType;
 
 @class TimerCell;
 @interface Timer : NSObject <NSCopying>
@@ -32,14 +37,18 @@
 
 @property NSString *timeString;
 @property NSString *lastLapString;
+@property NSString *name;
 
 @property NSMutableArray *laps;
 @property NSMutableArray *lapStrings;
 @property NSMutableArray *timesAtLaps;
 
 @property TimerCell *delegate;
+
 @property UIColor *thumb;
 @property UIColor *miniThumb;
+
+@property FlagType flagType;
 
 +(NSString*)stringFromTimeInterval:(NSTimeInterval)timeInterval;
 

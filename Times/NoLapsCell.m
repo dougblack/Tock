@@ -17,18 +17,19 @@
     if (self) {
         
         UIView *bottomBar = [[UIView alloc] initWithFrame:CGRectMake(0, 58, 320, 2)];
-        [bottomBar setBackgroundColor:[CommonCLUtility viewBackgroundColor]];
+        [bottomBar setBackgroundColor:[CommonCLUtility backgroundColor]];
         [self.contentView addSubview:bottomBar];
         
         UILabel *emptyLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, 10, 120, 40)];
         [emptyLabel setTextAlignment:NSTextAlignmentCenter];
         [emptyLabel setTextColor:[UIColor whiteColor]];
-        [emptyLabel setBackgroundColor:[CommonCLUtility backgroundColor]];
+        [emptyLabel setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
         [emptyLabel setFont:[UIFont boldSystemFontOfSize:25]];
         [emptyLabel setText:@"No laps"];
         [self.contentView addSubview:emptyLabel];
         [self setSelectionStyle:UITableViewCellEditingStyleNone];
         self.opaque = YES;
+        [self.contentView setBackgroundColor:[CommonCLUtility backgroundColor]];
     }
     return self;
 }
