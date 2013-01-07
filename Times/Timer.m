@@ -16,13 +16,14 @@
     self = [super init];
     if (self)
     {
-        [self setRunning: NO];
-        [self setTimeString:@"00:00.0"];
-        [self setLastLapString:@"--:--.-"];
-        [self setLapNumber:1];
-        [self setTimeDelta:0];
-        [self setCurrentLapDelta:0];
-        [self setRecentlyStopped:NO];
+        self.running = NO;
+        self.timeString = @"00:00.0";
+        self.lastLapString = @"--:--.-";
+        self.lapNumber = 1;
+        self.timeDelta = 0;
+        self.currentLapDelta = 0;
+        self.recentlyStopped = NO;
+        self.avgLap = 0;
     }
     return self;
 }
@@ -102,6 +103,7 @@
         [self setRecentlyStopped:NO];
     }
     
+    self.avgLap = (self.avgLap + elapsed) / [self.laps count];
     [[self delegate] lastLapTimeChanged:self.lastLapString];
 }
 

@@ -8,14 +8,26 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    DeltaFromPreviousLap,
+    DeltaFromAverageLap,
+    DeltaFromGoalLap,
+    None
+} DeltaType;
+
 @class SummaryTableView;
 @interface SummaryViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property SummaryTableView *tableView;
 
 @property NSMutableArray *timers;
+@property NSMutableArray *timersData;
 
 @property NSIndexPath *selectedRow;
 @property NSArray *colorArray;
+
+@property DeltaType deltaType;
+
+- (id)initWithTimers:(NSMutableArray*)timers;
 
 @end

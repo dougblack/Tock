@@ -17,7 +17,6 @@
 
 @property UILabel *lapNumberLabel;
 @property UILabel *lapStringLabel;
-@property UILabel *lapDeltaLabel;
 
 @end
 
@@ -57,8 +56,11 @@
         [lapDeltaLabel setFont:[UIFont boldSystemFontOfSize:25]];
         [lapDeltaLabel setBackgroundColor:foreColor];
         [lapDeltaLabel.layer setCornerRadius:2];
+        [lapDeltaLabel setAdjustsFontSizeToFitWidth:YES];
         self.lapDeltaLabel = lapDeltaLabel;
-//        [self.contentView addSubview:lapDeltaLabel];
+        self.lapDeltaLabel.hidden = YES;
+        [self.contentView addSubview:lapDeltaLabel];
+
         
         UIView *bottomBar = [[UIView alloc] initWithFrame:CGRectMake(0, 58, 320, 2)];
         [bottomBar setBackgroundColor:foreColor];
@@ -73,7 +75,21 @@
 
 -(void)refresh
 {
-    [self.lapDeltaLabel setText:@"---"];
+    switch (self.deltaColor) {
+        case DeltaIsRed:
+            [self.lapDeltaLabel setTextColor:[UIColor redColor]];
+            break;
+        case DeltaIsGreen:
+            [self.lapDeltaLabel setTextColor:[UIColor greenColor]];
+            break;
+        case DeltaIsGray:
+            [self.lapDeltaLabel setTextColor:[UIColor grayColor]];
+            break;
+        default:
+            break;
+    }
+    
+    [self.lapDeltaLabel setText:self.lapDelta];
     [self.lapStringLabel setText:self.lapTimeString];
     [self.lapNumberLabel setText:[NSString stringWithFormat:@"%d", self.lapNumber]];
 }

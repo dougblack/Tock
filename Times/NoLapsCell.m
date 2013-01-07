@@ -23,10 +23,11 @@
         UILabel *emptyLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, 10, 120, 40)];
         [emptyLabel setTextAlignment:NSTextAlignmentCenter];
         [emptyLabel setTextColor:[UIColor whiteColor]];
-        [emptyLabel setBackgroundColor:[CommonCLUtility viewBackgroundColor]];
+        [emptyLabel setBackgroundColor:[CommonCLUtility backgroundColor]];
         [emptyLabel setFont:[UIFont boldSystemFontOfSize:25]];
         [emptyLabel setText:@"No laps"];
         [self.contentView addSubview:emptyLabel];
+        [self setSelectionStyle:UITableViewCellEditingStyleNone];
         self.opaque = YES;
     }
     return self;

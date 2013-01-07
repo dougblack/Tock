@@ -70,8 +70,8 @@
 
 -(void)openSummary
 {
-    SummaryViewController *summaryViewController = [[SummaryViewController alloc] init];
-    [summaryViewController setTimers:[self timers]];
+    SummaryViewController *summaryViewController = [[SummaryViewController alloc] initWithTimers:[self timers]];
+    [summaryViewController setDeltaType:DeltaFromPreviousLap];
     [self.navigationController pushViewController:summaryViewController animated:YES];
 }
 
@@ -79,7 +79,6 @@
 {
     [super loadView];
     int navBarHeight = self.navigationController.navigationBar.frame.size.height;
-    //    int statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
     int frameHeight = [[UIScreen mainScreen] applicationFrame].size.height;
     self.view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, frameHeight-navBarHeight)];
 

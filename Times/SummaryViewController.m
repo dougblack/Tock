@@ -16,7 +16,7 @@
 
 @implementation SummaryViewController
 
-- (id)init
+- (id)initWithTimers:(NSMutableArray*)timers
 {
     self = [super init];
     if (self) {
@@ -31,6 +31,38 @@
         [navBarLabel sizeToFit];
         [self.navigationItem setTitleView:navBarLabel];
         [self.navigationItem.leftBarButtonItem setTitle:@"Back"];
+        
+        self.timersData = [NSMutableArray array];
+        
+        for (Timer *timer in timers)
+        {
+            NSMutableDictionary *thisTimersDeltas = [[NSMutableDictionary alloc] init];
+            NSMutableArray *previousLapDeltas = [NSMutableArray array];
+            NSMutableArray *goalLapDeltas = [NSMutableArray array];
+            NSMutableArray *avgLapDeltas = [NSMutableArray array];
+            NSTimeInterval previousLap = 0;
+            double goal = [timer goalLap];
+            double avg = [timer avgLap];
+            for (NSNumber *lap in [timer laps])
+            {
+                double lapDouble = [lap doubleValue];
+                if (previousLap == 0)
+                    [previousLapDeltas addObject:[NSNull null]];
+                else
+                {
+                    double delta = lapDouble - previousLap;
+                    [previousLapDeltas addObject:[NSNumber numberWithDouble:delta]];
+                }
+                [goalLapDeltas addObject:[NSNumber numberWithDouble:(lapDouble-goal)]];
+                [avgLapDeltas addObject:[NSNumber numberWithDouble:(lapDouble-avg)]];
+                previousLap = lapDouble;
+            }
+            [thisTimersDeltas setObject:previousLapDeltas forKey:@"Previous"];
+            [thisTimersDeltas setObject:goalLapDeltas forKey:@"Goal"];
+            [thisTimersDeltas setObject:avgLapDeltas forKey:@"Avg"];
+            [self.timersData addObject:thisTimersDeltas];
+        }
+        self.timers = timers;
     }
     return self;
 }
@@ -58,7 +90,7 @@
     [summaryTableView setDelegate:self];
     [summaryTableView setDataSource:self];
     [summaryTableView setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
-    [summaryTableView setShowsVerticalScrollIndicator:YES];
+    [summaryTableView setShowsVerticalScrollIndicator:NO];
     [summaryTableView addGestureRecognizer:backRecognizer];
     [self setTableView:summaryTableView];
     [self.view addSubview:summaryTableView];
@@ -132,6 +164,73 @@
     }
     
     [summaryCell setLapTimeString:[[timer lapStrings] objectAtIndex:indexPath.row]];
+    
+    switch (self.deltaType) {
+        case DeltaFromPreviousLap:
+        {
+            NSMutableDictionary *timerDict = (NSMutableDictionary*)[self.timersData objectAtIndex:indexPath.section];
+            NSMutableArray *previousLapDeltas = [timerDict objectForKey:@"Previous"];
+            NSNumber *delta = [previousLapDeltas objectAtIndex:indexPath.row];
+            if (delta != [NSNull null])
+            {
+                NSString *lapDeltaString;
+                
+                
+                if ([delta doubleValue] < 0)
+                {
+                    lapDeltaString = [NSString stringWithFormat:@"%.1f", [delta doubleValue]];
+                    [summaryCell setDeltaColor:DeltaIsGreen];
+                } else {
+                    lapDeltaString = [NSString stringWithFormat:@"+%.1f", [delta doubleValue]];
+                    [summaryCell setDeltaColor:DeltaIsRed];
+                }
+                
+                if ([lapDeltaString isEqualToString:@"-0.0"] || [lapDeltaString isEqualToString:@"+0.0"])
+                {
+                    lapDeltaString = @"0.0";
+                    [summaryCell setDeltaColor:DeltaIsGreen];
+                }
+                
+                [summaryCell setLapDelta:lapDeltaString];
+            }
+            
+            else
+            {
+                [summaryCell setLapDelta:@"---"];
+                [summaryCell setDeltaColor:DeltaIsGray];
+                
+            }
+            
+            summaryCell.lapDeltaLabel.hidden = NO;
+            break;
+        }
+        case DeltaFromAverageLap:
+        {
+            NSMutableDictionary *timerDict = (NSMutableDictionary*)[self.timersData objectAtIndex:indexPath.section];
+            NSMutableArray *avgLapDeltas = [timerDict objectForKey:@"Avg"];
+            NSNumber *delta = [avgLapDeltas objectAtIndex:indexPath.row];
+            [summaryCell setLapDelta:[delta stringValue]];
+            summaryCell.lapDeltaLabel.hidden = NO;
+            break;
+        }
+        case DeltaFromGoalLap:
+        {
+            NSMutableDictionary *timerDict = (NSMutableDictionary*)[self.timersData objectAtIndex:indexPath.section];
+            NSMutableArray *goalLapDeltas = [timerDict objectForKey:@"Goal"];
+            NSNumber *delta = [goalLapDeltas objectAtIndex:indexPath.row];
+            [summaryCell setLapDelta:[delta stringValue]];
+            summaryCell.lapDeltaLabel.hidden = NO;
+            break;
+        }
+        case None:
+        {
+            summaryCell.lapDeltaLabel.hidden = YES;
+            break;
+        }
+        default:
+            break;
+    }
+    
     [summaryCell setLapNumber:indexPath.row+1];
     summaryCell.controller = self;
     [summaryCell refresh];

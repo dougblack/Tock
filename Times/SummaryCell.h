@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    DeltaIsRed,
+    DeltaIsGreen,
+    DeltaIsGray
+} DeltaColor;
+
 @class DropDownTableView;
 @class SummaryViewController;
 
@@ -16,9 +22,13 @@
 @property NSInteger lapNumber;
 @property NSTimeInterval lapTime;
 @property NSString *lapTimeString;
+@property NSString *lapDelta;
 @property NSTimeInterval deltaFromPrevious;
 @property NSTimeInterval deltaFromAverage;
 @property NSTimeInterval deltaFromGoal;
+
+@property UILabel *lapDeltaLabel;
+@property DeltaColor deltaColor;
 
 @property SummaryViewController *controller;
 

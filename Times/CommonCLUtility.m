@@ -81,7 +81,7 @@
     return lightBlue;
 }
 
-+(UIColor*)black
++(UIColor*) black
 {
     static UIColor *black = nil;
     if (!black) black = [UIColor colorWithRed:66.0f/255 green:58.0f/255 blue:74.0f/255 alpha:1];
@@ -183,7 +183,7 @@
 +(UIColor*) viewBackgroundColor
 {
     static UIColor *viewBackground = nil;
-    if (!viewBackground) viewBackground = [UIColor colorWithRed:0.15 green:0.15 blue:0.15 alpha:1];
+    if (!viewBackground) viewBackground = [CommonCLUtility black];
     return viewBackground;
 }
 +(UIColor*) lapTimerBackColor
@@ -196,7 +196,7 @@
 +(UIColor*) viewDarkBackColor
 {
     static UIColor *viewBack = nil;
-    if (!viewBack) viewBack = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1];
+    if (!viewBack) viewBack = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];
     return viewBack;
 }
 

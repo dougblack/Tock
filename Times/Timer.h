@@ -23,6 +23,8 @@
 @property NSTimeInterval timeDelta;
 @property NSTimeInterval currentLapDelta;
 @property NSTimeInterval timeOfLastStop;
+@property NSTimeInterval goalLap;
+@property NSTimeInterval avgLap;
 
 @property NSInteger lapNumber;
 @property NSInteger row;

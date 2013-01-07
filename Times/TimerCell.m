@@ -79,6 +79,7 @@
         
         UIView *thumbLightView = [[UIView alloc] initWithFrame:CGRectMake(9.0, 9.0, 65, 82)];
         [thumbLightView setBackgroundColor:[CommonCLUtility highlightColor]];
+        [thumbLightView setTag:10];
         [self.contentView addSubview:thumbLightView];
         [self.movableViews addObject:thumbLightView];
         
@@ -374,8 +375,13 @@
     [(UILabel*)[[self contentView] viewWithTag:6] setText:[[self timer] lastLapString]];
     [(UILabel*)[[self contentView] viewWithTag:2] setText:[NSString stringWithFormat:@"%d", [[self timer]lapNumber]]];
     if ([[self timer] thumb] != nil)
+    {
         [[[self contentView] viewWithTag:3] setBackgroundColor:[[self timer] thumb]];
-    else
+        UIColor *color = [[self timer] thumb];
+        const float* colors = CGColorGetComponents(color.CGColor);
+        UIColor *lightColor = [UIColor colorWithRed:colors[0]+0.1 green:colors[1]+0.1 blue:colors[2]+0.1 alpha:1];
+        [[[self contentView] viewWithTag:10] setBackgroundColor:lightColor];
+    } else
         [[[self contentView] viewWithTag:3] setBackgroundColor:[CommonCLUtility backgroundColor]];
     if ([[self timer] running]) {
         [(TriangleView*)[[self contentView] viewWithTag:7] setHidden:NO];
