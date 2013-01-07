@@ -103,7 +103,8 @@
         [self setRecentlyStopped:NO];
     }
     
-    self.avgLap = (self.avgLap + elapsed) / [self.laps count];
+    self.lapSum = self.lapSum + elapsed;
+    self.avgLap = self.lapSum / [self.laps count];
     [[self delegate] lastLapTimeChanged:self.lastLapString];
 }
 

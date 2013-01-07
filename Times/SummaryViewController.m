@@ -10,6 +10,7 @@
 #import "SummaryTableView.h"
 #import "SummaryCell.h"
 #import "SummaryHeaderView.h"
+#import "SummaryHeaderCell.h"
 #import "Timer.h"
 #import "CommonCLUtility.h"
 #import "NoLapsCell.h"
@@ -86,6 +87,7 @@
     SummaryTableView *summaryTableView = [[SummaryTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [summaryTableView registerClass:[SummaryCell class] forCellReuseIdentifier:@"SummaryCell"];
     [summaryTableView registerClass:[NoLapsCell class] forCellReuseIdentifier:@"NoLapsCell"];
+    [summaryTableView registerClass:[SummaryHeaderCell class] forCellReuseIdentifier:@"HeaderCell"];
     [summaryTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [summaryTableView setDelegate:self];
     [summaryTableView setDataSource:self];
@@ -127,8 +129,8 @@
 {
     Timer *timer = [[self timers] objectAtIndex:section];
     if ([[timer laps] count] == 0)
-        return 1;
-    return [[timer laps] count];
+        return 2;
+    return [[timer laps] count]+1;
 }
 
 -(UIView*) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -143,10 +145,25 @@
 {
     static NSString *SummaryCellIdentifier = @"SummaryCell";
     static NSString *NoLapsCellIdentifier = @"NoLapsCell";
+    static NSString *HeaderCellIdentifier = @"HeaderCell";
     
     Timer *timer = [[self timers] objectAtIndex:indexPath.section];
     
-    if ([[timer laps] count] == 0)
+    if (indexPath.row == 0)
+    {
+        SummaryHeaderCell *header = (SummaryHeaderCell*) [tableView dequeueReusableCellWithIdentifier:HeaderCellIdentifier];
+        if (header == nil)
+        {
+            header = [[SummaryHeaderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:HeaderCellIdentifier];
+        }
+        [header setTime:[timer timeString]];
+        [header setAvg:[Timer stringFromTimeInterval:[timer avgLap]]];
+        [header setGoal:@"---"];
+        [header refresh];
+        return header;
+    }
+
+    if ([[timer laps] count] == 0 && indexPath.row == 1)
     {
         NoLapsCell *noLapsCell = (NoLapsCell*) [tableView dequeueReusableCellWithIdentifier:NoLapsCellIdentifier];
         if (noLapsCell == nil)
@@ -163,14 +180,14 @@
         summaryCell = [[SummaryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:SummaryCellIdentifier];
     }
     
-    [summaryCell setLapTimeString:[[timer lapStrings] objectAtIndex:indexPath.row]];
+    [summaryCell setLapTimeString:[[timer lapStrings] objectAtIndex:indexPath.row-1]];
     
     switch (self.deltaType) {
         case DeltaFromPreviousLap:
         {
             NSMutableDictionary *timerDict = (NSMutableDictionary*)[self.timersData objectAtIndex:indexPath.section];
             NSMutableArray *previousLapDeltas = [timerDict objectForKey:@"Previous"];
-            NSNumber *delta = [previousLapDeltas objectAtIndex:indexPath.row];
+            NSNumber *delta = [previousLapDeltas objectAtIndex:indexPath.row-1];
             if (delta != [NSNull null])
             {
                 NSString *lapDeltaString;
@@ -208,7 +225,7 @@
         {
             NSMutableDictionary *timerDict = (NSMutableDictionary*)[self.timersData objectAtIndex:indexPath.section];
             NSMutableArray *avgLapDeltas = [timerDict objectForKey:@"Avg"];
-            NSNumber *delta = [avgLapDeltas objectAtIndex:indexPath.row];
+            NSNumber *delta = [avgLapDeltas objectAtIndex:indexPath.row-1];
             [summaryCell setLapDelta:[delta stringValue]];
             summaryCell.lapDeltaLabel.hidden = NO;
             break;
@@ -217,7 +234,7 @@
         {
             NSMutableDictionary *timerDict = (NSMutableDictionary*)[self.timersData objectAtIndex:indexPath.section];
             NSMutableArray *goalLapDeltas = [timerDict objectForKey:@"Goal"];
-            NSNumber *delta = [goalLapDeltas objectAtIndex:indexPath.row];
+            NSNumber *delta = [goalLapDeltas objectAtIndex:indexPath.row-1];
             [summaryCell setLapDelta:[delta stringValue]];
             summaryCell.lapDeltaLabel.hidden = NO;
             break;
@@ -231,7 +248,7 @@
             break;
     }
     
-    [summaryCell setLapNumber:indexPath.row+1];
+    [summaryCell setLapNumber:indexPath.row];
     summaryCell.controller = self;
     [summaryCell refresh];
     return summaryCell;

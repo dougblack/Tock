@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		912648F41693B1DD004D552F /* BottomActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 912648F31693B1DD004D552F /* BottomActionView.m */; };
+		912CB57E169A640C00A76138 /* SummarySettingsHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 912CB57D169A640C00A76138 /* SummarySettingsHeaderView.xib */; };
 		913103BD16968B580064406A /* SummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 913103BC16968B580064406A /* SummaryViewController.m */; };
 		913103C016968B790064406A /* SummaryTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 913103BF16968B780064406A /* SummaryTableView.m */; };
 		913103C316968D520064406A /* SummaryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 913103C216968D520064406A /* SummaryCell.m */; };
@@ -44,6 +45,7 @@
 /* Begin PBXFileReference section */
 		912648F21693B1DD004D552F /* BottomActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomActionView.h; sourceTree = "<group>"; };
 		912648F31693B1DD004D552F /* BottomActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomActionView.m; sourceTree = "<group>"; };
+		912CB57D169A640C00A76138 /* SummarySettingsHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SummarySettingsHeaderView.xib; sourceTree = "<group>"; };
 		913103BB16968B580064406A /* SummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SummaryViewController.h; sourceTree = "<group>"; };
 		913103BC16968B580064406A /* SummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SummaryViewController.m; sourceTree = "<group>"; };
 		913103BE16968B780064406A /* SummaryTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SummaryTableView.h; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				913103BF16968B780064406A /* SummaryTableView.m */,
 				91E05C661698B59000FE4A3B /* SummaryHeaderView.h */,
 				91E05C671698B59000FE4A3B /* SummaryHeaderView.m */,
+				912CB57D169A640C00A76138 /* SummarySettingsHeaderView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				91C410061688E87300092BF8 /* concrete_wall.png in Resources */,
 				91C410081688E88100092BF8 /* darkdenim3.png in Resources */,
 				914CD59C1691113C0087C263 /* NavBar.png in Resources */,
+				912CB57E169A640C00A76138 /* SummarySettingsHeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

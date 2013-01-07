@@ -25,6 +25,7 @@
 @property NSTimeInterval timeOfLastStop;
 @property NSTimeInterval goalLap;
 @property NSTimeInterval avgLap;
+@property NSTimeInterval lapSum;
 
 @property NSInteger lapNumber;
 @property NSInteger row;

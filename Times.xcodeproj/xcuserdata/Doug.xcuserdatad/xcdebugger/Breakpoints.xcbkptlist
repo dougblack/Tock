@@ -34,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "Times/SummaryViewController.m"
-         timestampString = "379214156.975655"
+         timestampString = "379219282.2806"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "53"
-         endingLineNumber = "53"
+         startingLineNumber = "54"
+         endingLineNumber = "54"
          landmarkName = "-initWithTimers:"
          landmarkType = "5">
       </FileBreakpoint>

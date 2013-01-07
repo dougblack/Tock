@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface SummaryHeaderCell : UITableViewCell
+
+@property NSString *time;
+@property NSString *avg;
+@property NSString *goal;
+
+-(void)refresh;
 
 @end
