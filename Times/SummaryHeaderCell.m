@@ -27,6 +27,7 @@
 
         UIColor *textColor = [UIColor whiteColor];
         UIFont *textFont = [UIFont boldSystemFontOfSize:17];
+        UIFont *smallTextFont = [UIFont boldSystemFontOfSize:11];
         
         UILabel *currentTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 80, 40)];
         [currentTimeLabel setTextColor:textColor];
