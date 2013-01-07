@@ -35,7 +35,7 @@
         [lapNumberLabel setText:[NSString stringWithFormat:@"%d", self.lapNumber]];
         [lapNumberLabel setFont:[UIFont boldSystemFontOfSize:25]];
         [lapNumberLabel setBackgroundColor:foreColor];
-        [lapNumberLabel.layer setCornerRadius:2];
+//        [lapNumberLabel.layer setCornerRadius:2];
         self.lapNumberLabel = lapNumberLabel;
         [self.contentView addSubview:lapNumberLabel];
         
@@ -45,7 +45,7 @@
         [lapStringLabel setText:self.lapTimeString];
         [lapStringLabel setFont:[UIFont boldSystemFontOfSize:25]];
         [lapStringLabel setBackgroundColor:foreColor];
-        [lapStringLabel.layer setCornerRadius:2];
+//        [lapStringLabel.layer setCornerRadius:2];
         self.lapStringLabel = lapStringLabel;
         [self.contentView addSubview:lapStringLabel];
         
@@ -55,7 +55,7 @@
         [lapDeltaLabel setText:@"---"];
         [lapDeltaLabel setFont:[UIFont boldSystemFontOfSize:25]];
         [lapDeltaLabel setBackgroundColor:foreColor];
-        [lapDeltaLabel.layer setCornerRadius:2];
+//        [lapDeltaLabel.layer setCornerRadius:2];
         [lapDeltaLabel setAdjustsFontSizeToFitWidth:YES];
         self.lapDeltaLabel = lapDeltaLabel;
         self.lapDeltaLabel.hidden = YES;

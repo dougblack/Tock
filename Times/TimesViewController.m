@@ -140,19 +140,13 @@
 {
     self.numTimers++;;
     Timer* newTimer = [[Timer alloc] init];
-//    CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
-//    CGFloat saturation = 1;
-//    CGFloat brightness = 0.9;  //  0.5 to 1.0, away from black
-//    UIColor *color = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
-//    NSArray *choicesArray = [NSArray arrayWithObjects: [NSNumber numberWithFloat:0], [NSNumber numberWithFloat:40.0f/255], [NSNumber numberWithFloat:120.0f/255], [NSNumber numberWithFloat:240.0f/255], nil];
-//    NSInteger redChoice = ( arc4random() % 4 );
-//    NSInteger blueChoice = ( arc4random() % 4);
-//    NSInteger greenChoice = ( arc4random() % 4);
-//    NSNumber *red = [choicesArray objectAtIndex:redChoice];
-//    NSNumber *green = [choicesArray objectAtIndex:greenChoice];
-//    NSNumber *blue = [choicesArray objectAtIndex:blueChoice];
-    UIColor *color = [self.colors objectAtIndex:self.colorIndex];
-    self.colorIndex = (self.colorIndex + 1) % 11;
+    CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
+    CGFloat saturation = 1;
+    CGFloat brightness = 0.9;  //  0.5 to 1.0, away from black
+    UIColor *color = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
+
+//    UIColor *color = [self.colors objectAtIndex:self.colorIndex];
+//    self.colorIndex = (self.colorIndex + 1) % 11;
     [newTimer setThumb:color];
     [newTimer setMiniThumb:color];
     [newTimer setRow:numTimers-1];
@@ -214,12 +208,18 @@
 
 -(void) checkTimers
 {
+    BOOL hide = NO;
     for (Timer* timer in [self timers])
     {
-        if ([timer started])
-             return;
+        if ([timer running]) {
+            hide = YES;
+            break;
+        }
     }
-    [self showBottomView];
+    if (!hide)
+        [self showBottomView];
+    else
+        [self hideBottomView];
 
 }
 

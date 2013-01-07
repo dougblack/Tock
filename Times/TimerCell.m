@@ -269,14 +269,15 @@
                 break;
             case 4: // time
                 [self highlight:senderView withDuration:0.5 andWait:0];
+                [[self timesTable] performSelector:@selector(checkTimers) withObject:[self timesTable] afterDelay:0.5];
                 [[self timer] toggle];
                 break;
             case 5: // lap
                 [self highlight:senderView withDuration:0.5 andWait:0];
+                [[self timesTable] performSelector:@selector(checkTimers) withObject:[self timesTable] afterDelay:0.5];
                 [[self timer] lap];
                 break;
             default:
-                [self performSelector:@selector(checkTimers) withObject:[self timesTable] afterDelay:1];
                 break;
         }
         
