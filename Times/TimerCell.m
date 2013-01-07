@@ -13,6 +13,7 @@
 #import "LapViewController.h"
 #import "CommonCLUtility.h"
 #import "TriangleView.h"
+#import "TimerSettingViewController.h"
 
 @implementation TimerCell
 
@@ -263,10 +264,17 @@
         int tag = senderView.tag;
         [senderView setBackgroundColor:[CommonCLUtility selectedColor]];
         switch (tag) {
-            case 3: // thumb
+            case 3:
+            {
                 [self highlight:senderView withDuration:0.5 andWait:0];
-                [[[self timesTable] navigationController] presentViewController:[self imagePickerController] animated:YES completion:nil];
+                TimerSettingViewController *settingsController = [TimerSettingViewController new];
+                UINavigationController *settingsNavController = [[UINavigationController alloc] initWithRootViewController:settingsController];
+                [settingsNavController.navigationBar setTintColor:[UIColor colorWithRed:0.05 green:0.05 blue:0.05 alpha:1]];
+                [settingsController.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:settingsController action:@selector(back)]];
+                [settingsController setSuperController:self.timesTable.navigationController];
+                [[[self timesTable] navigationController] presentViewController:settingsNavController animated:YES completion:nil];
                 break;
+            }// thumb
             case 4: // time
                 [self highlight:senderView withDuration:0.5 andWait:0];
                 [[self timesTable] performSelector:@selector(checkTimers) withObject:[self timesTable] afterDelay:0];

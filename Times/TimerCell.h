@@ -11,6 +11,7 @@
 @class TimerCellContentView;
 @class TimesViewController;
 @class Timer;
+@class TimerSettingViewController;
 @interface TimerCell : UITableViewCell <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property TimesViewController *timesTable;

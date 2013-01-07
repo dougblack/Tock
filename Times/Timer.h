@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
 typedef enum {
     FlagTypeNone,
@@ -49,6 +50,7 @@ typedef enum {
 @property UIColor *miniThumb;
 
 @property FlagType flagType;
+@property AVAudioPlayer *timerClick;
 
 +(NSString*)stringFromTimeInterval:(NSTimeInterval)timeInterval;
 

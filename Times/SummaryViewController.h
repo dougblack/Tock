@@ -30,6 +30,7 @@ typedef enum {
 
 @property DeltaType deltaType;
 
+
 - (id)initWithTimers:(NSMutableArray*)timers;
 
 @end

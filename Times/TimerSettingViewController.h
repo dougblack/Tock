@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TimerSettingViewController : UIViewController
+@interface TimerSettingViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
+
+@property NSMutableArray *goalLapMinutes;
+@property NSMutableArray *goalLapSeconds;
+@property NSMutableArray *goalLapTenths;
+@property UINavigationController *superController;
 
 @end

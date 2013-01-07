@@ -32,6 +32,13 @@
 
 -(void) start
 {
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"ClickButton" ofType:@"wav"];
+    NSURL *clickURL = [[NSURL alloc] initFileURLWithPath:path];
+    NSError *clickError = [NSError new];
+    self.timerClick = [[AVAudioPlayer alloc] initWithContentsOfURL:clickURL error:&clickError];
+    self.timerClick.volume = 1.0;
+    [self.timerClick play];
 
     [self setStartTime:[NSDate timeIntervalSinceReferenceDate]];
     
@@ -112,11 +119,12 @@
 
 -(void) stop
 {
+    NSTimeInterval currentTime = [NSDate timeIntervalSinceReferenceDate];
+    NSTimeInterval elapsedSinceLastLap = currentTime - [self lastLapTime];
+    
     [self setRunning:NO];
     [self setStopped:YES];
     [self setRecentlyStopped:YES];
-    NSTimeInterval currentTime = [NSDate timeIntervalSinceReferenceDate];
-    NSTimeInterval elapsedSinceLastLap = currentTime - [self lastLapTime];
     [self setCurrentLapDelta:elapsedSinceLastLap];
     [self setTimeOfLastStop:[NSDate timeIntervalSinceReferenceDate]];
     
