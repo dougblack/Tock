@@ -14,6 +14,12 @@
 #import "CommonCLUtility.h"
 #import "Timer.h"
 
+@interface TimesViewController ()
+
+@property UIColor *lastGeneratedColor;
+
+@end
+
 @implementation TimesViewController
 
 @synthesize numTimers, tableView, bottomActionView;
@@ -31,7 +37,6 @@
         [navBarLabel setBackgroundColor:[UIColor clearColor]];
         [navBarLabel setFont:[UIFont boldSystemFontOfSize:20]];
         [navBarLabel setTextAlignment:NSTextAlignmentCenter];
-//        [navBarLabel setTextColor:[UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1]];
         [navBarLabel setTextColor:[UIColor whiteColor]];
 
         [navBarLabel setShadowOffset:CGSizeMake(1,1)];
@@ -41,6 +46,7 @@
         UIBarButtonItem *summaryButton = [[UIBarButtonItem alloc] initWithTitle:@"Summary" style:UIBarButtonItemStylePlain target:self action:@selector(openSummary)];
         [self.navigationItem setLeftBarButtonItem:summaryButton];
         [self.navigationItem setRightBarButtonItem:addButton];
+        self.lastGeneratedColor = nil;
         
         
         // 40 - .15
@@ -151,13 +157,30 @@
 {
     self.numTimers++;;
     Timer* newTimer = [[Timer alloc] init];
-    CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
-    CGFloat saturation = 1;
-    CGFloat brightness = 0.8;  //  0.5 to 1.0, away from black
-    UIColor *color = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
+    
+    BOOL isDifferentEnough = NO;
+    UIColor *color;
+    do {
+        CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
+        CGFloat saturation = 1;
+        CGFloat brightness = 0.8;  //  0.5 to 1.0, away from black
+        color = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
+        
+        if (self.lastGeneratedColor == nil)
+            isDifferentEnough = YES;
+        else {
+            const CGFloat *pickedColorComponents = CGColorGetComponents(color.CGColor);
+            const CGFloat *generatedColorComponents = CGColorGetComponents(self.lastGeneratedColor.CGColor);
+            CGFloat delta = fabsf(pickedColorComponents[0] - generatedColorComponents[0]) + fabsf(pickedColorComponents[1] - generatedColorComponents[1]) + fabsf(pickedColorComponents[2] - generatedColorComponents[2]);
+            isDifferentEnough = (delta > 0.5);
+        }
+        
+    } while (!isDifferentEnough);
+
 
 //    UIColor *color = [self.colors objectAtIndex:self.colorIndex];
 //    self.colorIndex = (self.colorIndex + 1) % 11;
+    self.lastGeneratedColor = color;
     [newTimer setThumb:color];
     [newTimer setMiniThumb:color];
     [newTimer setRow:numTimers-1];
