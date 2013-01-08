@@ -240,6 +240,12 @@
         [self slideCellLeft];
     } else
     {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"swish" ofType:@"wav"];
+        NSURL *clickURL = [[NSURL alloc] initFileURLWithPath:path];
+        NSError *clickError = [NSError new];
+        self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:clickURL error:&clickError];
+        self.audioPlayer.volume = 0.01;
+//        [self.audioPlayer play];
         LapViewController *lapViewController = [[LapViewController alloc] init];
         [lapViewController setLaps:[[self timer] laps]];
         [lapViewController setLapStrings:[[self timer] lapStrings]];
@@ -371,6 +377,12 @@
             [[[self timesTable] tableView] deleteRowsAtIndexPaths:[NSArray arrayWithObject:pathForThisCell] withRowAnimation:UITableViewRowAnimationLeft];
             self.timesTable.numTimers--;
             [[[self timesTable] tableView] endUpdates];
+            NSString *path = [[NSBundle mainBundle] pathForResource:@"swish" ofType:@"wav"];
+            NSURL *clickURL = [[NSURL alloc] initFileURLWithPath:path];
+            NSError *clickError = [NSError new];
+            self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:clickURL error:&clickError];
+            self.audioPlayer.volume = 0.01;
+            [self.audioPlayer play];
         } else if (self.isInDeleteMode)
         {
             [deleteButton setBackgroundColor:[UIColor colorWithRed:0.52 green:0 blue:0.08 alpha:1]];

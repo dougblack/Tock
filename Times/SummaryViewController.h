@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
 typedef enum {
     DeltaFromPreviousLap,
@@ -29,6 +30,7 @@ typedef enum {
 @property TimesViewController* timesViewController;
 
 @property DeltaType deltaType;
+@property AVAudioPlayer *audioPlayer;
 
 
 - (id)initWithTimers:(NSMutableArray*)timers;

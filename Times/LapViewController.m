@@ -83,6 +83,12 @@
 
 -(void) swipeBack:(UISwipeGestureRecognizer*)backGesture
 {
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"swish" ofType:@"wav"];
+    NSURL *clickURL = [[NSURL alloc] initFileURLWithPath:path];
+    NSError *clickError = [NSError new];
+    self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:clickURL error:&clickError];
+    self.audioPlayer.volume = 0.01;
+//    [self.audioPlayer play];
     [[self navigationController] popViewControllerAnimated:YES];
 }
 

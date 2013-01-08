@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "91C40F971687F7EE00092BF8"
-               BuildableName = "Tock.app"
-               BlueprintName = "Tock"
+               BlueprintIdentifier = "912CB585169B47CD00A76138"
+               BuildableName = "Tock-iPad.app"
+               BlueprintName = "Tock-iPad"
                ReferencedContainer = "container:Tock.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "91C40F971687F7EE00092BF8"
-            BuildableName = "Tock.app"
-            BlueprintName = "Tock"
+            BlueprintIdentifier = "912CB585169B47CD00A76138"
+            BuildableName = "Tock-iPad.app"
+            BlueprintName = "Tock-iPad"
             ReferencedContainer = "container:Tock.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -51,9 +51,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "91C40F971687F7EE00092BF8"
-            BuildableName = "Tock.app"
-            BlueprintName = "Tock"
+            BlueprintIdentifier = "912CB585169B47CD00A76138"
+            BuildableName = "Tock-iPad.app"
+            BlueprintName = "Tock-iPad"
             ReferencedContainer = "container:Tock.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -69,9 +69,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "91C40F971687F7EE00092BF8"
-            BuildableName = "Tock.app"
-            BlueprintName = "Tock"
+            BlueprintIdentifier = "912CB585169B47CD00A76138"
+            BuildableName = "Tock-iPad.app"
+            BlueprintName = "Tock-iPad"
             ReferencedContainer = "container:Tock.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

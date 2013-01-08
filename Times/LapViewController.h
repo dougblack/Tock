@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
+#import <AVFoundation/AVFoundation.h>
 
 @class Timer;
 @class TimesTableView;
@@ -19,5 +20,7 @@
 @property TimesTableView *timesTableView;
 @property Timer *timer;
 @property UIView *timerHeader;
+
+@property AVAudioPlayer *audioPlayer;
 
 @end

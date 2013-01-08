@@ -70,6 +70,12 @@
 
 -(void)openSummary
 {
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"nav_click" ofType:@"mp3"];
+    NSURL *clickURL = [[NSURL alloc] initFileURLWithPath:path];
+    NSError *clickError = [NSError new];
+    self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:clickURL error:&clickError];
+    self.audioPlayer.volume = 0.5;
+    [self.audioPlayer play];
     SummaryViewController *summaryViewController = [[SummaryViewController alloc] initWithTimers:[self timers]];
     [summaryViewController setDeltaType:DeltaFromPreviousLap];
     [summaryViewController setTimesViewController:self];

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
+#import <AVFoundation/AVFoundation.h>
 
 @class BottomActionView;
 @class TimesTableView;
@@ -21,6 +22,8 @@
 @property BottomActionView *bottomActionView;
 @property NSArray *colors;
 @property NSInteger colorIndex;
+
+@property AVAudioPlayer *audioPlayer;
 
 -(void)newTimer;
 -(void)startAll;

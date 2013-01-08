@@ -33,12 +33,12 @@
 -(void) start
 {
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"ClickButton" ofType:@"wav"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"click_low" ofType:@"wav"];
     NSURL *clickURL = [[NSURL alloc] initFileURLWithPath:path];
     NSError *clickError = [NSError new];
     self.timerClick = [[AVAudioPlayer alloc] initWithContentsOfURL:clickURL error:&clickError];
-    self.timerClick.volume = 1.0;
-    [self.timerClick play];
+    self.timerClick.volume = 0.4;
+//    [self.timerClick play];
 
     [self setStartTime:[NSDate timeIntervalSinceReferenceDate]];
     
@@ -95,6 +95,14 @@
         return;
     }
     
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"lapClick" ofType:@"mp3"];
+    NSURL *clickURL = [[NSURL alloc] initFileURLWithPath:path];
+    NSError *clickError = [NSError new];
+    self.timerClick = [[AVAudioPlayer alloc] initWithContentsOfURL:clickURL error:&clickError];
+    self.timerClick.volume = 1.0;
+    self.timerClick.enableRate = YES;
+    self.timerClick.rate = 1.5;
+//    [self.timerClick play];
     NSTimeInterval currentTime = [NSDate timeIntervalSinceReferenceDate];
     NSTimeInterval elapsed = (currentTime - [self lastLapTime]) - [self currentLapDelta];
     
@@ -119,6 +127,14 @@
 
 -(void) stop
 {
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"ClickButton" ofType:@"wav"];
+    NSURL *clickURL = [[NSURL alloc] initFileURLWithPath:path];
+    NSError *clickError = [NSError new];
+    self.timerClick = [[AVAudioPlayer alloc] initWithContentsOfURL:clickURL error:&clickError];
+    self.timerClick.volume = 1.0;
+    self.timerClick.enableRate = YES;
+    self.timerClick.rate = 1.0;
+//    [self.timerClick play];
     NSTimeInterval currentTime = [NSDate timeIntervalSinceReferenceDate];
     NSTimeInterval elapsedSinceLastLap = currentTime - [self lastLapTime];
     

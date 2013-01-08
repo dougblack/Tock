@@ -117,6 +117,12 @@
 
 -(void)back
 {
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"nav_click" ofType:@"mp3"];
+    NSURL *clickURL = [[NSURL alloc] initFileURLWithPath:path];
+    NSError *clickError = [NSError new];
+    self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:clickURL error:&clickError];
+    self.audioPlayer.volume = 1.0;
+    [self.audioPlayer play];
     [self.timesViewController.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h
 
 @class TimerCellContentView;
 @class TimesViewController;
@@ -28,6 +29,8 @@
 @property BOOL allowEdit;
 @property BOOL running;
 @property UILabel *deleteButton;
+
+@property AVAudioPlayer *audioPlayer;
 
 
 -(void) tick:(NSString*)time withLap:(NSInteger)lapNumber;
