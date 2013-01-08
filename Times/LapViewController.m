@@ -63,7 +63,7 @@
     [lapTableView setDelegate:self];
     [lapTableView setDataSource:self];
     [lapTableView setTag:0];
-    [lapTableView setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
+    [lapTableView setBackgroundColor:[self.timer thumb]];
     [lapTableView setShowsVerticalScrollIndicator:NO];
     [self.view addSubview:lapTableView];
     

@@ -10,7 +10,6 @@
 #import "Timer.h"
 #import "LapTableView.h"
 #import "LapViewController.h"
-#import "TriangleView.h"
 #import "CommonCLUtility.h"
 
 @implementation LapTimerView
@@ -107,13 +106,6 @@
         [lapTextLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:15]];
         [lapTextLabel setTextAlignment:NSTextAlignmentCenter];
         [self addSubview:lapTextLabel];
-        
-        TriangleView *triangle = [[TriangleView alloc] init];
-        [triangle setFrame:CGRectMake(219, 9, 25, 25)];
-        [triangle setBackgroundColor:[UIColor clearColor]];
-        [triangle setHidden:YES];
-        [triangle setTag:17];
-        [self addSubview:triangle];
         
         [[self timer] setDelegate:self];
         
@@ -216,9 +208,7 @@
 
 -(void)start
 {
-    [[self viewWithTag:17] setHidden:NO];
-    [(TriangleView*)[self viewWithTag:17] setRed:NO];
-    [(TriangleView*)[self viewWithTag:17] setNeedsDisplay];
+    
 }
 
 -(void) reset
@@ -232,16 +222,6 @@
     else
         [[self viewWithTag:13] setBackgroundColor:[CommonCLUtility backgroundColor]];
     [(UILabel*)[self viewWithTag:12] setText:[NSString stringWithFormat:@"%d", [[self timer]lapNumber]]];
-    if ([[self timer] running]) {
-        [(TriangleView*)[self viewWithTag:17] setHidden:NO];
-        [(TriangleView*)[self viewWithTag:17] setRed:NO];
-    }
-    else if ([[self timer] stopped]) {
-        [(TriangleView*)[self viewWithTag:17] setHidden:NO];
-        [(TriangleView*)[self viewWithTag:17] setRed:YES];
-    }
-    else
-        [(TriangleView*)[self viewWithTag:17] setHidden:YES];
     
     [self setNeedsDisplay];
 }
@@ -262,9 +242,6 @@
 
 -(void) stop
 {
-    [self setRunning:NO];
-    [(TriangleView*)[self viewWithTag:17] setRed:YES];
-    [(TriangleView*)[self viewWithTag:17] setNeedsDisplay];
 }
 
 @end

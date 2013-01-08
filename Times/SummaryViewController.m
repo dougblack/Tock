@@ -117,7 +117,7 @@
 
 -(void)back
 {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"nav_click" ofType:@"mp3"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"high_click" ofType:@"wav"];
     NSURL *clickURL = [[NSURL alloc] initFileURLWithPath:path];
     NSError *clickError = [NSError new];
     self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:clickURL error:&clickError];

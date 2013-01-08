@@ -25,7 +25,7 @@
         self.recentlyStopped = NO;
         self.avgLap = 0;
         self.flagType = FlagTypeNone;
-        self.name = @"Timer";
+        self.name = @"TIMER";
     }
     return self;
 }
@@ -59,14 +59,13 @@
     [self setStopped:NO];
     [self setFlagType:FlagTypeGreen];
 
-    [[self delegate] start];
+//    [[self delegate] start];
     [self updateTime];
 }
 
 -(void) updateTime
 {
     if ([self running] == NO) {
-        [[self delegate] stop];
         return;
     }
     
@@ -145,7 +144,6 @@
     [self setTimeOfLastStop:[NSDate timeIntervalSinceReferenceDate]];
     
     [self setFlagType:FlagTypeRed];
-    [[self delegate] stop];
 }
 
 -(void) toggle

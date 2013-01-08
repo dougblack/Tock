@@ -16,7 +16,6 @@
 		912CB58B169B47CD00A76138 /* Timer.m in Sources */ = {isa = PBXBuildFile; fileRef = 91C4100E16891D5900092BF8 /* Timer.m */; };
 		912CB58C169B47CD00A76138 /* TimesTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 914BD5F0168CF9D10068BFC4 /* TimesTableView.m */; };
 		912CB58D169B47CD00A76138 /* CommonCLUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 914CD590168E667E0087C263 /* CommonCLUtility.m */; };
-		912CB58E169B47CD00A76138 /* TriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 914CD594168F79A40087C263 /* TriangleView.m */; };
 		912CB58F169B47CD00A76138 /* LapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 914CD59E1691343E0087C263 /* LapViewController.m */; };
 		912CB590169B47CD00A76138 /* LapTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 914CD5A41691357E0087C263 /* LapTableView.m */; };
 		912CB591169B47CD00A76138 /* LapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 914CD5A71691359B0087C263 /* LapCell.m */; };
@@ -54,9 +53,9 @@
 		913A1181169BB3F900FBADC8 /* start.wav in Resources */ = {isa = PBXBuildFile; fileRef = 913A1180169BB3F900FBADC8 /* start.wav */; };
 		913A1183169BB95500FBADC8 /* swish.wav in Resources */ = {isa = PBXBuildFile; fileRef = 913A1182169BB95500FBADC8 /* swish.wav */; };
 		913A1187169BBCD500FBADC8 /* click_low.wav in Resources */ = {isa = PBXBuildFile; fileRef = 913A1186169BBCD500FBADC8 /* click_low.wav */; };
+		913A118B169CB2AD00FBADC8 /* high_click.wav in Resources */ = {isa = PBXBuildFile; fileRef = 913A118A169CB2AD00FBADC8 /* high_click.wav */; };
 		914BD5F1168CF9D10068BFC4 /* TimesTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 914BD5F0168CF9D10068BFC4 /* TimesTableView.m */; };
 		914CD591168E667E0087C263 /* CommonCLUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 914CD590168E667E0087C263 /* CommonCLUtility.m */; };
-		914CD595168F79A40087C263 /* TriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 914CD594168F79A40087C263 /* TriangleView.m */; };
 		914CD59C1691113C0087C263 /* NavBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 914CD59B1691113C0087C263 /* NavBar.png */; };
 		914CD59F1691343E0087C263 /* LapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 914CD59E1691343E0087C263 /* LapViewController.m */; };
 		914CD5A51691357E0087C263 /* LapTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 914CD5A41691357E0087C263 /* LapTableView.m */; };
@@ -107,12 +106,11 @@
 		913A1180169BB3F900FBADC8 /* start.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = start.wav; sourceTree = "<group>"; };
 		913A1182169BB95500FBADC8 /* swish.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = swish.wav; sourceTree = "<group>"; };
 		913A1186169BBCD500FBADC8 /* click_low.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click_low.wav; sourceTree = "<group>"; };
+		913A118A169CB2AD00FBADC8 /* high_click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = high_click.wav; sourceTree = "<group>"; };
 		914BD5EF168CF9D10068BFC4 /* TimesTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimesTableView.h; sourceTree = "<group>"; };
 		914BD5F0168CF9D10068BFC4 /* TimesTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimesTableView.m; sourceTree = "<group>"; };
 		914CD58F168E667E0087C263 /* CommonCLUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonCLUtility.h; sourceTree = "<group>"; };
 		914CD590168E667E0087C263 /* CommonCLUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonCLUtility.m; sourceTree = "<group>"; };
-		914CD593168F79A40087C263 /* TriangleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TriangleView.h; sourceTree = "<group>"; };
-		914CD594168F79A40087C263 /* TriangleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TriangleView.m; sourceTree = "<group>"; };
 		914CD59B1691113C0087C263 /* NavBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NavBar.png; path = ../../../../Desktop/NavBar.png; sourceTree = "<group>"; };
 		914CD59D1691343E0087C263 /* LapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LapViewController.h; sourceTree = "<group>"; };
 		914CD59E1691343E0087C263 /* LapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LapViewController.m; sourceTree = "<group>"; };
@@ -224,8 +222,6 @@
 				914CD5A41691357E0087C263 /* LapTableView.m */,
 				914CD5A916923FA00087C263 /* LapTimerView.h */,
 				914CD5AA16923FA00087C263 /* LapTimerView.m */,
-				914CD593168F79A40087C263 /* TriangleView.h */,
-				914CD594168F79A40087C263 /* TriangleView.m */,
 				912648F21693B1DD004D552F /* BottomActionView.h */,
 				912648F31693B1DD004D552F /* BottomActionView.m */,
 				913103BE16968B780064406A /* SummaryTableView.h */,
@@ -239,6 +235,7 @@
 		91C40F8D1687F7EE00092BF8 = {
 			isa = PBXGroup;
 			children = (
+				913A118A169CB2AD00FBADC8 /* high_click.wav */,
 				913A1186169BBCD500FBADC8 /* click_low.wav */,
 				913A1182169BB95500FBADC8 /* swish.wav */,
 				913A1180169BB3F900FBADC8 /* start.wav */,
@@ -438,6 +435,7 @@
 				913A1181169BB3F900FBADC8 /* start.wav in Resources */,
 				913A1183169BB95500FBADC8 /* swish.wav in Resources */,
 				913A1187169BBCD500FBADC8 /* click_low.wav in Resources */,
+				913A118B169CB2AD00FBADC8 /* high_click.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,7 +453,6 @@
 				912CB58B169B47CD00A76138 /* Timer.m in Sources */,
 				912CB58C169B47CD00A76138 /* TimesTableView.m in Sources */,
 				912CB58D169B47CD00A76138 /* CommonCLUtility.m in Sources */,
-				912CB58E169B47CD00A76138 /* TriangleView.m in Sources */,
 				912CB58F169B47CD00A76138 /* LapViewController.m in Sources */,
 				912CB590169B47CD00A76138 /* LapTableView.m in Sources */,
 				912CB591169B47CD00A76138 /* LapCell.m in Sources */,
@@ -482,7 +479,6 @@
 				91C4100F16891D5900092BF8 /* Timer.m in Sources */,
 				914BD5F1168CF9D10068BFC4 /* TimesTableView.m in Sources */,
 				914CD591168E667E0087C263 /* CommonCLUtility.m in Sources */,
-				914CD595168F79A40087C263 /* TriangleView.m in Sources */,
 				914CD59F1691343E0087C263 /* LapViewController.m in Sources */,
 				914CD5A51691357E0087C263 /* LapTableView.m in Sources */,
 				914CD5A81691359B0087C263 /* LapCell.m in Sources */,

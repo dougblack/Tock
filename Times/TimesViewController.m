@@ -70,11 +70,11 @@
 
 -(void)openSummary
 {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"nav_click" ofType:@"mp3"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"high_click" ofType:@"wav"];
     NSURL *clickURL = [[NSURL alloc] initFileURLWithPath:path];
     NSError *clickError = [NSError new];
     self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:clickURL error:&clickError];
-    self.audioPlayer.volume = 0.5;
+    self.audioPlayer.volume = 1;
     [self.audioPlayer play];
     SummaryViewController *summaryViewController = [[SummaryViewController alloc] initWithTimers:[self timers]];
     [summaryViewController setDeltaType:DeltaFromPreviousLap];
@@ -153,7 +153,7 @@
     Timer* newTimer = [[Timer alloc] init];
     CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
     CGFloat saturation = 1;
-    CGFloat brightness = 0.9;  //  0.5 to 1.0, away from black
+    CGFloat brightness = 0.8;  //  0.5 to 1.0, away from black
     UIColor *color = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
 
 //    UIColor *color = [self.colors objectAtIndex:self.colorIndex];
@@ -174,7 +174,7 @@
     {
         return 100;
     }
-    return 95;
+    return 100;
 }
 
 - (void)didReceiveMemoryWarning

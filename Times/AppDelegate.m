@@ -24,6 +24,7 @@
     [self.window addSubview:self.navigationController.view];
     [self.window makeKeyAndVisible];
     [[UIBarButtonItem appearance] setTintColor:[CommonCLUtility viewDarkBackColor]];
+    [self.window makeKeyAndVisible];
     return YES;
 }
 

@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <AVFoundation/AVFoundation.h
+#import <AVFoundation/AVFoundation.h>
 
 @class TimerCellContentView;
 @class TimesViewController;
 @class Timer;
 @class TimerSettingViewController;
-@interface TimerCell : UITableViewCell <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface TimerCell : UITableViewCell <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate>
 
 @property TimesViewController *timesTable;
 @property UIImagePickerController* imagePickerController;

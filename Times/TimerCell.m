@@ -12,8 +12,13 @@
 #import "TimesTableView.h"
 #import "LapViewController.h"
 #import "CommonCLUtility.h"
-#import "TriangleView.h"
 #import "TimerSettingViewController.h"
+
+@interface TimerCell ()
+
+@property UITextField *timerName;
+
+@end
 
 @implementation TimerCell
 
@@ -75,6 +80,7 @@
         
         UIView *shadowView = [[UIView alloc] initWithFrame:CGRectMake(7.0, 7.0, 306, 86)];
         [shadowView setBackgroundColor:[CommonCLUtility outlineColor]];
+        [shadowView setTag:13];
         [self.contentView addSubview:shadowView];
         [self.movableViews addObject:shadowView];
         
@@ -102,6 +108,7 @@
         
         UIView *timeLightView = [[UIView alloc] initWithFrame:CGRectMake(76, 9.0, 168, 82)];
         [timeLightView setBackgroundColor:[CommonCLUtility highlightColor]];
+        [timeLightView setTag:11];
         [self.contentView addSubview:timeLightView];
         [self.movableViews addObject:timeLightView];
         
@@ -118,6 +125,7 @@
         
         UIView *lapLightView = [[UIView alloc] initWithFrame:CGRectMake(246, 9.0, 65, 82)];
         [lapLightView setBackgroundColor:[CommonCLUtility highlightColor]];
+        [lapLightView setTag:12];
         [self.contentView addSubview:lapLightView];
         [self.movableViews addObject:lapLightView];
         
@@ -133,6 +141,8 @@
         [timeLabel setOpaque:NO];
         [timeLabel setBackgroundColor:[UIColor clearColor]];
         [timeLabel setTextColor:[UIColor whiteColor]];
+        [timeLabel setShadowColor:[UIColor blackColor]];
+        [timeLabel setShadowOffset:CGSizeMake(0, -1)];
         [timeLabel setFont:cellFont];
         [timeLabel setTextAlignment:NSTextAlignmentCenter];
         [timeLabel setTag:1];
@@ -144,7 +154,9 @@
         [lastLapLabel setText:@"--:--._"];
         [lastLapLabel setOpaque:NO];
         [lastLapLabel setBackgroundColor:[UIColor clearColor]];
-        [lastLapLabel setTextColor:[CommonCLUtility weakTextColor]];
+        [lastLapLabel setTextColor:[UIColor whiteColor]];
+        [lastLapLabel setShadowColor:[UIColor blackColor]];
+        [lastLapLabel setShadowOffset:CGSizeMake(0, -1)];
         [lastLapLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:15]];
         [lastLapLabel setTextAlignment:NSTextAlignmentCenter];
         [lastLapLabel setTag:6];
@@ -156,6 +168,8 @@
         [lapLabel setOpaque:NO];
         [lapLabel setBackgroundColor:[UIColor clearColor]];
         [lapLabel setTextColor:[UIColor whiteColor]];
+        [lapLabel setShadowColor:[UIColor blackColor]];
+        [lapLabel setShadowOffset:CGSizeMake(0, -1)];
         [lapLabel setFont:cellFont];
         [lapLabel setTextAlignment:NSTextAlignmentCenter];
         [lapLabel setTag:2];
@@ -167,19 +181,29 @@
         [lapTextLabel setText:@"LAP"];
         [lapTextLabel setOpaque:NO];
         [lapTextLabel setBackgroundColor:[UIColor clearColor]];
-        [lapTextLabel setTextColor:[CommonCLUtility weakTextColor]];
+        [lapTextLabel setTextColor:[UIColor whiteColor]];
+        [lapTextLabel setShadowColor:[UIColor blackColor]];
+        [lapTextLabel setShadowOffset:CGSizeMake(0, -1)];
         [lapTextLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:15]];
         [lapTextLabel setTextAlignment:NSTextAlignmentCenter];
         [self.contentView addSubview:lapTextLabel];
         [self.movableViews addObject:lapTextLabel];
         
-        TriangleView *triangle = [[TriangleView alloc] init];
-        [triangle setFrame:CGRectMake(219, 9, 25, 25)];
-        [triangle setBackgroundColor:[UIColor clearColor]];
-        [triangle setHidden:YES];
-        [triangle setTag:7];
-        [self.contentView addSubview:triangle];
-        [self.movableViews addObject:triangle];
+        UITextField *timerName = [[UITextField alloc] initWithFrame:CGRectMake(10, 10, 63, 30)];
+        [timerName setTextColor:[UIColor whiteColor]];
+        [timerName setMinimumFontSize:3.0];
+        timerName.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
+        [timerName setFont:[UIFont boldSystemFontOfSize:15.0]];
+        [timerName setAdjustsFontSizeToFitWidth:YES];
+        timerName.borderStyle = UITextBorderStyleNone;
+        timerName.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+        timerName.textAlignment = NSTextAlignmentCenter;
+        timerName.delegate = self;
+        timerName.autocorrectionType = UITextAutocorrectionTypeNo;
+
+        self.timerName = timerName;
+        [self.movableViews addObject:timerName];
+        [self.contentView addSubview:timerName];
 
     }
     return self;
@@ -244,7 +268,7 @@
         NSURL *clickURL = [[NSURL alloc] initFileURLWithPath:path];
         NSError *clickError = [NSError new];
         self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:clickURL error:&clickError];
-        self.audioPlayer.volume = 0.01;
+        self.audioPlayer.volume = 0.7;
 //        [self.audioPlayer play];
         LapViewController *lapViewController = [[LapViewController alloc] init];
         [lapViewController setLaps:[[self timer] laps]];
@@ -268,11 +292,14 @@
         }
         
         int tag = senderView.tag;
-        [senderView setBackgroundColor:[CommonCLUtility selectedColor]];
+        UIColor *color = [self.timer thumb];
+        const float* colors = CGColorGetComponents(color.CGColor);
+        UIColor *lightColor = [UIColor colorWithRed:colors[0]+0.3 green:colors[1]+0.3 blue:colors[2]+0.3 alpha:1];
+//        senderView.backgroundColor = lightColor;
         switch (tag) {
             case 3:
             {
-                [self highlight:senderView withDuration:0.5 andWait:0];
+//                [self highlight:senderView withDuration:0.5 andWait:0];
                 TimerSettingViewController *settingsController = [TimerSettingViewController new];
                 UINavigationController *settingsNavController = [[UINavigationController alloc] initWithRootViewController:settingsController];
                 [settingsNavController.navigationBar setTintColor:[UIColor colorWithRed:0.05 green:0.05 blue:0.05 alpha:1]];
@@ -282,7 +309,7 @@
                 break;
             }// thumb
             case 4: // time
-                [self highlight:senderView withDuration:0.5 andWait:0];
+                [self highlightAll:senderView withDuration:0.5 andWait:0];
                 [[self timesTable] performSelector:@selector(checkTimers) withObject:[self timesTable] afterDelay:0];
                 [[self timer] toggle];
                 break;
@@ -322,7 +349,10 @@
         {
             if (self.isInDeleteMode)
                 return;
-            view.backgroundColor = [CommonCLUtility selectedColor];
+            UIColor *color = [self.timer thumb];
+            const float* colors = CGColorGetComponents(color.CGColor);
+            UIColor *lightColor = [UIColor colorWithRed:colors[0]+0.3 green:colors[1]+0.3 blue:colors[2]+0.3 alpha:1];
+            view.backgroundColor = lightColor;
         }
         
         if (self.isInDeleteMode && point.x >= deleteButton.frame.origin.x && point.x <= deleteButton.frame.origin.x + deleteButton.frame.size.width && point.y >= deleteButton.frame.origin.y && point.y <= deleteButton.frame.origin.y + deleteButton.frame.size.height)
@@ -338,18 +368,16 @@
         UIView *view = [touch view];
         if (view.tag == 3 || view.tag == 4 || view.tag == 5)
         {
-            view.backgroundColor = [CommonCLUtility backgroundColor];
+            if (self.timer.flagType == FlagTypeGreen)
+                view.backgroundColor = [self.timer thumb];
+            else
+                view.backgroundColor = [CommonCLUtility backgroundColor];
         }
         if (self.isInDeleteMode)
         {
             [deleteButton setBackgroundColor:[UIColor colorWithRed:0.52 green:0 blue:0.08 alpha:1]];
         }
     }
-}
-
--(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    
 }
 
 -(void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -362,7 +390,10 @@
         {
             if (self.isInDeleteMode)
                 [self slideCellLeft];
-            view.backgroundColor = [CommonCLUtility backgroundColor];
+            if (self.timer.flagType == FlagTypeGreen)
+                view.backgroundColor = [self.timer thumb];
+            else
+                view.backgroundColor = [CommonCLUtility backgroundColor];
         }
         
         
@@ -396,53 +427,107 @@
     [(UILabel*)[[self contentView] viewWithTag:6] setText:[[self timer] lastLapString]];
     [(UILabel*)[[self contentView] viewWithTag:2] setText:[NSString stringWithFormat:@"%d", [[self timer]lapNumber]]];
     
-    if ([[self timer] thumb] != nil)
+    self.timerName.backgroundColor = [self.timer thumb];
+    self.timerName.text = self.timer.name;
+    // Set triangle type!
+    switch ([self.timer flagType]) {
+            
+        case FlagTypeGreen:
+        {
+            [[[self contentView] viewWithTag:3] setBackgroundColor:[[self timer] thumb]];
+            UIColor *color = [[self timer] thumb];
+            const float* colors = CGColorGetComponents(color.CGColor);
+            NSLog(@"Row: %d, [UIColor colorWithRed:%f green:%f blue:%f alpha:1]", self.lastRow, colors[0], colors[1], colors[2]);
+            UIColor *lightColor = [UIColor colorWithRed:colors[0]+0.1 green:colors[1]+0.1 blue:colors[2]+0.1 alpha:1];
+            [[[self contentView] viewWithTag:10] setBackgroundColor:lightColor];
+            [[[self contentView] viewWithTag:11] setBackgroundColor:lightColor];
+            [[[self contentView] viewWithTag:12] setBackgroundColor:lightColor];
+            [[self.contentView viewWithTag:3] setBackgroundColor:[self.timer thumb]];
+            [[self.contentView viewWithTag:4] setBackgroundColor:[self.timer thumb]];
+            [[self.contentView viewWithTag:5] setBackgroundColor:[self.timer thumb]];
+            [self.contentView setBackgroundColor:[[self timer] thumb]];
+            break;
+        }
+        default:
+        {
+            UIColor *offColor = [CommonCLUtility backgroundColor];
+            UIColor *lightColor = [CommonCLUtility highlightColor];
+            [[[self contentView] viewWithTag:3] setBackgroundColor:offColor];
+            [[[self contentView] viewWithTag:10] setBackgroundColor:lightColor];
+            [[[self contentView] viewWithTag:11] setBackgroundColor:lightColor];
+            [[[self contentView] viewWithTag:12] setBackgroundColor:lightColor];
+            [[self.contentView viewWithTag:3] setBackgroundColor:offColor];
+            [[self.contentView viewWithTag:4] setBackgroundColor:offColor];
+            [[self.contentView viewWithTag:5] setBackgroundColor:offColor];
+            [self.contentView setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
+            break;
+        }
+    }
+    [[self timesTable] performSelector:@selector(checkTimers) withObject:nil afterDelay:0];
+}
+
+-(void)highlightAll:(UIView *)view withDuration:(NSTimeInterval)duration andWait:(NSTimeInterval)wait
+{
+
+    [UIView beginAnimations:@"Fade Out" context:nil];
+    [UIView setAnimationDelay:wait];
+    [UIView setAnimationDuration:0.25];
+    
+    // Flag type is about to switch so check against previous type
+    if (self.timer.flagType != FlagTypeGreen)
     {
         [[[self contentView] viewWithTag:3] setBackgroundColor:[[self timer] thumb]];
         UIColor *color = [[self timer] thumb];
         const float* colors = CGColorGetComponents(color.CGColor);
         UIColor *lightColor = [UIColor colorWithRed:colors[0]+0.1 green:colors[1]+0.1 blue:colors[2]+0.1 alpha:1];
         [[[self contentView] viewWithTag:10] setBackgroundColor:lightColor];
-    } else
-        [[[self contentView] viewWithTag:3] setBackgroundColor:[CommonCLUtility backgroundColor]];
-    
-    
-    // Set triangle type!
-    TriangleView *triangle = (TriangleView*)[self.contentView viewWithTag:7];
-    switch ([self.timer flagType]) {
-            
-        case FlagTypeGreen:
-            triangle.hidden = NO;
-            triangle.red = NO;
-            break;
-        case FlagTypeRed:
-            triangle.hidden = NO;
-            triangle.red = YES;
-            break;
-        case FlagTypeNone:
-            triangle.hidden = YES;
-            break;
-
-            
+        [[[self contentView] viewWithTag:11] setBackgroundColor:lightColor];
+        [[[self contentView] viewWithTag:12] setBackgroundColor:lightColor];
+        [[self.contentView viewWithTag:3] setBackgroundColor:[self.timer thumb]];
+        [[self.contentView viewWithTag:4] setBackgroundColor:[self.timer thumb]];
+        [[self.contentView viewWithTag:5] setBackgroundColor:[self.timer thumb]];
+        [self.contentView setBackgroundColor:[[self timer] thumb]];
     }
-    [triangle setNeedsDisplay];    
-    [[self timesTable] performSelector:@selector(checkTimers) withObject:nil afterDelay:0];
+    else
+    {
+        UIColor *offColor = [CommonCLUtility backgroundColor];
+        UIColor *lightColor = [CommonCLUtility highlightColor];
+        [[[self contentView] viewWithTag:3] setBackgroundColor:offColor];
+        [[[self contentView] viewWithTag:10] setBackgroundColor:lightColor];
+        [[[self contentView] viewWithTag:11] setBackgroundColor:lightColor];
+        [[[self contentView] viewWithTag:12] setBackgroundColor:lightColor];
+        [[self.contentView viewWithTag:3] setBackgroundColor:offColor];
+        [[self.contentView viewWithTag:4] setBackgroundColor:offColor];
+        [[self.contentView viewWithTag:5] setBackgroundColor:offColor];
+        [self.contentView setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
+    }
+    [UIView commitAnimations];
 }
 
 -(void)highlight:(UIView *)view withDuration:(NSTimeInterval)duration andWait:(NSTimeInterval)wait
 {
+    
     [UIView beginAnimations:@"Fade Out" context:nil];
     [UIView setAnimationDelay:wait];
-    [UIView setAnimationDuration:duration];
-    view.backgroundColor = [CommonCLUtility backgroundColor];
+    [UIView setAnimationDuration:0.25];
+    
+    // Flag type will not switch so check against current type
+    if (self.timer.flagType == FlagTypeGreen)
+    {
+        UIColor *color = [[self timer] thumb];
+        const float* colors = CGColorGetComponents(color.CGColor);
+        UIColor *lightColor = [UIColor colorWithRed:colors[0]+0.1 green:colors[1]+0.1 blue:colors[2]+0.1 alpha:1];
+        [[[self contentView] viewWithTag:12] setBackgroundColor:lightColor];
+        [[self.contentView viewWithTag:5] setBackgroundColor:[self.timer thumb]];
+    }
+    else
+    {
+        UIColor *offColor = [CommonCLUtility backgroundColor];
+        UIColor *lightColor = [CommonCLUtility highlightColor];
+        [[[self contentView] viewWithTag:12] setBackgroundColor:lightColor];
+        [[self.contentView viewWithTag:5] setBackgroundColor:offColor];
+    }
     [UIView commitAnimations];
-}
-
--(void)start
-{
-    [[[self contentView] viewWithTag:7] setHidden:NO];
-    [(TriangleView*)[[self contentView] viewWithTag:7] setRed:NO];
-    [(TriangleView*)[[self contentView] viewWithTag:7] setNeedsDisplay];
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -473,16 +558,33 @@
     [(UILabel*)[[self contentView] viewWithTag:6] setText:[NSString stringWithFormat:@"%@", lapTime]];
 }
 
--(void) stop
-{
-    [self setRunning:NO];
-    [(TriangleView*)[[self contentView] viewWithTag:7] setRed:YES];
-    [(TriangleView*)[[self contentView] viewWithTag:7] setNeedsDisplay];
-}
-
 - (void) setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
+}
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    self.timesTable.tableView.contentInset = UIEdgeInsetsMake(0, 0, 200, 0);
+    [self.timesTable.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.lastRow inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    self.timesTable.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+}
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    textField.text = [textField.text stringByReplacingCharactersInRange:range withString:[string uppercaseString]]; return NO;
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    self.timer.name = textField.text;
+    [textField resignFirstResponder];
+    return YES;
 }
 
 @end
