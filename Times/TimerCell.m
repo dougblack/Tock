@@ -17,34 +17,22 @@
 @interface TimerCell ()
 
 @property UITextField *timerName;
+@property UILabel *deleteButton;
+
+@property BOOL isInDeleteMode;
 
 @end
 
 @implementation TimerCell
 
-@synthesize thumb, lapNumber, timer, running, timesTable;
-@synthesize imagePickerController;
-@synthesize lastRow;
-@synthesize movableViews;
-@synthesize deleteButton;
-
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        
-        self.time = @"00:00.0";
-        self.lapNumber = @"1";
-        self.lastRow = -1;
         self.movableViews = [NSMutableArray array];
         self.isInDeleteMode = NO;
         
         UIFont *cellFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:40.0];
-        imagePickerController = [[UIImagePickerController alloc] init];
-        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
-            [imagePickerController setSourceType:UIImagePickerControllerSourceTypeCamera];
-        [imagePickerController setDelegate:self];
-        [self setImagePickerController:imagePickerController];
         
         UISwipeGestureRecognizer *deleteGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRight:)];
         [deleteGestureRecognizer setDirection:UISwipeGestureRecognizerDirectionRight];
@@ -216,8 +204,8 @@
         NSLog(@"SPLIT TIMER");
         Timer *newTimer = [Timer alloc];
         newTimer = [[self timer] copyWithZone:NSZoneFromPointer((__bridge void *)(newTimer))];
-        [[[self timesTable] timers] insertObject:newTimer atIndex:[self lastRow]+1];
-        [[[self timesTable] tableView] reloadData];
+        [self.timesTable.timers insertObject:newTimer atIndex:self.row+1];
+        [self.timesTable.tableView reloadData];
     }
     
 }
@@ -295,7 +283,7 @@
         UIColor *color = [self.timer thumb];
         const float* colors = CGColorGetComponents(color.CGColor);
         UIColor *lightColor = [UIColor colorWithRed:colors[0]+0.3 green:colors[1]+0.3 blue:colors[2]+0.3 alpha:1];
-//        senderView.backgroundColor = lightColor;
+        senderView.backgroundColor = lightColor;
         switch (tag) {
             case 3:
             {
@@ -355,9 +343,9 @@
             view.backgroundColor = lightColor;
         }
         
-        if (self.isInDeleteMode && point.x >= deleteButton.frame.origin.x && point.x <= deleteButton.frame.origin.x + deleteButton.frame.size.width && point.y >= deleteButton.frame.origin.y && point.y <= deleteButton.frame.origin.y + deleteButton.frame.size.height)
+        if (self.isInDeleteMode && point.x >= self.deleteButton.frame.origin.x && point.x <= self.deleteButton.frame.origin.x + self.deleteButton.frame.size.width && point.y >= self.deleteButton.frame.origin.y && point.y <= self.deleteButton.frame.origin.y + self.deleteButton.frame.size.height)
         {
-            [deleteButton setBackgroundColor:[UIColor colorWithRed:0.32 green:0 blue:0 alpha:1]];
+            [self.deleteButton setBackgroundColor:[UIColor colorWithRed:0.32 green:0 blue:0 alpha:1]];
         }
     }
 }
@@ -375,7 +363,7 @@
         }
         if (self.isInDeleteMode)
         {
-            [deleteButton setBackgroundColor:[UIColor colorWithRed:0.52 green:0 blue:0.08 alpha:1]];
+            [self.deleteButton setBackgroundColor:[UIColor colorWithRed:0.52 green:0 blue:0.08 alpha:1]];
         }
     }
 }
@@ -397,17 +385,17 @@
         }
         
         
-        if (self.isInDeleteMode && point.x >= deleteButton.frame.origin.x && point.x <= deleteButton.frame.origin.x + deleteButton.frame.size.width && point.y >= deleteButton.frame.origin.y && point.y <= deleteButton.frame.origin.y + deleteButton.frame.size.height)
+        if (self.isInDeleteMode && point.x >= self.deleteButton.frame.origin.x && point.x <= self.deleteButton.frame.origin.x + self.deleteButton.frame.size.width && point.y >= self.deleteButton.frame.origin.y && point.y <= self.deleteButton.frame.origin.y + self.deleteButton.frame.size.height)
         {
             // slide back over
-            [deleteButton setBackgroundColor:[UIColor colorWithRed:0.52 green:0 blue:0.08 alpha:1]];
+            [self.deleteButton setBackgroundColor:[UIColor colorWithRed:0.52 green:0 blue:0.08 alpha:1]];
             [self slideCellLeft];
             NSIndexPath *pathForThisCell = [(UITableView*)self.superview indexPathForCell:self];
-            [[[self timesTable] tableView] beginUpdates];
-            [[[self timesTable] timers] removeObjectAtIndex:[pathForThisCell row]];
-            [[[self timesTable] tableView] deleteRowsAtIndexPaths:[NSArray arrayWithObject:pathForThisCell] withRowAnimation:UITableViewRowAnimationLeft];
+            [self.timesTable.tableView beginUpdates];
+            [[self.timesTable timers] removeObjectAtIndex:[pathForThisCell row]];
+            [[self.timesTable tableView] deleteRowsAtIndexPaths:[NSArray arrayWithObject:pathForThisCell] withRowAnimation:UITableViewRowAnimationLeft];
             self.timesTable.numTimers--;
-            [[[self timesTable] tableView] endUpdates];
+            [[self.timesTable tableView] endUpdates];
             NSString *path = [[NSBundle mainBundle] pathForResource:@"swish" ofType:@"wav"];
             NSURL *clickURL = [[NSURL alloc] initFileURLWithPath:path];
             NSError *clickError = [NSError new];
@@ -416,7 +404,7 @@
             [self.audioPlayer play];
         } else if (self.isInDeleteMode)
         {
-            [deleteButton setBackgroundColor:[UIColor colorWithRed:0.52 green:0 blue:0.08 alpha:1]];
+            [self.deleteButton setBackgroundColor:[UIColor colorWithRed:0.52 green:0 blue:0.08 alpha:1]];
         }
     }
 }
@@ -437,7 +425,7 @@
             [[[self contentView] viewWithTag:3] setBackgroundColor:[[self timer] thumb]];
             UIColor *color = [[self timer] thumb];
             const float* colors = CGColorGetComponents(color.CGColor);
-            NSLog(@"Row: %d, [UIColor colorWithRed:%f green:%f blue:%f alpha:1]", self.lastRow, colors[0], colors[1], colors[2]);
+            NSLog(@"Row: %d, [UIColor colorWithRed:%f green:%f blue:%f alpha:1]", self.row, colors[0], colors[1], colors[2]);
             UIColor *lightColor = [UIColor colorWithRed:colors[0]+0.1 green:colors[1]+0.1 blue:colors[2]+0.1 alpha:1];
             [[[self contentView] viewWithTag:10] setBackgroundColor:lightColor];
             [[[self contentView] viewWithTag:11] setBackgroundColor:lightColor];
@@ -530,20 +518,6 @@
     [UIView commitAnimations];
 }
 
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    UIImage *pickedImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-    if (pickedImage != nil) {
-        [self setThumb:[UIColor colorWithPatternImage:[CommonCLUtility imageWithImage:pickedImage scaledToSize:CGSizeMake(63, 80)]]];
-        [self setMiniThumb:[UIColor colorWithPatternImage:[CommonCLUtility imageWithImage:pickedImage scaledToSize:CGSizeMake(31.5, 40)]]];
-        [[self timer] setThumb:[self thumb]];
-        [[self timer] setMiniThumb:[self miniThumb]];
-        [[[self contentView] viewWithTag:3] setBackgroundColor:[self thumb]];
-    }
-
-    [[[self timesTable] navigationController] dismissViewControllerAnimated:YES completion:nil];
-}
-
 -(void) tick:(NSString *)time withLap:(NSInteger)lap
 {
     [self setTime:time];
@@ -566,7 +540,7 @@
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     self.timesTable.tableView.contentInset = UIEdgeInsetsMake(0, 0, 200, 0);
-    [self.timesTable.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.lastRow inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    [self.timesTable.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.row inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
     
 }
 

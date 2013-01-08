@@ -18,6 +18,7 @@
 
 @property UIColor *lastGeneratedColor;
 
+
 @end
 
 @implementation TimesViewController
@@ -182,7 +183,6 @@
 //    self.colorIndex = (self.colorIndex + 1) % 11;
     self.lastGeneratedColor = color;
     [newTimer setThumb:color];
-    [newTimer setMiniThumb:color];
     [newTimer setRow:numTimers-1];
     [[self timers] addObject:newTimer];
     [self.tableView reloadData];
@@ -231,16 +231,13 @@
 
     }
     [timerCell setTimesTable:self];
-    [timerCell setAllowEdit:YES];
-    [[timerCell timer] setDelegate:nil];
+    [timerCell.timer setDelegate:nil];
     [timer setDelegate:timerCell];
-    [timerCell setLastRow:[indexPath row]];
+    [timerCell setRow:indexPath.row];
     [timerCell setTimer:timer];
     [timerCell refresh];
     return timerCell;
 }
-
-#pragma mark - Table view delegate
 
 -(void) checkTimers
 {

@@ -47,7 +47,6 @@ typedef enum {
 @property TimerCell *delegate;
 
 @property UIColor *thumb;
-@property UIColor *miniThumb;
 
 @property FlagType flagType;
 @property AVAudioPlayer *timerClick;

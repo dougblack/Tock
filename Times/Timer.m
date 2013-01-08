@@ -32,12 +32,13 @@
 
 -(void) start
 {
-    
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"click_low" ofType:@"wav"];
-    NSURL *clickURL = [[NSURL alloc] initFileURLWithPath:path];
-    NSError *clickError = [NSError new];
-    self.timerClick = [[AVAudioPlayer alloc] initWithContentsOfURL:clickURL error:&clickError];
-    self.timerClick.volume = 0.4;
+
+//    // PLAY A SOUND ON START
+//    NSString *path = [[NSBundle mainBundle] pathForResource:@"click_low" ofType:@"wav"];
+//    NSURL *clickURL = [[NSURL alloc] initFileURLWithPath:path];
+//    NSError *clickError = [NSError new];
+//    self.timerClick = [[AVAudioPlayer alloc] initWithContentsOfURL:clickURL error:&clickError];
+//    self.timerClick.volume = 0.4;
 //    [self.timerClick play];
 
     [self setStartTime:[NSDate timeIntervalSinceReferenceDate]];
@@ -46,45 +47,41 @@
     {
         NSTimeInterval timeOfStart = [NSDate timeIntervalSinceReferenceDate];
         NSTimeInterval timeSinceLastStop = timeOfStart - [self timeOfLastStop];
-        [self setTimeDelta:[self currentTime]];
-        [self setCurrentLapDelta:timeSinceLastStop];
+        
+        self.timeDelta = self.currentTime;
+        self.currentLapDelta = timeSinceLastStop;
     } else {
-        [self setLastLapTime:[self startTime]];
-        [self setLaps:[NSMutableArray array]];
-        [self setLapStrings:[NSMutableArray array]];
+        self.lastLapTime = self.startTime;
+        self.laps = [NSMutableArray array];
+        self.lapStrings = [NSMutableArray array];
     }
-    
-    [self setStarted:YES];
-    [self setRunning:YES];
-    [self setStopped:NO];
-    [self setFlagType:FlagTypeGreen];
 
-//    [[self delegate] start];
+    self.started = YES;
+    self.running = YES;
+    self.stopped = NO;
+    self.flagType = FlagTypeGreen;
+
     [self updateTime];
 }
 
 -(void) updateTime
 {
-    if ([self running] == NO) {
+    if (self.running == NO) {
         return;
     }
     
+    // Schedule another update in 1 millisecond.
     [self performSelector:@selector(updateTime) withObject:self afterDelay:0.1];
     
     NSTimeInterval timeSinceStart = [NSDate timeIntervalSinceReferenceDate];
     NSTimeInterval elapsed = timeSinceStart - [self startTime] + [self timeDelta];
-    [self setCurrentTime:elapsed];
     
-    NSString* timeString = [Timer stringFromTimeInterval:elapsed];
+    self.current = elapsed;
     
-    [self setTimeString:timeString];
-    [[self delegate] tick:[self timeString] withLap:self.lapNumber];
-
-}
-
--(void) tick:(NSString *)time withLap:(NSInteger*)lap
-{
-    [self setTimeString:time];
+    NSString* newTimeString = [Timer stringFromTimeInterval:elapsed];
+    
+    self.timeString = newTimeString;
+    [self.delegate tick:newTimeString withLap:self.lapNumber];
 }
 
 -(void) lap
@@ -94,56 +91,43 @@
         return;
     }
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"lapClick" ofType:@"mp3"];
-    NSURL *clickURL = [[NSURL alloc] initFileURLWithPath:path];
-    NSError *clickError = [NSError new];
-    self.timerClick = [[AVAudioPlayer alloc] initWithContentsOfURL:clickURL error:&clickError];
-    self.timerClick.volume = 1.0;
-    self.timerClick.enableRate = YES;
-    self.timerClick.rate = 1.5;
-//    [self.timerClick play];
     NSTimeInterval currentTime = [NSDate timeIntervalSinceReferenceDate];
     NSTimeInterval elapsed = (currentTime - [self lastLapTime]) - [self currentLapDelta];
     
     NSString* thisLapString = [Timer stringFromTimeInterval:elapsed];
+    
+    // Add new values to appropriate arrays.
+    [self.lapStrings addObject:thisLapString];
     [self.laps addObject:[NSNumber numberWithDouble:elapsed]];
     [self.timesAtLaps addObject:[NSNumber numberWithDouble:[self currentTime]]];
-    [self setLastLapTime:currentTime];
-    [self setLastLapString:thisLapString];
-    [self.lapStrings addObject:thisLapString];
-    [self setLapNumber:self.lapNumber+1];
+    
+    self.lastLapTime = currentTime;
+    self.lastLapString = thisLapString;
+    self.lapNumber++;
     
     if ([self recentlyStopped])
     {
-        [self setCurrentLapDelta:0];
-        [self setRecentlyStopped:NO];
+        self.currentLapDelta = 0;
+        self.recentlyStopped = NO;
     }
     
     self.lapSum = self.lapSum + elapsed;
     self.avgLap = self.lapSum / [self.laps count];
-    [[self delegate] lastLapTimeChanged:self.lastLapString];
+    [self.delegate lastLapTimeChanged:thisLapString];
 }
 
 -(void) stop
 {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"ClickButton" ofType:@"wav"];
-    NSURL *clickURL = [[NSURL alloc] initFileURLWithPath:path];
-    NSError *clickError = [NSError new];
-    self.timerClick = [[AVAudioPlayer alloc] initWithContentsOfURL:clickURL error:&clickError];
-    self.timerClick.volume = 1.0;
-    self.timerClick.enableRate = YES;
-    self.timerClick.rate = 1.0;
-//    [self.timerClick play];
     NSTimeInterval currentTime = [NSDate timeIntervalSinceReferenceDate];
     NSTimeInterval elapsedSinceLastLap = currentTime - [self lastLapTime];
     
-    [self setRunning:NO];
-    [self setStopped:YES];
-    [self setRecentlyStopped:YES];
-    [self setCurrentLapDelta:elapsedSinceLastLap];
-    [self setTimeOfLastStop:[NSDate timeIntervalSinceReferenceDate]];
+    self.running = NO;
+    self.stopped = YES;
+    self.recentlyStopped = YES;
+    self.currentLapDelta = elapsedSinceLastLap;
+    self.timeOfLastStop = [NSDate timeIntervalSinceReferenceDate];
     
-    [self setFlagType:FlagTypeRed];
+    self.flagType = FlagTypeRed;
 }
 
 -(void) toggle
@@ -157,18 +141,18 @@
 
 -(void) reset
 {
-    [self setRunning:NO];
-    [self setStarted:NO];
-    [self setStopped:NO];
-    [self setTimeString:@"00:00.0"];
-    [self setLastLapString:@"--:--.-"];
-    [self setCurrentLapDelta:0];
-    [self setTimeDelta:0];
-    [self setLapNumber:1];
-    [self setLaps:[NSMutableArray array]];
-    [self setLapStrings:[NSMutableArray array]];
-    [self setTimeDelta:0];
-    [self setFlagType:FlagTypeNone];
+    self.running = NO;
+    self.started = NO;
+    self.stopped = NO;
+    self.timeString = @"00:00.0";
+    self.lastLapString = @"--:--.-";
+    self.currentLapDelta = 0;
+    self.timeDelta = 0;
+    self.lapNumber = 1;
+    self.laps = [NSMutableArray array];
+    self.lapStrings = [NSMutableArray array];
+    self.timeDelta = 0;
+    self.flagType = FlagTypeNone;
 }
 
 -(id) copyWithZone:(NSZone *)zone
@@ -213,13 +197,13 @@
     elapsed = elapsed - (secs);
     int tenths = elapsed * 10.0;
     elapsed = elapsed - tenths;
+    
     if (elapsed > 60)
         return [NSString stringWithFormat:@"%02u:%02u.%u", mins, secs,tenths];
     else if (elapsed >= 10)
         return [NSString stringWithFormat:@"%02u.%u", secs, tenths];
     else
         return [NSString stringWithFormat:@"%u.%u", secs, tenths];
-    
 }
 
 @end
