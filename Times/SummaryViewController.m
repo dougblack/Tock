@@ -64,7 +64,11 @@
                     double delta = lapDouble - previousLap;
                     [previousLapDeltas addObject:[NSNumber numberWithDouble:delta]];
                 }
-                [goalLapDeltas addObject:[NSNumber numberWithDouble:(lapDouble-goal)]];
+                if (goal != -1)
+                    [goalLapDeltas addObject:[NSNumber numberWithDouble:(lapDouble-goal)]];
+                else
+                    [goalLapDeltas addObject:[NSNull null]];
+                
                 [avgLapDeltas addObject:[NSNumber numberWithDouble:(lapDouble-avg)]];
                 previousLap = lapDouble;
             }
@@ -122,11 +126,11 @@
         if ([[control.subviews objectAtIndex:i] isSelected] )
         {
             if (i == 0)
-                self.deltaType = DeltaFromPreviousLap;
+                self.deltaType = DeltaFromAverageLap;
             else if (i == 1)
                 self.deltaType = DeltaFromGoalLap;
             else if (i == 2)
-                self.deltaType = DeltaFromAverageLap;
+                self.deltaType = DeltaFromPreviousLap;
             
             UIColor *tintcolor=[UIColor redColor];
             [[control.subviews objectAtIndex:i] setTintColor:tintcolor];
@@ -199,8 +203,14 @@
             header = [[SummaryHeaderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:HeaderCellIdentifier andTimer:timer];
         }
         [header setTime:[timer timeString]];
-        [header setAvg:[Timer stringFromTimeInterval:[timer avgLap]]];
-        [header setGoal:@"---"];
+        if ([timer avgLap] != 0)
+            [header setAvg:[Timer stringFromTimeInterval:[timer avgLap]]];
+        else
+            [header setAvg:@"---"];
+        if ([timer goalLap] != -1)
+            [header setGoal:[Timer stringFromTimeInterval:[timer goalLap]]];
+        else
+            [header setGoal:@"---"];
         [header setTimer:timer];
         [header refresh];
         return header;
@@ -272,9 +282,20 @@
         {
             NSMutableArray *goalLapDeltas = [timerDict objectForKey:@"Goal"];
             NSNumber *delta = [goalLapDeltas objectAtIndex:indexPath.row-1];
-            NSString *deltaString = [self stringForDelta:delta];
-            DeltaColor deltaColor = [self colorForDeltaString:deltaString];
+            NSString* deltaString;
+            DeltaColor deltaColor;
+            if (delta != [NSNull null])
+            {
+                deltaString = [self stringForDelta:delta];
+                deltaColor = [self colorForDeltaString:deltaString];
+            } else
+            {
+                deltaString = @"---";
+                deltaColor = DeltaIsGray;
+            }
+            
             [summaryCell setLapDelta:deltaString];
+            [summaryCell setDeltaColor:deltaColor];
             summaryCell.lapDeltaLabel.hidden = NO;
             break;
         }

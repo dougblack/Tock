@@ -43,6 +43,7 @@
         self.timeString = @"00:00.0";
         self.lastLapString = @"--:--.-";
         self.name = @"TIMER";
+        self.goalLap = -1;
     }
     return self;
 }

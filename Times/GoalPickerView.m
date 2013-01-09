@@ -69,6 +69,7 @@
         UIButton *setButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 226, 300, 54)];
         [setButton setTitle:@"LOCK GOAL PACE" forState:UIControlStateNormal];
         [setButton setBackgroundColor:[UIColor colorWithRed:0.52 green:0 blue:0.08 alpha:1]];
+        [setButton setBackgroundImage:[CommonCLUtility imageFromColor:[UIColor colorWithRed:0.32 green:0 blue:0 alpha:1]] forState:UIControlStateHighlighted];
         setButton.titleLabel.font = [UIFont boldSystemFontOfSize:15];
         [setButton addTarget:self action:@selector(setGoalPace) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:setButton];

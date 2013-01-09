@@ -35,7 +35,7 @@
 -(void)refresh
 {
     UIColor *textColor = [UIColor whiteColor];
-    UIFont *textFont = [UIFont boldSystemFontOfSize:17];
+    UIFont *textFont = [UIFont boldSystemFontOfSize:15];
     UIFont *smallTextFont = [UIFont boldSystemFontOfSize:11];
     
     UILabel *currentTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 80, 40)];
@@ -43,6 +43,7 @@
     [currentTimeLabel setFont:textFont];
     [currentTimeLabel setTextAlignment:NSTextAlignmentCenter];
     [currentTimeLabel setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
+    currentTimeLabel.numberOfLines = 2;
     currentTimeLabel.adjustsFontSizeToFitWidth = YES;
     self.currentTimeLabel = currentTimeLabel;
     [self.contentView addSubview:currentTimeLabel];
@@ -53,6 +54,7 @@
     [averageLapLabel setTextAlignment:NSTextAlignmentCenter];
     [averageLapLabel setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
     averageLapLabel.adjustsFontSizeToFitWidth = YES;
+    averageLapLabel.numberOfLines = 2;
     self.averageTimeLabel = averageLapLabel;
     [self.contentView addSubview:averageLapLabel];
     
@@ -62,6 +64,7 @@
     [goalLapLabel setTextAlignment:NSTextAlignmentCenter];
     [goalLapLabel setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
     goalLapLabel.adjustsFontSizeToFitWidth = YES;
+    goalLapLabel.numberOfLines = 2;
     self.goalLapLabel = goalLapLabel;
     [self.contentView addSubview:goalLapLabel];
     [self.contentView setBackgroundColor:self.timer.thumb];
@@ -69,9 +72,9 @@
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.opaque = YES;
-    self.currentTimeLabel.text = self.time;
-    self.averageTimeLabel.text = self.avg;
-    self.goalLapLabel.text = [Timer stringFromTimeInterval:self.timer.goalLap];
+    self.currentTimeLabel.text = [@"TOTAL\n" stringByAppendingString:self.time];
+    self.averageTimeLabel.text = [@"AVG\n" stringByAppendingString:self.avg];
+    self.goalLapLabel.text = [@"GOAL\n" stringByAppendingString:self.goal];
     [self.contentView setBackgroundColor:self.timer.thumb];
 }
 
