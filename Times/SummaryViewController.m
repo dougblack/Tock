@@ -261,7 +261,10 @@
 
             NSMutableArray *avgLapDeltas = [timerDict objectForKey:@"Avg"];
             NSNumber *delta = [avgLapDeltas objectAtIndex:indexPath.row-1];
-            [summaryCell setLapDelta:[delta stringValue]];
+            NSString *deltaString = [self stringForDelta:delta];
+            DeltaColor deltaColor = [self colorForDeltaString:deltaString];
+            [summaryCell setDeltaColor:deltaColor];
+            [summaryCell setLapDelta:deltaString];
             summaryCell.lapDeltaLabel.hidden = NO;
             break;
         }
@@ -269,7 +272,9 @@
         {
             NSMutableArray *goalLapDeltas = [timerDict objectForKey:@"Goal"];
             NSNumber *delta = [goalLapDeltas objectAtIndex:indexPath.row-1];
-            [summaryCell setLapDelta:[delta stringValue]];
+            NSString *deltaString = [self stringForDelta:delta];
+            DeltaColor deltaColor = [self colorForDeltaString:deltaString];
+            [summaryCell setLapDelta:deltaString];
             summaryCell.lapDeltaLabel.hidden = NO;
             break;
         }
@@ -287,6 +292,31 @@
     summaryCell.timer = timer;
     [summaryCell refresh];
     return summaryCell;
+}
+
+-(DeltaColor) colorForDeltaString:(NSString*)deltaString
+{
+    if ([deltaString characterAtIndex:0] == '+')
+        return DeltaIsRed;
+    else if ([deltaString characterAtIndex:0] == '-')
+        return DeltaIsGreen;
+    else
+        return DeltaIsGray;
+}
+
+-(NSString*)stringForDelta:(NSNumber*)delta
+{
+    if ([[NSString stringWithFormat:@"%.1f", [delta doubleValue]] isEqualToString:@"0.0"])
+    {
+        return @"0.0";
+    } else if ([delta doubleValue] > 0)
+    {
+        return [NSString stringWithFormat:@"+%.1f", [delta doubleValue]];
+    } else
+    {
+        return [NSString stringWithFormat:@"%.1f", [delta doubleValue]];
+    }
+        
 }
 
 -(void)tapped:(UITapGestureRecognizer*)recognizer

@@ -71,7 +71,7 @@
     self.opaque = YES;
     self.currentTimeLabel.text = self.time;
     self.averageTimeLabel.text = self.avg;
-    self.goalLapLabel.text = self.goal;
+    self.goalLapLabel.text = [Timer stringFromTimeInterval:self.timer.goalLap];
     [self.contentView setBackgroundColor:self.timer.thumb];
 }
 
