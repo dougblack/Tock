@@ -52,9 +52,9 @@
         [self.navigationItem setRightBarButtonItem:addButton];
         self.lastGeneratedColor = nil;
         
-        // 40 - .15
+        // 40  - .15
         // 120 - .47
-        // 240 -.94
+        // 240 - .94
         self.colors = [NSArray arrayWithObjects:
                        [UIColor colorWithRed:0.94 green:0.94 blue:0.15 alpha:1],
                        [UIColor colorWithRed:0.94 green:0.15 blue:0.15 alpha:1],
@@ -268,6 +268,7 @@
 {
     for (Timer* timer in [self timers])
     {
+        [timer.delegate highlightAll:[[UIView alloc] init] withDuration:0.0 andWait:0.0];
         [timer start];
     }
 

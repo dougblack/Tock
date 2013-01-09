@@ -29,5 +29,5 @@
 -(void) lastLapTimeChanged:(NSString*)lastLap;
 -(void) refresh;
 -(void) showFlash:(NSString*)flashString;
-
+-(void)highlightAll:(UIView *)view withDuration:(NSTimeInterval)duration andWait:(NSTimeInterval)wait;
 @end

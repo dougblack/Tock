@@ -482,7 +482,7 @@
 {
 
     [UIView beginAnimations:@"Fade Out" context:nil];
-    [UIView setAnimationDelay:wait];
+    [UIView setAnimationDelay:0];
     [UIView setAnimationDuration:0.25];
     
     // Flag type is about to switch so check against previous type
