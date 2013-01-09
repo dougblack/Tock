@@ -140,7 +140,9 @@
 {
     [super viewDidLoad];
     int viewHeight = 44;
-    TimesTableView *timesTableView = [[TimesTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
+    int navBarHeight = self.navigationController.navigationBar.frame.size.height;
+    
+    TimesTableView *timesTableView = [[TimesTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-navBarHeight) style:UITableViewStylePlain];
     [timesTableView registerClass:[TimerCell class] forCellReuseIdentifier:@"Cell"];
     [timesTableView setRowHeight:95];
     [timesTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];

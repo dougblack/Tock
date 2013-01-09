@@ -13,6 +13,9 @@
 
 @property TimesViewController *timesViewController;
 
+@property NSMutableArray *settingNames;
+@property NSMutableArray *settingType;
+
 @property UITableView *tableView;
 
 -(void)saveAndClose;

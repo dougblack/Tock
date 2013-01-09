@@ -8,9 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    SettingTypeSwitch,
+    SettingTypeSelectable
+} SettingType;
+
 @interface SettingsCell : UITableViewCell
 
 @property NSString* settingName;
+@property SettingType settingType;
 
 -(void)refresh;
 

@@ -38,7 +38,6 @@
 		912CB5A6169B47CD00A76138 /* debut_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 91C410021688E07400092BF8 /* debut_light.png */; };
 		912CB5A7169B47CD00A76138 /* concrete_wall.png in Resources */ = {isa = PBXBuildFile; fileRef = 91C410051688E87300092BF8 /* concrete_wall.png */; };
 		912CB5A8169B47CD00A76138 /* darkdenim3.png in Resources */ = {isa = PBXBuildFile; fileRef = 91C410071688E88100092BF8 /* darkdenim3.png */; };
-		912CB5A9169B47CD00A76138 /* NavBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 914CD59B1691113C0087C263 /* NavBar.png */; };
 		913103BD16968B580064406A /* SummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 913103BC16968B580064406A /* SummaryViewController.m */; };
 		913103C016968B790064406A /* SummaryTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 913103BF16968B780064406A /* SummaryTableView.m */; };
 		913103C316968D520064406A /* SummaryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 913103C216968D520064406A /* SummaryCell.m */; };
@@ -66,7 +65,6 @@
 		913A11BB169E146800FBADC8 /* SettingsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 913A11BA169E146800FBADC8 /* SettingsCell.m */; };
 		914BD5F1168CF9D10068BFC4 /* TimesTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 914BD5F0168CF9D10068BFC4 /* TimesTableView.m */; };
 		914CD591168E667E0087C263 /* CommonCLUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 914CD590168E667E0087C263 /* CommonCLUtility.m */; };
-		914CD59C1691113C0087C263 /* NavBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 914CD59B1691113C0087C263 /* NavBar.png */; };
 		914CD59F1691343E0087C263 /* LapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 914CD59E1691343E0087C263 /* LapViewController.m */; };
 		914CD5A51691357E0087C263 /* LapTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 914CD5A41691357E0087C263 /* LapTableView.m */; };
 		914CD5A81691359B0087C263 /* LapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 914CD5A71691359B0087C263 /* LapCell.m */; };
@@ -135,7 +133,6 @@
 		914BD5F0168CF9D10068BFC4 /* TimesTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimesTableView.m; sourceTree = "<group>"; };
 		914CD58F168E667E0087C263 /* CommonCLUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonCLUtility.h; sourceTree = "<group>"; };
 		914CD590168E667E0087C263 /* CommonCLUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonCLUtility.m; sourceTree = "<group>"; };
-		914CD59B1691113C0087C263 /* NavBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NavBar.png; path = ../../../../Desktop/NavBar.png; sourceTree = "<group>"; };
 		914CD59D1691343E0087C263 /* LapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LapViewController.h; sourceTree = "<group>"; };
 		914CD59E1691343E0087C263 /* LapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LapViewController.m; sourceTree = "<group>"; };
 		914CD5A31691357E0087C263 /* LapTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LapTableView.h; sourceTree = "<group>"; };
@@ -243,7 +240,6 @@
 				913A1195169CE0F400FBADC8 /* stop.wav */,
 				913A1199169CE22B00FBADC8 /* stop3.wav */,
 				913A1197169CE22100FBADC8 /* stop2.wav */,
-				914CD59B1691113C0087C263 /* NavBar.png */,
 				913A116D169B70EB00FBADC8 /* ClickButton.wav */,
 				913A117A169BAF7500FBADC8 /* nav_click2.mp3 */,
 				913A1176169BA84500FBADC8 /* lap_click.mp3 */,
@@ -464,7 +460,6 @@
 				912CB5A6169B47CD00A76138 /* debut_light.png in Resources */,
 				912CB5A7169B47CD00A76138 /* concrete_wall.png in Resources */,
 				912CB5A8169B47CD00A76138 /* darkdenim3.png in Resources */,
-				912CB5A9169B47CD00A76138 /* NavBar.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,7 +475,6 @@
 				91C410041688E07400092BF8 /* debut_light.png in Resources */,
 				91C410061688E87300092BF8 /* concrete_wall.png in Resources */,
 				91C410081688E88100092BF8 /* darkdenim3.png in Resources */,
-				914CD59C1691113C0087C263 /* NavBar.png in Resources */,
 				913A116E169B70EC00FBADC8 /* ClickButton.wav in Resources */,
 				913A1175169BA6ED00FBADC8 /* nav_click.mp3 in Resources */,
 				913A1177169BA84500FBADC8 /* lap_click.mp3 in Resources */,

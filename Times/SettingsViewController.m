@@ -30,7 +30,9 @@
         [navBarLabel setTextAlignment:NSTextAlignmentCenter];
         [navBarLabel setTextColor:[UIColor whiteColor]];
         [self.navigationItem setTitleView:navBarLabel];
-        
+        self.settingNames = [NSMutableArray arrayWithObjects:@"Show Laps", @"Order Timers by Lap", @"Show Time Since Last Lap", nil];
+        NSNumber *settingTypeSwitch = [NSNumber numberWithInt:SettingTypeSwitch];
+        self.settingType = [NSMutableArray arrayWithObjects:settingTypeSwitch, settingTypeSwitch, settingTypeSwitch, nil];
     }
     return self;
 }
@@ -72,12 +74,12 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 59;
+    return 49;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return self.settingNames.count;
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -91,7 +93,8 @@
     {
         settingsCell = [[SettingsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:SettingsCellIdentifier];
     }
-    settingsCell.settingName = @"Show Laps";
+    settingsCell.settingName = [self.settingNames objectAtIndex:indexPath.row];
+    settingsCell.settingType = [[self.settingType objectAtIndex:indexPath.row] intValue];
     settingsCell.selectionStyle = UITableViewCellSeparatorStyleNone;
     [settingsCell refresh];
     
