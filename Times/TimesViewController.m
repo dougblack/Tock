@@ -15,6 +15,23 @@
 #import "Timer.h"
 #import "TockSoundPlayer.h"
 #import "GoalPickerView.h"
+#import "SettingsViewController.h"
+
+
+@interface BottomToolBar : UIToolbar
+
+@end
+
+@implementation BottomToolBar
+
+- (void)drawRect:(CGRect)rect {
+    UIColor *colorTabBlack = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1];
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColor(context, CGColorGetComponents( [colorTabBlack CGColor]));
+    CGContextFillRect(context, rect);
+}
+
+@end
 
 @interface TimesViewController ()
 
@@ -50,6 +67,8 @@
         UIBarButtonItem *summaryButton = [[UIBarButtonItem alloc] initWithTitle:@"Summary" style:UIBarButtonItemStylePlain target:self action:@selector(openSummary)];
         [self.navigationItem setLeftBarButtonItem:summaryButton];
         [self.navigationItem setRightBarButtonItem:addButton];
+//        [self.navigationController setToolbarHidden:NO];
+//        self.navigationController.toolbarItems = [NSArray arrayWithObjects:addButton, nil];
         self.lastGeneratedColor = nil;
         
         // 40  - .15
@@ -85,11 +104,27 @@
     SummaryViewController *summaryViewController = [[SummaryViewController alloc] initWithTimers:[self timers]];
     [summaryViewController setDeltaType:DeltaFromPreviousLap];
     [summaryViewController setTimesViewController:self];
-    UINavigationController *summaryController = [[UINavigationController alloc] initWithRootViewController:summaryViewController];
-    [summaryController.navigationBar setTintColor:[UIColor colorWithRed:0.05 green:0.05 blue:0.05 alpha:1]];
+    UINavigationController *summaryNavigationController = [[UINavigationController alloc] initWithRootViewController:summaryViewController];
+    [summaryNavigationController.navigationBar setTintColor:[UIColor colorWithRed:0.05 green:0.05 blue:0.05 alpha:1]];
     [summaryViewController.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:summaryViewController action:@selector(back)]];
-    [self.navigationController presentViewController:summaryController animated:YES completion:nil];
+    [self.navigationController presentViewController:summaryNavigationController animated:YES completion:nil];
 
+}
+
+-(void)openSettings
+{
+    SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
+    settingsViewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    settingsViewController.timesViewController = self;
+    
+    UINavigationController *settingsNavigationController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
+    [settingsNavigationController.navigationBar setTintColor:[UIColor colorWithRed:0.05 green:0.05 blue:0.05 alpha:1]];
+    
+    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:settingsViewController action:@selector(saveAndClose)];
+    saveButton.tintColor =[UIColor colorWithRed:0.3 green:0.0 blue:0.8 alpha:1];
+    
+    [settingsViewController.navigationItem setRightBarButtonItem:saveButton];
+    [self.navigationController presentViewController:settingsNavigationController animated:YES completion:nil];
 }
 
 -(void)loadView
@@ -104,8 +139,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    int viewHeight = 74;
-    TimesTableView *timesTableView = [[TimesTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-viewHeight) style:UITableViewStylePlain];
+    int viewHeight = 44;
+    TimesTableView *timesTableView = [[TimesTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
     [timesTableView registerClass:[TimerCell class] forCellReuseIdentifier:@"Cell"];
     [timesTableView setRowHeight:95];
     [timesTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -114,11 +149,25 @@
     [self setTableView:timesTableView];
     [self.view addSubview:timesTableView];
     
-    BottomActionView *bottom = [[BottomActionView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-viewHeight, self.view.frame.size.width, viewHeight)];
-    [bottom setController:self];
-    [self setBottomActionView:bottom];
-    [self.view addSubview:bottom];
-    [self.view setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
+    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-viewHeight, self.view.frame.size.width, viewHeight)];
+
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(newTimer)];
+    UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] init];
+    [settingsButton setAction:@selector(openSettings)];
+    [settingsButton setTarget:self];
+    settingsButton.title = @"\u2699";
+    UIFont *f1 = [UIFont fontWithName:@"Helvetica" size:24.0];
+    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:f1, UITextAttributeFont, nil];
+    [settingsButton setTitleTextAttributes:dict forState:UIControlStateNormal];
+    [toolbar setTintColor:[UIColor blackColor]];
+    UIBarButtonItem *startAllButton = [[UIBarButtonItem alloc] initWithTitle:@"START ALL" style:UIBarButtonItemStylePlain target:self action:@selector(startAll)];
+    [startAllButton setTintColor:[UIColor colorWithRed:0.0 green:0.8 blue:0.3 alpha:1]];
+    [startAllButton setBackgroundImage:[CommonCLUtility imageFromColor:[UIColor colorWithRed:0 green:0.8 blue:0.3 alpha:1]] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    
+    NSArray *toolBarItems = [NSArray arrayWithObjects:startAllButton, flexibleSpace, settingsButton, nil];
+    [toolbar setItems:toolBarItems];
+    [self.view addSubview:toolbar];
     
     GoalPickerView *goalPickerView = [[GoalPickerView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height+291, self.view.frame.size.width, 291)];
     goalPickerView.controller = self;
@@ -161,23 +210,23 @@
 
 -(void)hideBottomView
 {
-    [[self tableView] setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDelay:0];
-    [UIView setAnimationDuration:0.3];
-    [self.bottomActionView setFrame:CGRectMake(0, self.view.frame.size.height+74, self.view.frame.size.width, self.bottomActionView.frame.size.height)];
-    [UIView commitAnimations];
+//    [[self tableView] setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+//    [UIView beginAnimations:nil context:nil];
+//    [UIView setAnimationDelay:0];
+//    [UIView setAnimationDuration:0.3];
+//    [self.bottomActionView setFrame:CGRectMake(0, self.view.frame.size.height+74, self.view.frame.size.width, self.bottomActionView.frame.size.height)];
+//    [UIView commitAnimations];
 }
 
 -(void)showBottomView
 {
 
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDelay:0];
-    [UIView setAnimationDuration:0.3];
-    [self.bottomActionView setFrame:CGRectMake(0, self.view.frame.size.height-74, self.view.frame.size.width, self.bottomActionView.frame.size.height)];
-    [[self tableView] setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-74)];
-    [UIView commitAnimations];
+//    [UIView beginAnimations:nil context:nil];
+//    [UIView setAnimationDelay:0];
+//    [UIView setAnimationDuration:0.3];
+//    [self.bottomActionView setFrame:CGRectMake(0, self.view.frame.size.height-74, self.view.frame.size.width, self.bottomActionView.frame.size.height)];
+//    [[self tableView] setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-74)];
+//    [UIView commitAnimations];
 }
 
 
@@ -276,3 +325,5 @@
 }
 
 @end
+
+

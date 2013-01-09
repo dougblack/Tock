@@ -19,7 +19,7 @@
 
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:timesTable];
     [navigationController.navigationBar setTintColor:[UIColor colorWithRed:0.05 green:0.05 blue:0.05 alpha:1]];
-    self.navigationController = navigationController;
+    [self setNavigationController:navigationController];
     [self.window setRootViewController:self.navigationController];
     [self.window addSubview:self.navigationController.view];
     [self.window makeKeyAndVisible];
