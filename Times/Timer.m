@@ -168,6 +168,13 @@
     self.flagType = FlagTypeNone;
 }
 
+
+-(void)calculateGoalPaceFromMinutes:(NSInteger)minutes andSeconds:(NSInteger)seconds andTenths:(NSInteger)tenths
+{
+    NSTimeInterval goalTime = (tenths / 10.0) + (seconds) + (minutes*60.0);
+    self.goalLap = goalTime;
+}
+
 #pragma mark - copy methods
 
 -(id) copyWithZone:(NSZone *)zone

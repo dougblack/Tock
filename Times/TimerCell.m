@@ -12,13 +12,16 @@
 #import "TimesTableView.h"
 #import "LapViewController.h"
 #import "CommonCLUtility.h"
-#import "TimerSettingViewController.h"
 #import "TockSoundPlayer.h"
 
 @interface TimerCell ()
 
 @property (nonatomic) UITextField *timerName;
 @property (nonatomic) UILabel *deleteButton;
+@property (nonatomic) UILabel *lapLabel;
+@property (nonatomic) UILabel *timeLabel;
+@property (nonatomic) UILabel *lapNumberLabel;
+@property (nonatomic) UILabel *flashLabel;
 
 @property (nonatomic) BOOL isInDeleteMode;
 
@@ -136,6 +139,7 @@
         [timeLabel setTextAlignment:NSTextAlignmentCenter];
         [timeLabel setTag:1];
         [timeLabel setUserInteractionEnabled:NO];
+        self.timeLabel = timeLabel;
         [self.contentView addSubview:timeLabel];
         [self.movableViews addObject:timeLabel];
         
@@ -149,6 +153,7 @@
         [lastLapLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:15]];
         [lastLapLabel setTextAlignment:NSTextAlignmentCenter];
         [lastLapLabel setTag:6];
+        self.lapLabel = lastLapLabel;
         [self.contentView addSubview:lastLapLabel];
         [self.movableViews addObject:lastLapLabel];
         
@@ -163,6 +168,7 @@
         [lapLabel setTextAlignment:NSTextAlignmentCenter];
         [lapLabel setTag:2];
         [lapLabel setAdjustsFontSizeToFitWidth:YES];
+        [lapLabel setNumberOfLines:1];
         [self.contentView addSubview:lapLabel];
         [self.movableViews addObject:lapLabel];
         
@@ -177,6 +183,18 @@
         [lapTextLabel setTextAlignment:NSTextAlignmentCenter];
         [self.contentView addSubview:lapTextLabel];
         [self.movableViews addObject:lapTextLabel];
+        
+        UILabel *flashLabel = [[UILabel alloc] initWithFrame:CGRectMake(77, 20, 166, 59)];
+        [flashLabel setTextColor:[UIColor redColor]];
+        [flashLabel setText:@"GOAL TIME SET"];
+        [flashLabel setFont:[UIFont boldSystemFontOfSize:20]];
+        [flashLabel setBackgroundColor:[UIColor clearColor]];
+        [flashLabel setTextAlignment:NSTextAlignmentCenter];
+        [flashLabel setAdjustsFontSizeToFitWidth:YES];
+        [flashLabel setNumberOfLines:1];
+        flashLabel.alpha = 0.0;
+        self.flashLabel = flashLabel;
+        [self.contentView addSubview:flashLabel];
         
         UITextField *timerName = [[UITextField alloc] initWithFrame:CGRectMake(10, 10, 63, 30)];
         [timerName setTextColor:[UIColor whiteColor]];
@@ -196,6 +214,24 @@
 
     }
     return self;
+}
+
+-(void)showFlash:(NSString*)flashString;
+{
+    self.flashLabel.text = flashString;
+    
+    self.lapLabel.alpha = 0.0;
+    self.timeLabel.alpha = 0.0;
+    self.flashLabel.alpha = 1.0;
+    
+    [UIView beginAnimations:@"HIDE" context:nil];
+    [UIView setAnimationDelay:2.0];
+    [UIView setAnimationDuration:1.0];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    self.lapLabel.alpha = 1.0;
+    self.timeLabel.alpha = 1.0;
+    self.flashLabel.alpha = 0.0;
+    [UIView commitAnimations];
 }
 
 -(void)splitTimer:(UITapGestureRecognizer*)sender
@@ -275,20 +311,17 @@
         }
         
         int tag = senderView.tag;
-        UIColor *color = [self.timer thumb];
-        const float* colors = CGColorGetComponents(color.CGColor);
-        UIColor *lightColor = [UIColor colorWithRed:colors[0]+0.3 green:colors[1]+0.3 blue:colors[2]+0.3 alpha:1];
-        senderView.backgroundColor = lightColor;
+        if (tag != 3)
+        {
+            UIColor *color = [self.timer thumb];
+            const float* colors = CGColorGetComponents(color.CGColor);
+            UIColor *lightColor = [UIColor colorWithRed:colors[0]+0.3 green:colors[1]+0.3 blue:colors[2]+0.3 alpha:1];
+            senderView.backgroundColor = lightColor;
+        }
         switch (tag) {
             case 3:
             {
-//                [self highlight:senderView withDuration:0.5 andWait:0];
-                TimerSettingViewController *settingsController = [TimerSettingViewController new];
-                UINavigationController *settingsNavController = [[UINavigationController alloc] initWithRootViewController:settingsController];
-                [settingsNavController.navigationBar setTintColor:[UIColor colorWithRed:0.05 green:0.05 blue:0.05 alpha:1]];
-                [settingsController.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:settingsController action:@selector(back)]];
-                [settingsController setSuperController:self.timesTable.navigationController];
-                [[[self timesTable] navigationController] presentViewController:settingsNavController animated:YES completion:nil];
+                [self.timesTable showPickerViewForTimer:self.timer];
                 break;
             }// thumb
             case 4: // time

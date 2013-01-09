@@ -38,11 +38,13 @@ typedef enum {
 @property (nonatomic) TimerCell *delegate;
 
 @property (nonatomic) UIColor *thumb;
-
+ 
 @property (nonatomic) FlagType flagType;
 @property (nonatomic) AVAudioPlayer *timerClick;
 
 +(NSString*)stringFromTimeInterval:(NSTimeInterval)timeInterval;
+
+-(void)calculateGoalPaceFromMinutes:(NSInteger)minutes andSeconds:(NSInteger)seconds andTenths:(NSInteger)tenths;
 
 -(void)toggle;
 -(void)start;

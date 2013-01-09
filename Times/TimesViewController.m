@@ -14,6 +14,7 @@
 #import "CommonCLUtility.h"
 #import "Timer.h"
 #import "TockSoundPlayer.h"
+#import "GoalPickerView.h"
 
 @interface TimesViewController ()
 
@@ -51,7 +52,6 @@
         [self.navigationItem setRightBarButtonItem:addButton];
         self.lastGeneratedColor = nil;
         
-        
         // 40 - .15
         // 120 - .47
         // 240 -.94
@@ -74,6 +74,7 @@
         [self newTimer];
         [self newTimer];
         self.allowSound = YES;
+        self.isShowingGoalPicker = NO;
     }
     return self;
 }
@@ -119,6 +120,10 @@
     [self.view addSubview:bottom];
     [self.view setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
     
+    GoalPickerView *goalPickerView = [[GoalPickerView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height+291, self.view.frame.size.width, 291)];
+    goalPickerView.controller = self;
+    self.goalPickerView = goalPickerView;
+    [self.view addSubview:goalPickerView];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -128,6 +133,30 @@
     [self.tableView setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
     [self.tableView reloadData];
     
+}
+
+-(void)showPickerViewForTimer:(Timer*)timer;
+{
+    [self hideBottomView];
+    
+    self.goalPickerView.timer = timer;
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDelay:0];
+    [UIView setAnimationDuration:0.3];
+    [self.goalPickerView setFrame:CGRectMake(0, self.view.frame.size.height-291, self.view.frame.size.width, self.goalPickerView.frame.size.height)];
+    [UIView commitAnimations];
+    self.isShowingGoalPicker = YES;
+}
+
+-(void)hidePickerView
+{
+    [self checkTimers];
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDelay:0];
+    [UIView setAnimationDuration:0.3];
+    [self.goalPickerView setFrame:CGRectMake(0, self.view.frame.size.height+291, self.view.frame.size.width, self.goalPickerView.frame.size.height)];
+    [UIView commitAnimations];
+    self.isShowingGoalPicker = YES;
 }
 
 -(void)hideBottomView

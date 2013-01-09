@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		912648F41693B1DD004D552F /* BottomActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 912648F31693B1DD004D552F /* BottomActionView.m */; };
-		912CB582169A7A6000A76138 /* TimerSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 912CB581169A7A6000A76138 /* TimerSettingViewController.m */; };
 		912CB587169B47CD00A76138 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 91C40FA81687F7EE00092BF8 /* main.m */; };
 		912CB588169B47CD00A76138 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 91C40FAC1687F7EE00092BF8 /* AppDelegate.m */; };
 		912CB589169B47CD00A76138 /* TimesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91C40FF61688010400092BF8 /* TimesViewController.m */; };
@@ -27,7 +26,6 @@
 		912CB597169B47CD00A76138 /* SummaryHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E05C671698B59000FE4A3B /* SummaryHeaderView.m */; };
 		912CB598169B47CD00A76138 /* NoLapsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E05C6A1698C49700FE4A3B /* NoLapsCell.m */; };
 		912CB599169B47CD00A76138 /* SummaryHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9155E041169A184F00425B22 /* SummaryHeaderCell.m */; };
-		912CB59A169B47CD00A76138 /* TimerSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 912CB581169A7A6000A76138 /* TimerSettingViewController.m */; };
 		912CB59C169B47CD00A76138 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91E1A545168B45C30026DF49 /* QuartzCore.framework */; };
 		912CB59D169B47CD00A76138 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91C40F9C1687F7EE00092BF8 /* UIKit.framework */; };
 		912CB59E169B47CD00A76138 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91C40F9E1687F7EE00092BF8 /* Foundation.framework */; };
@@ -61,6 +59,7 @@
 		913A119C169CE4CD00FBADC8 /* stop4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 913A119B169CE4CD00FBADC8 /* stop4.wav */; };
 		913A119E169CE54400FBADC8 /* start2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 913A119D169CE54400FBADC8 /* start2.wav */; };
 		913A11A0169CE5BE00FBADC8 /* lap.wav in Resources */ = {isa = PBXBuildFile; fileRef = 913A119F169CE5BE00FBADC8 /* lap.wav */; };
+		913A11A3169D095500FBADC8 /* GoalPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 913A11A2169D095500FBADC8 /* GoalPickerView.m */; };
 		914BD5F1168CF9D10068BFC4 /* TimesTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 914BD5F0168CF9D10068BFC4 /* TimesTableView.m */; };
 		914CD591168E667E0087C263 /* CommonCLUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 914CD590168E667E0087C263 /* CommonCLUtility.m */; };
 		914CD59C1691113C0087C263 /* NavBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 914CD59B1691113C0087C263 /* NavBar.png */; };
@@ -93,8 +92,6 @@
 /* Begin PBXFileReference section */
 		912648F21693B1DD004D552F /* BottomActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomActionView.h; sourceTree = "<group>"; };
 		912648F31693B1DD004D552F /* BottomActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomActionView.m; sourceTree = "<group>"; };
-		912CB580169A7A6000A76138 /* TimerSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimerSettingViewController.h; sourceTree = "<group>"; };
-		912CB581169A7A6000A76138 /* TimerSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimerSettingViewController.m; sourceTree = "<group>"; };
 		912CB5AD169B47CD00A76138 /* Tock-iPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tock-iPad.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		912CB5B0169B47CE00A76138 /* Tock copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tock copy-Info.plist"; sourceTree = "<group>"; };
 		913103BB16968B580064406A /* SummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SummaryViewController.h; sourceTree = "<group>"; };
@@ -122,6 +119,8 @@
 		913A119B169CE4CD00FBADC8 /* stop4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = stop4.wav; sourceTree = "<group>"; };
 		913A119D169CE54400FBADC8 /* start2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = start2.wav; sourceTree = "<group>"; };
 		913A119F169CE5BE00FBADC8 /* lap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = lap.wav; sourceTree = "<group>"; };
+		913A11A1169D095500FBADC8 /* GoalPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoalPickerView.h; sourceTree = "<group>"; };
+		913A11A2169D095500FBADC8 /* GoalPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoalPickerView.m; sourceTree = "<group>"; };
 		914BD5EF168CF9D10068BFC4 /* TimesTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimesTableView.h; sourceTree = "<group>"; };
 		914BD5F0168CF9D10068BFC4 /* TimesTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimesTableView.m; sourceTree = "<group>"; };
 		914CD58F168E667E0087C263 /* CommonCLUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonCLUtility.h; sourceTree = "<group>"; };
@@ -203,8 +202,6 @@
 				914CD59E1691343E0087C263 /* LapViewController.m */,
 				913103BB16968B580064406A /* SummaryViewController.h */,
 				913103BC16968B580064406A /* SummaryViewController.m */,
-				912CB580169A7A6000A76138 /* TimerSettingViewController.h */,
-				912CB581169A7A6000A76138 /* TimerSettingViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -269,6 +266,8 @@
 				913103BF16968B780064406A /* SummaryTableView.m */,
 				91E05C661698B59000FE4A3B /* SummaryHeaderView.h */,
 				91E05C671698B59000FE4A3B /* SummaryHeaderView.m */,
+				913A11A1169D095500FBADC8 /* GoalPickerView.h */,
+				913A11A2169D095500FBADC8 /* GoalPickerView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -509,7 +508,6 @@
 				912CB597169B47CD00A76138 /* SummaryHeaderView.m in Sources */,
 				912CB598169B47CD00A76138 /* NoLapsCell.m in Sources */,
 				912CB599169B47CD00A76138 /* SummaryHeaderCell.m in Sources */,
-				912CB59A169B47CD00A76138 /* TimerSettingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -535,8 +533,8 @@
 				91E05C681698B59000FE4A3B /* SummaryHeaderView.m in Sources */,
 				91E05C6B1698C49700FE4A3B /* NoLapsCell.m in Sources */,
 				9155E042169A184F00425B22 /* SummaryHeaderCell.m in Sources */,
-				912CB582169A7A6000A76138 /* TimerSettingViewController.m in Sources */,
 				913A1190169CC4D300FBADC8 /* TockSoundPlayer.m in Sources */,
+				913A11A3169D095500FBADC8 /* GoalPickerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

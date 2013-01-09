@@ -23,8 +23,6 @@
         [backView setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
         UIView *shadowView = [[UIView alloc] initWithFrame:CGRectMake(7, 7, 306, 60)];
         [shadowView setBackgroundColor:[CommonCLUtility outlineColor]];
-        UIView *highlightView = [[UIView alloc] initWithFrame:CGRectMake(9, 9, 302, 56)];
-        [highlightView setBackgroundColor:[CommonCLUtility highlightColor]];
         UIView *mainBackView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 300, 54)];
         [mainBackView setBackgroundColor:[CommonCLUtility backgroundColor]];
         
@@ -72,18 +70,14 @@
     }
 }
 
--(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [[self viewWithTag:31] setBackgroundColor:[UIColor colorWithRed:0.158 green:0.37 blue:0.029 alpha:1]];
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+-(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    // Drawing code
+    [[self viewWithTag:31] setBackgroundColor:[UIColor colorWithRed:0.158 green:0.37 blue:0.029 alpha:1]];
 }
-*/
 
 @end

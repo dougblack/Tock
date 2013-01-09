@@ -28,5 +28,6 @@
 -(void) tick:(NSString*)time withLap:(NSInteger)lapNumber;
 -(void) lastLapTimeChanged:(NSString*)lastLap;
 -(void) refresh;
+-(void) showFlash:(NSString*)flashString;
 
 @end

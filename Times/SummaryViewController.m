@@ -30,17 +30,8 @@
 {
     self = [super init];
     if (self) {
-//        UILabel *navBarLabel = [[UILabel alloc] init];
-//        [navBarLabel setText:@"Summary"];
-//        [navBarLabel setBackgroundColor:[UIColor clearColor]];
-//        [navBarLabel setFont:[UIFont boldSystemFontOfSize:20]];
-//        [navBarLabel setTextAlignment:NSTextAlignmentCenter];
-//        [navBarLabel setTextColor:[UIColor whiteColor]];
-//        
-//        [navBarLabel setShadowOffset:CGSizeMake(1,1)];
-//        [navBarLabel sizeToFit];
         
-        UISegmentedControl *deltaControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Previous", @"Goal", @"Average",nil]];
+        UISegmentedControl *deltaControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Previous", @"Goal", @"Average", nil]];
         deltaControl.segmentedControlStyle = UISegmentedControlStyleBar;
         deltaControl.tintColor = [UIColor colorWithRed:0.05 green:0.05 blue:0.05 alpha:1];
         deltaControl.selectedSegmentIndex = 1;
@@ -118,7 +109,6 @@
     [summaryTableView setDataSource:self];
     [summaryTableView setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
     [summaryTableView setShowsVerticalScrollIndicator:NO];
-    [summaryTableView addGestureRecognizer:backRecognizer];
     [summaryTableView addGestureRecognizer:tapRecognizer];
     [self setTableView:summaryTableView];
     [self.view addSubview:summaryTableView];
@@ -127,11 +117,17 @@
 
 -(void)deltaChanged:(UISegmentedControl*)control
 {
-    NSString *value = [control titleForSegmentAtIndex:control.selectedSegmentIndex];
     for (int i=0; i<[control.subviews count]; i++)
     {
         if ([[control.subviews objectAtIndex:i] isSelected] )
         {
+            if (i == 0)
+                self.deltaType = DeltaFromPreviousLap;
+            else if (i == 1)
+                self.deltaType = DeltaFromGoalLap;
+            else if (i == 2)
+                self.deltaType = DeltaFromAverageLap;
+            
             UIColor *tintcolor=[UIColor redColor];
             [[control.subviews objectAtIndex:i] setTintColor:tintcolor];
         } else {
@@ -139,7 +135,7 @@
             [[control.subviews objectAtIndex:i] setTintColor:tintcolor];
         }
     }
-    // TODO
+    [self.tableView reloadData];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -229,19 +225,17 @@
     
     [summaryCell setLapTimeString:[[timer lapStrings] objectAtIndex:indexPath.row-1]];
     
+    NSMutableDictionary *timerDict = (NSMutableDictionary*)[self.timersData objectAtIndex:indexPath.section];
     switch (self.deltaType) {
         case DeltaFromPreviousLap:
         {
-            NSMutableDictionary *timerDict = (NSMutableDictionary*)[self.timersData objectAtIndex:indexPath.section];
             NSMutableArray *previousLapDeltas = [timerDict objectForKey:@"Previous"];
             NSNumber *delta = [previousLapDeltas objectAtIndex:indexPath.row-1];
+            
             if (delta != [NSNull null])
             {
                 NSString *lapDeltaString;
-                
-                
-                if ([delta doubleValue] < 0)
-                {
+                if ([delta doubleValue] < 0) {
                     lapDeltaString = [NSString stringWithFormat:@"%.1f", [delta doubleValue]];
                     [summaryCell setDeltaColor:DeltaIsGreen];
                 } else {
@@ -249,28 +243,22 @@
                     [summaryCell setDeltaColor:DeltaIsRed];
                 }
                 
-                if ([lapDeltaString isEqualToString:@"-0.0"] || [lapDeltaString isEqualToString:@"+0.0"])
-                {
+                if ([lapDeltaString isEqualToString:@"-0.0"] || [lapDeltaString isEqualToString:@"+0.0"]) {
                     lapDeltaString = @"0.0";
                     [summaryCell setDeltaColor:DeltaIsGray];
                 }
-                
                 [summaryCell setLapDelta:lapDeltaString];
-            }
-            
-            else
-            {
+            } else {
                 [summaryCell setLapDelta:@"---"];
                 [summaryCell setDeltaColor:DeltaIsGray];
                 
             }
-            
             summaryCell.lapDeltaLabel.hidden = NO;
             break;
         }
         case DeltaFromAverageLap:
         {
-            NSMutableDictionary *timerDict = (NSMutableDictionary*)[self.timersData objectAtIndex:indexPath.section];
+
             NSMutableArray *avgLapDeltas = [timerDict objectForKey:@"Avg"];
             NSNumber *delta = [avgLapDeltas objectAtIndex:indexPath.row-1];
             [summaryCell setLapDelta:[delta stringValue]];
@@ -279,7 +267,6 @@
         }
         case DeltaFromGoalLap:
         {
-            NSMutableDictionary *timerDict = (NSMutableDictionary*)[self.timersData objectAtIndex:indexPath.section];
             NSMutableArray *goalLapDeltas = [timerDict objectForKey:@"Goal"];
             NSNumber *delta = [goalLapDeltas objectAtIndex:indexPath.row-1];
             [summaryCell setLapDelta:[delta stringValue]];

@@ -12,7 +12,8 @@
 
 @class BottomActionView;
 @class TimesTableView;
-
+@class GoalPickerView;
+@class Timer;
 @interface TimesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic) NSInteger numTimers;
@@ -23,10 +24,16 @@
 @property (nonatomic) NSArray *colors;
 @property (nonatomic) NSInteger colorIndex;
 
+@property (nonatomic) BOOL isShowingGoalPicker;
+
+@property (nonatomic) GoalPickerView *goalPickerView;
+
 @property (nonatomic) AVAudioPlayer *audioPlayer;
 
 -(void)newTimer;
 -(void)startAll;
 -(void)checkTimers;
+-(void)showPickerViewForTimer:(Timer*)timer;
+-(void)hidePickerView;
 
 @end
