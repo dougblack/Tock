@@ -10,7 +10,6 @@
 #import "Timer.h"
 #import "TimesViewController.h"
 #import "TimesTableView.h"
-#import "LapViewController.h"
 #import "CommonCLUtility.h"
 #import "TockSoundPlayer.h"
 
@@ -41,10 +40,6 @@
         UISwipeGestureRecognizer *deleteGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRight:)];
         [deleteGestureRecognizer setDirection:UISwipeGestureRecognizerDirectionRight];
         [self addGestureRecognizer:deleteGestureRecognizer];
-        
-        UISwipeGestureRecognizer *checkLapsGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeft:)];
-        [checkLapsGestureRecognizer setDirection:UISwipeGestureRecognizerDirectionLeft];
-        [self addGestureRecognizer:checkLapsGestureRecognizer];
         
         UITapGestureRecognizer *splitTimerGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(splitTimer:)];
         [splitTimerGestureRecognizer setNumberOfTouchesRequired:2];
@@ -282,23 +277,6 @@
     self.isInDeleteMode = NO;
 }
 
--(void) swipeLeft:(UISwipeGestureRecognizer*)sender
-{
-    if (self.isInDeleteMode)
-    {
-        [self slideCellLeft];
-    } else {
-        [TockSoundPlayer playSoundWithName:@"swish" andExtension:@"wav" andVolume:0.7];
-        LapViewController *lapViewController = [[LapViewController alloc] init];
-        [lapViewController setLaps:[[self timer] laps]];
-        [lapViewController setLapStrings:[[self timer] lapStrings]];
-        [lapViewController setTimer:[self timer]];
-        [lapViewController setNumOfLaps:[[self timer] lapNumber]-1];
-        [lapViewController setTimesTableView:[[self timesTable] tableView]];
-        [[[self timesTable] navigationController] pushViewController:lapViewController animated:YES];
-    }
-}
-
 -(void)handleTap:(UITapGestureRecognizer*)sender
 {
     UIView *senderView = (UIView*)sender.view;
@@ -394,6 +372,25 @@
             [self.deleteButton setBackgroundColor:[UIColor colorWithRed:0.52 green:0 blue:0.08 alpha:1]];
         }
     }
+}
+
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    for (UITouch *touch in touches) {
+        UIView *view = [touch view];
+        if (view.tag == 3 || view.tag == 4 || view.tag == 5)
+        {
+            if (self.timer.flagType == FlagTypeGreen)
+                view.backgroundColor = [self.timer thumb];
+            else
+                view.backgroundColor = [CommonCLUtility backgroundColor];
+        }
+        if (self.isInDeleteMode)
+        {
+            [self.deleteButton setBackgroundColor:[UIColor colorWithRed:0.52 green:0 blue:0.08 alpha:1]];
+        }
+    }
+    [self.nextResponder touchesMoved:touches withEvent:event];
 }
 
 -(void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event

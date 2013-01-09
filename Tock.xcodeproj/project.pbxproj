@@ -15,10 +15,6 @@
 		912CB58B169B47CD00A76138 /* Timer.m in Sources */ = {isa = PBXBuildFile; fileRef = 91C4100E16891D5900092BF8 /* Timer.m */; };
 		912CB58C169B47CD00A76138 /* TimesTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 914BD5F0168CF9D10068BFC4 /* TimesTableView.m */; };
 		912CB58D169B47CD00A76138 /* CommonCLUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 914CD590168E667E0087C263 /* CommonCLUtility.m */; };
-		912CB58F169B47CD00A76138 /* LapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 914CD59E1691343E0087C263 /* LapViewController.m */; };
-		912CB590169B47CD00A76138 /* LapTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 914CD5A41691357E0087C263 /* LapTableView.m */; };
-		912CB591169B47CD00A76138 /* LapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 914CD5A71691359B0087C263 /* LapCell.m */; };
-		912CB592169B47CD00A76138 /* LapTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 914CD5AA16923FA00087C263 /* LapTimerView.m */; };
 		912CB593169B47CD00A76138 /* BottomActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 912648F31693B1DD004D552F /* BottomActionView.m */; };
 		912CB594169B47CD00A76138 /* SummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 913103BC16968B580064406A /* SummaryViewController.m */; };
 		912CB595169B47CD00A76138 /* SummaryTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 913103BF16968B780064406A /* SummaryTableView.m */; };
@@ -64,10 +60,6 @@
 		913A11BB169E146800FBADC8 /* SettingsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 913A11BA169E146800FBADC8 /* SettingsCell.m */; };
 		914BD5F1168CF9D10068BFC4 /* TimesTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 914BD5F0168CF9D10068BFC4 /* TimesTableView.m */; };
 		914CD591168E667E0087C263 /* CommonCLUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 914CD590168E667E0087C263 /* CommonCLUtility.m */; };
-		914CD59F1691343E0087C263 /* LapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 914CD59E1691343E0087C263 /* LapViewController.m */; };
-		914CD5A51691357E0087C263 /* LapTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 914CD5A41691357E0087C263 /* LapTableView.m */; };
-		914CD5A81691359B0087C263 /* LapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 914CD5A71691359B0087C263 /* LapCell.m */; };
-		914CD5AB16923FA00087C263 /* LapTimerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 914CD5AA16923FA00087C263 /* LapTimerView.m */; };
 		9155E042169A184F00425B22 /* SummaryHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9155E041169A184F00425B22 /* SummaryHeaderCell.m */; };
 		91C40F9D1687F7EE00092BF8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91C40F9C1687F7EE00092BF8 /* UIKit.framework */; };
 		91C40F9F1687F7EE00092BF8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91C40F9E1687F7EE00092BF8 /* Foundation.framework */; };
@@ -131,14 +123,6 @@
 		914BD5F0168CF9D10068BFC4 /* TimesTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimesTableView.m; sourceTree = "<group>"; };
 		914CD58F168E667E0087C263 /* CommonCLUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonCLUtility.h; sourceTree = "<group>"; };
 		914CD590168E667E0087C263 /* CommonCLUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonCLUtility.m; sourceTree = "<group>"; };
-		914CD59D1691343E0087C263 /* LapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LapViewController.h; sourceTree = "<group>"; };
-		914CD59E1691343E0087C263 /* LapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LapViewController.m; sourceTree = "<group>"; };
-		914CD5A31691357E0087C263 /* LapTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LapTableView.h; sourceTree = "<group>"; };
-		914CD5A41691357E0087C263 /* LapTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LapTableView.m; sourceTree = "<group>"; };
-		914CD5A61691359B0087C263 /* LapCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LapCell.h; sourceTree = "<group>"; };
-		914CD5A71691359B0087C263 /* LapCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LapCell.m; sourceTree = "<group>"; };
-		914CD5A916923FA00087C263 /* LapTimerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LapTimerView.h; sourceTree = "<group>"; };
-		914CD5AA16923FA00087C263 /* LapTimerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LapTimerView.m; sourceTree = "<group>"; };
 		9155E040169A184F00425B22 /* SummaryHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SummaryHeaderCell.h; sourceTree = "<group>"; };
 		9155E041169A184F00425B22 /* SummaryHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SummaryHeaderCell.m; sourceTree = "<group>"; };
 		91C40F981687F7EE00092BF8 /* Tock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tock.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -203,8 +187,6 @@
 			children = (
 				91C40FF51688010400092BF8 /* TimesViewController.h */,
 				91C40FF61688010400092BF8 /* TimesViewController.m */,
-				914CD59D1691343E0087C263 /* LapViewController.h */,
-				914CD59E1691343E0087C263 /* LapViewController.m */,
 				913103BB16968B580064406A /* SummaryViewController.h */,
 				913103BC16968B580064406A /* SummaryViewController.m */,
 				913A11B4169E09B100FBADC8 /* SettingsViewController.h */,
@@ -262,10 +244,6 @@
 			children = (
 				914BD5EF168CF9D10068BFC4 /* TimesTableView.h */,
 				914BD5F0168CF9D10068BFC4 /* TimesTableView.m */,
-				914CD5A31691357E0087C263 /* LapTableView.h */,
-				914CD5A41691357E0087C263 /* LapTableView.m */,
-				914CD5A916923FA00087C263 /* LapTimerView.h */,
-				914CD5AA16923FA00087C263 /* LapTimerView.m */,
 				912648F21693B1DD004D552F /* BottomActionView.h */,
 				912648F31693B1DD004D552F /* BottomActionView.m */,
 				913103BE16968B780064406A /* SummaryTableView.h */,
@@ -354,8 +332,6 @@
 			children = (
 				91C40FFD1688090900092BF8 /* TimerCell.h */,
 				91C40FFE1688090900092BF8 /* TimerCell.m */,
-				914CD5A61691359B0087C263 /* LapCell.h */,
-				914CD5A71691359B0087C263 /* LapCell.m */,
 				913103C116968D520064406A /* SummaryCell.h */,
 				913103C216968D520064406A /* SummaryCell.m */,
 				91E05C691698C49700FE4A3B /* NoLapsCell.h */,
@@ -505,10 +481,6 @@
 				912CB58B169B47CD00A76138 /* Timer.m in Sources */,
 				912CB58C169B47CD00A76138 /* TimesTableView.m in Sources */,
 				912CB58D169B47CD00A76138 /* CommonCLUtility.m in Sources */,
-				912CB58F169B47CD00A76138 /* LapViewController.m in Sources */,
-				912CB590169B47CD00A76138 /* LapTableView.m in Sources */,
-				912CB591169B47CD00A76138 /* LapCell.m in Sources */,
-				912CB592169B47CD00A76138 /* LapTimerView.m in Sources */,
 				912CB593169B47CD00A76138 /* BottomActionView.m in Sources */,
 				912CB594169B47CD00A76138 /* SummaryViewController.m in Sources */,
 				912CB595169B47CD00A76138 /* SummaryTableView.m in Sources */,
@@ -530,10 +502,6 @@
 				91C4100F16891D5900092BF8 /* Timer.m in Sources */,
 				914BD5F1168CF9D10068BFC4 /* TimesTableView.m in Sources */,
 				914CD591168E667E0087C263 /* CommonCLUtility.m in Sources */,
-				914CD59F1691343E0087C263 /* LapViewController.m in Sources */,
-				914CD5A51691357E0087C263 /* LapTableView.m in Sources */,
-				914CD5A81691359B0087C263 /* LapCell.m in Sources */,
-				914CD5AB16923FA00087C263 /* LapTimerView.m in Sources */,
 				912648F41693B1DD004D552F /* BottomActionView.m in Sources */,
 				913103BD16968B580064406A /* SummaryViewController.m in Sources */,
 				913103C016968B790064406A /* SummaryTableView.m in Sources */,
