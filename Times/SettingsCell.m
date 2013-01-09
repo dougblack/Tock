@@ -22,7 +22,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        UIFont *cellFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:13.0];
+        UIFont *cellFont = [UIFont fontWithName:@"HelveticaNeue-Bold" size:15.0];
         
         UIView *shadowView = [[UIView alloc] initWithFrame:CGRectMake(7.0, 0, 306, 49)];
         [shadowView setBackgroundColor:[CommonCLUtility outlineColor]];

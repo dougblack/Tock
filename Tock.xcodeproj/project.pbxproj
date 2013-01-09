@@ -59,7 +59,6 @@
 		913A119E169CE54400FBADC8 /* start2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 913A119D169CE54400FBADC8 /* start2.wav */; };
 		913A11A0169CE5BE00FBADC8 /* lap.wav in Resources */ = {isa = PBXBuildFile; fileRef = 913A119F169CE5BE00FBADC8 /* lap.wav */; };
 		913A11A3169D095500FBADC8 /* GoalPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 913A11A2169D095500FBADC8 /* GoalPickerView.m */; };
-		913A11A5169DFD6000FBADC8 /* TopBar@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 913A11A4169DFD6000FBADC8 /* TopBar@2x~iphone.png */; };
 		913A11B3169E08EE00FBADC8 /* settings@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 913A11B2169E08EE00FBADC8 /* settings@2x~iphone.png */; };
 		913A11B6169E09B100FBADC8 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 913A11B5169E09B100FBADC8 /* SettingsViewController.m */; };
 		913A11BB169E146800FBADC8 /* SettingsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 913A11BA169E146800FBADC8 /* SettingsCell.m */; };
@@ -123,7 +122,6 @@
 		913A119F169CE5BE00FBADC8 /* lap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = lap.wav; sourceTree = "<group>"; };
 		913A11A1169D095500FBADC8 /* GoalPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoalPickerView.h; sourceTree = "<group>"; };
 		913A11A2169D095500FBADC8 /* GoalPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoalPickerView.m; sourceTree = "<group>"; };
-		913A11A4169DFD6000FBADC8 /* TopBar@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TopBar@2x~iphone.png"; sourceTree = "<group>"; };
 		913A11B2169E08EE00FBADC8 /* settings@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x~iphone.png"; sourceTree = "<group>"; };
 		913A11B4169E09B100FBADC8 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		913A11B5169E09B100FBADC8 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
@@ -205,7 +203,6 @@
 			children = (
 				91C40FF51688010400092BF8 /* TimesViewController.h */,
 				91C40FF61688010400092BF8 /* TimesViewController.m */,
-				913A11A4169DFD6000FBADC8 /* TopBar@2x~iphone.png */,
 				914CD59D1691343E0087C263 /* LapViewController.h */,
 				914CD59E1691343E0087C263 /* LapViewController.m */,
 				913103BB16968B580064406A /* SummaryViewController.h */,
@@ -490,7 +487,6 @@
 				913A119C169CE4CD00FBADC8 /* stop4.wav in Resources */,
 				913A119E169CE54400FBADC8 /* start2.wav in Resources */,
 				913A11A0169CE5BE00FBADC8 /* lap.wav in Resources */,
-				913A11A5169DFD6000FBADC8 /* TopBar@2x~iphone.png in Resources */,
 				913A11B3169E08EE00FBADC8 /* settings@2x~iphone.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -17,26 +17,11 @@
 #import "GoalPickerView.h"
 #import "SettingsViewController.h"
 
-
-@interface BottomToolBar : UIToolbar
-
-@end
-
-@implementation BottomToolBar
-
-- (void)drawRect:(CGRect)rect {
-    UIColor *colorTabBlack = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1];
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetFillColor(context, CGColorGetComponents( [colorTabBlack CGColor]));
-    CGContextFillRect(context, rect);
-}
-
-@end
-
 @interface TimesViewController ()
 
 @property (nonatomic) UIColor *lastGeneratedColor;
 @property BOOL allowSound;
+@property UIBarButtonItem *startAllButton;
 
 @end
 
@@ -120,10 +105,11 @@
     UINavigationController *settingsNavigationController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
     [settingsNavigationController.navigationBar setTintColor:[UIColor colorWithRed:0.05 green:0.05 blue:0.05 alpha:1]];
     
-    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:settingsViewController action:@selector(saveAndClose)];
+    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:settingsViewController action:@selector(saveAndClose)];
     saveButton.tintColor =[UIColor colorWithRed:0.3 green:0.0 blue:0.8 alpha:1];
-    
     [settingsViewController.navigationItem setRightBarButtonItem:saveButton];
+    
+    
     [self.navigationController presentViewController:settingsNavigationController animated:YES completion:nil];
 }
 
@@ -148,12 +134,12 @@
     [timesTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [timesTableView setDelegate:self];
     [timesTableView setDataSource:self];
+    [timesTableView setShowsVerticalScrollIndicator:NO];
     [self setTableView:timesTableView];
     [self.view addSubview:timesTableView];
     
     UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-viewHeight, self.view.frame.size.width, viewHeight)];
 
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(newTimer)];
     UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] init];
     [settingsButton setAction:@selector(openSettings)];
@@ -166,6 +152,8 @@
     UIBarButtonItem *startAllButton = [[UIBarButtonItem alloc] initWithTitle:@"START ALL" style:UIBarButtonItemStylePlain target:self action:@selector(startAll)];
     [startAllButton setTintColor:[UIColor colorWithRed:0.0 green:0.8 blue:0.3 alpha:1]];
     [startAllButton setBackgroundImage:[CommonCLUtility imageFromColor:[UIColor colorWithRed:0 green:0.8 blue:0.3 alpha:1]] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    
+    self.startAllButton = startAllButton;
     
     NSArray *toolBarItems = [NSArray arrayWithObjects:startAllButton, flexibleSpace, settingsButton, nil];
     [toolbar setItems:toolBarItems];
@@ -298,6 +286,8 @@
     return timerCell;
 }
 
+// Check if any timers are running and then set the StartAll
+// button accordingly.
 -(void) checkTimers
 {
     BOOL hide = NO;
@@ -308,11 +298,18 @@
             break;
         }
     }
-    if (!hide)
-        [self showBottomView];
-    else
-        [self hideBottomView];
+    if (!hide) // enable the StartAll button.
+    {
+        [self.startAllButton setTintColor:[UIColor whiteColor]];
+        [self.startAllButton setEnabled:YES];
+    }
+    else // disable the StartAll button.
+    {
+        [self.startAllButton setTintColor:[UIColor darkGrayColor]];
+        [self.startAllButton setEnabled:NO];
+    }
 
+    
 }
 
 -(void) startAll
@@ -323,7 +320,7 @@
         [timer start];
     }
 
-    [self hideBottomView];
+    [self checkTimers];
 }
 
 @end

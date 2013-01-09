@@ -21,16 +21,8 @@
 {
     self = [super init];
     if (self) {
-        self.title = NSLocalizedString(@"Tock", @"Tock");
-        
-        UILabel *navBarLabel = [[UILabel alloc] init];
-        [navBarLabel setText:@"Settings"];
-        [navBarLabel setBackgroundColor:[UIColor greenColor]];
-        [navBarLabel setFont:[UIFont boldSystemFontOfSize:20]];
-        [navBarLabel setTextAlignment:NSTextAlignmentCenter];
-        [navBarLabel setTextColor:[UIColor whiteColor]];
-        [self.navigationItem setTitleView:navBarLabel];
-        self.settingNames = [NSMutableArray arrayWithObjects:@"Show Laps", @"Order Timers by Lap", @"Show Time Since Last Lap", nil];
+
+        self.settingNames = [NSMutableArray arrayWithObjects:@"Show Laps", @"Order by Lap", @"Time from Lap", nil];
         NSNumber *settingTypeSwitch = [NSNumber numberWithInt:SettingTypeSwitch];
         self.settingType = [NSMutableArray arrayWithObjects:settingTypeSwitch, settingTypeSwitch, settingTypeSwitch, nil];
     }
@@ -53,6 +45,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    UILabel *navBarLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
+    [navBarLabel setText:@"Settings"];
+    [navBarLabel setBackgroundColor:[UIColor clearColor]];
+    [navBarLabel setFont:[UIFont boldSystemFontOfSize:20]];
+    [navBarLabel setTextAlignment:NSTextAlignmentCenter];
+    [navBarLabel setTextColor:[UIColor whiteColor]];
+    [navBarLabel setOpaque:YES];
+    [self.navigationItem setTitleView:navBarLabel];
+
+    
     self.tableView = [[UITableView alloc] initWithFrame:self.view.frame];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -71,6 +74,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - TableView methods
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
