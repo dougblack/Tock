@@ -12,11 +12,12 @@
 #import "CommonCLUtility.h"
 #import "SummaryViewController.h"
 #import "SummaryTableView.h"
+#import "Timer.h"
 
 @interface SummaryCell ()
 
-@property UILabel *lapNumberLabel;
-@property UILabel *lapStringLabel;
+@property (nonatomic) UILabel *lapNumberLabel;
+@property (nonatomic) UILabel *lapStringLabel;
 
 @end
 
@@ -88,6 +89,8 @@
         default:
             break;
     }
+    
+//    [self.contentView setBackgroundColor:self.timer.thumb];
     
     [self.lapDeltaLabel setText:self.lapDelta];
     [self.lapStringLabel setText:self.lapTimeString];

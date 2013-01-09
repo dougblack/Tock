@@ -10,9 +10,9 @@
 
 @interface TimerSettingViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
 
-@property NSMutableArray *goalLapMinutes;
-@property NSMutableArray *goalLapSeconds;
-@property NSMutableArray *goalLapTenths;
-@property UINavigationController *superController;
+@property (nonatomic) NSMutableArray *goalLapMinutes;
+@property (nonatomic) NSMutableArray *goalLapSeconds;
+@property (nonatomic) NSMutableArray *goalLapTenths;
+@property (nonatomic) UINavigationController *superController;
 
 @end

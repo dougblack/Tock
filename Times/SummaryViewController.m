@@ -15,10 +15,12 @@
 #import "Timer.h"
 #import "CommonCLUtility.h"
 #import "NoLapsCell.h"
+#import "TockSoundPlayer.h"
 
 @interface SummaryViewController ()
 
-@property NSMutableArray *headerViews;
+@property (nonatomic) NSMutableArray *headerViews;
+@property UISegmentedControl *deltaControl;
 
 @end
 
@@ -28,16 +30,24 @@
 {
     self = [super init];
     if (self) {
-        UILabel *navBarLabel = [[UILabel alloc] init];
-        [navBarLabel setText:@"Summary"];
-        [navBarLabel setBackgroundColor:[UIColor clearColor]];
-        [navBarLabel setFont:[UIFont boldSystemFontOfSize:20]];
-        [navBarLabel setTextAlignment:NSTextAlignmentCenter];
-        [navBarLabel setTextColor:[UIColor whiteColor]];
+//        UILabel *navBarLabel = [[UILabel alloc] init];
+//        [navBarLabel setText:@"Summary"];
+//        [navBarLabel setBackgroundColor:[UIColor clearColor]];
+//        [navBarLabel setFont:[UIFont boldSystemFontOfSize:20]];
+//        [navBarLabel setTextAlignment:NSTextAlignmentCenter];
+//        [navBarLabel setTextColor:[UIColor whiteColor]];
+//        
+//        [navBarLabel setShadowOffset:CGSizeMake(1,1)];
+//        [navBarLabel sizeToFit];
         
-        [navBarLabel setShadowOffset:CGSizeMake(1,1)];
-        [navBarLabel sizeToFit];
-        [self.navigationItem setTitleView:navBarLabel];
+        UISegmentedControl *deltaControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Previous", @"Goal", @"Average",nil]];
+        deltaControl.segmentedControlStyle = UISegmentedControlStyleBar;
+        deltaControl.tintColor = [UIColor colorWithRed:0.05 green:0.05 blue:0.05 alpha:1];
+        deltaControl.selectedSegmentIndex = 1;
+        [[deltaControl.subviews objectAtIndex:1] setTintColor:[UIColor redColor]];
+        [deltaControl addTarget:self action:@selector(deltaChanged:) forControlEvents:UIControlEventValueChanged];
+        self.deltaControl = deltaControl;
+        [self.navigationItem setTitleView:deltaControl];
         [self.navigationItem.leftBarButtonItem setTitle:@"Back"];
         
         self.timersData = [NSMutableArray array];
@@ -115,14 +125,31 @@
     
 }
 
+-(void)deltaChanged:(UISegmentedControl*)control
+{
+    NSString *value = [control titleForSegmentAtIndex:control.selectedSegmentIndex];
+    for (int i=0; i<[control.subviews count]; i++)
+    {
+        if ([[control.subviews objectAtIndex:i] isSelected] )
+        {
+            UIColor *tintcolor=[UIColor redColor];
+            [[control.subviews objectAtIndex:i] setTintColor:tintcolor];
+        } else {
+            UIColor *tintcolor=[UIColor colorWithRed:0.05 green:0.05 blue:0.05 alpha:1]; // default color
+            [[control.subviews objectAtIndex:i] setTintColor:tintcolor];
+        }
+    }
+    // TODO
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self deltaChanged:self.deltaControl];
+}
+
 -(void)back
 {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"high_click" ofType:@"wav"];
-    NSURL *clickURL = [[NSURL alloc] initFileURLWithPath:path];
-    NSError *clickError = [NSError new];
-    self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:clickURL error:&clickError];
-    self.audioPlayer.volume = 1.0;
-    [self.audioPlayer play];
+    [TockSoundPlayer playSoundWithName:@"high_click" andExtension:@"wav" andVolume:1.0];
     [self.timesViewController.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -173,11 +200,12 @@
         SummaryHeaderCell *header = (SummaryHeaderCell*) [tableView dequeueReusableCellWithIdentifier:HeaderCellIdentifier];
         if (header == nil)
         {
-            header = [[SummaryHeaderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:HeaderCellIdentifier];
+            header = [[SummaryHeaderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:HeaderCellIdentifier andTimer:timer];
         }
         [header setTime:[timer timeString]];
         [header setAvg:[Timer stringFromTimeInterval:[timer avgLap]]];
         [header setGoal:@"---"];
+        [header setTimer:timer];
         [header refresh];
         return header;
     }
@@ -269,6 +297,7 @@
     
     [summaryCell setLapNumber:indexPath.row];
     summaryCell.controller = self;
+    summaryCell.timer = timer;
     [summaryCell refresh];
     return summaryCell;
 }

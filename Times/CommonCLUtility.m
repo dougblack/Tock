@@ -214,4 +214,34 @@
     return viewLightBack;
 }
 
+// Generates a color guaranteed to be different from the previous one.
++(UIColor*)generateNewColor
+{
+    static UIColor *lastGeneratedColor;
+    
+    BOOL isDifferentEnough = NO;
+    UIColor *color;
+    
+    do {
+        CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
+        CGFloat saturation = 1;
+        CGFloat brightness = 0.8;  //  0.5 to 1.0, away from black
+        
+        color = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
+        
+        if (lastGeneratedColor == nil)
+            isDifferentEnough = YES;
+        else {
+            const CGFloat *pickedColorComponents = CGColorGetComponents(color.CGColor);
+            const CGFloat *generatedColorComponents = CGColorGetComponents(lastGeneratedColor.CGColor);
+            CGFloat delta = fabsf(pickedColorComponents[0] - generatedColorComponents[0]) + fabsf(pickedColorComponents[1] - generatedColorComponents[1]) + fabsf(pickedColorComponents[2] - generatedColorComponents[2]);
+            isDifferentEnough = (delta > 0.5);
+        }
+        
+    } while (!isDifferentEnough);
+    
+    lastGeneratedColor = color;
+    return lastGeneratedColor;
+}
+
 @end

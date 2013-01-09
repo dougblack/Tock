@@ -13,11 +13,12 @@
 #import "BottomActionView.h"
 #import "CommonCLUtility.h"
 #import "Timer.h"
+#import "TockSoundPlayer.h"
 
 @interface TimesViewController ()
 
-@property UIColor *lastGeneratedColor;
-
+@property (nonatomic) UIColor *lastGeneratedColor;
+@property BOOL allowSound;
 
 @end
 
@@ -28,6 +29,7 @@
 - (id)init{
     self = [super init];
     if (self) {
+        self.allowSound = NO;
         self.title = NSLocalizedString(@"Tock", @"Tock");
         self.numTimers = 0;
         self.numSections = 1;
@@ -71,18 +73,14 @@
         self.colorIndex = (arc4random() % 11);
         [self newTimer];
         [self newTimer];
+        self.allowSound = YES;
     }
     return self;
 }
 
 -(void)openSummary
 {
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"high_click" ofType:@"wav"];
-    NSURL *clickURL = [[NSURL alloc] initFileURLWithPath:path];
-    NSError *clickError = [NSError new];
-    self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:clickURL error:&clickError];
-    self.audioPlayer.volume = 1;
-    [self.audioPlayer play];
+    [TockSoundPlayer playSoundWithName:@"high_click" andExtension:@"wav" andVolume:1.0];
     SummaryViewController *summaryViewController = [[SummaryViewController alloc] initWithTimers:[self timers]];
     [summaryViewController setDeltaType:DeltaFromPreviousLap];
     [summaryViewController setTimesViewController:self];
@@ -156,33 +154,14 @@
 
 - (void)newTimer
 {
+    if (self.allowSound)
+        [TockSoundPlayer playSoundWithName:@"high_click" andExtension:@"wav" andVolume:1.0];
+    
     self.numTimers++;;
     Timer* newTimer = [[Timer alloc] init];
-    
-    BOOL isDifferentEnough = NO;
-    UIColor *color;
-    do {
-        CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
-        CGFloat saturation = 1;
-        CGFloat brightness = 0.8;  //  0.5 to 1.0, away from black
-        color = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
-        
-        if (self.lastGeneratedColor == nil)
-            isDifferentEnough = YES;
-        else {
-            const CGFloat *pickedColorComponents = CGColorGetComponents(color.CGColor);
-            const CGFloat *generatedColorComponents = CGColorGetComponents(self.lastGeneratedColor.CGColor);
-            CGFloat delta = fabsf(pickedColorComponents[0] - generatedColorComponents[0]) + fabsf(pickedColorComponents[1] - generatedColorComponents[1]) + fabsf(pickedColorComponents[2] - generatedColorComponents[2]);
-            isDifferentEnough = (delta > 0.5);
-        }
-        
-    } while (!isDifferentEnough);
 
-
-//    UIColor *color = [self.colors objectAtIndex:self.colorIndex];
-//    self.colorIndex = (self.colorIndex + 1) % 11;
-    self.lastGeneratedColor = color;
-    [newTimer setThumb:color];
+    UIColor *generatedColor = [CommonCLUtility generateNewColor];
+    [newTimer setThumb:generatedColor];
     [newTimer setRow:numTimers-1];
     [[self timers] addObject:newTimer];
     [self.tableView reloadData];

@@ -15,15 +15,15 @@
 
 @interface TimesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property NSInteger numTimers;
-@property NSInteger numSections;
-@property NSMutableArray *timers;
-@property TimesTableView *tableView;
-@property BottomActionView *bottomActionView;
-@property NSArray *colors;
-@property NSInteger colorIndex;
+@property (nonatomic) NSInteger numTimers;
+@property (nonatomic) NSInteger numSections;
+@property (nonatomic) NSMutableArray *timers;
+@property (nonatomic) TimesTableView *tableView;
+@property (nonatomic) BottomActionView *bottomActionView;
+@property (nonatomic) NSArray *colors;
+@property (nonatomic) NSInteger colorIndex;
 
-@property AVAudioPlayer *audioPlayer;
+@property (nonatomic) AVAudioPlayer *audioPlayer;
 
 -(void)newTimer;
 -(void)startAll;

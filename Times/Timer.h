@@ -18,38 +18,29 @@ typedef enum {
 @class TimerCell;
 @interface Timer : NSObject <NSCopying>
 
-@property BOOL running;
-@property BOOL started;
-@property BOOL stopped;
-@property BOOL recentlyStopped;
+@property (nonatomic) BOOL running;
 
-@property NSTimeInterval startTime;
-@property NSTimeInterval lastLapTime;
-@property NSTimeInterval currentTime;
-@property NSTimeInterval timeDelta;
-@property NSTimeInterval currentLapDelta;
-@property NSTimeInterval timeOfLastStop;
-@property NSTimeInterval goalLap;
-@property NSTimeInterval avgLap;
-@property NSTimeInterval lapSum;
+@property (nonatomic) NSTimeInterval goalLap;
+@property (nonatomic) NSTimeInterval avgLap;
+@property (nonatomic) NSTimeInterval lapSum;
 
-@property NSInteger lapNumber;
-@property NSInteger row;
+@property (nonatomic) NSInteger lapNumber;
+@property (nonatomic) NSInteger row;
 
-@property NSString *timeString;
-@property NSString *lastLapString;
-@property NSString *name;
+@property (nonatomic) NSString *timeString;
+@property (nonatomic) NSString *lastLapString;
+@property (nonatomic) NSString *name;
 
-@property NSMutableArray *laps;
-@property NSMutableArray *lapStrings;
-@property NSMutableArray *timesAtLaps;
+@property (nonatomic) NSMutableArray *laps;
+@property (nonatomic) NSMutableArray *lapStrings;
+@property (nonatomic) NSMutableArray *timesAtLaps;
 
-@property TimerCell *delegate;
+@property (nonatomic) TimerCell *delegate;
 
-@property UIColor *thumb;
+@property (nonatomic) UIColor *thumb;
 
-@property FlagType flagType;
-@property AVAudioPlayer *timerClick;
+@property (nonatomic) FlagType flagType;
+@property (nonatomic) AVAudioPlayer *timerClick;
 
 +(NSString*)stringFromTimeInterval:(NSTimeInterval)timeInterval;
 

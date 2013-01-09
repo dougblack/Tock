@@ -15,13 +15,13 @@
 
 @interface LapTimerView : UIView
 
-@property Timer* timer;
+@property (nonatomic) Timer* timer;
 
-@property NSString* lapNumber;
-@property BOOL running;
-@property NSString* time;
-@property LapViewController *lapViewController;
-@property LapTableView *lapTableView;
+@property (nonatomic) NSString* lapNumber;
+@property (nonatomic) BOOL running;
+@property (nonatomic) NSString* time;
+@property (nonatomic) LapViewController *lapViewController;
+@property (nonatomic) LapTableView *lapTableView;
 
 - (id)initWithFrame:(CGRect)frame andTimer:(Timer*)timer;
 

@@ -9,12 +9,15 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
+@class Timer;
 @interface SummaryHeaderCell : UITableViewCell
 
-@property NSString *time;
-@property NSString *avg;
-@property NSString *goal;
+@property (nonatomic) NSString *time;
+@property (nonatomic) NSString *avg;
+@property (nonatomic) NSString *goal;
+@property (nonatomic) Timer* timer;
 
 -(void)refresh;
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier andTimer:(Timer*)timer;
 
 @end

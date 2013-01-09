@@ -14,13 +14,13 @@
 @class TimesTableView;
 @interface LapViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property NSInteger numOfLaps;
-@property NSMutableArray *laps;
-@property NSMutableArray *lapStrings;
-@property TimesTableView *timesTableView;
-@property Timer *timer;
-@property UIView *timerHeader;
+@property (nonatomic) NSInteger numOfLaps;
+@property (nonatomic) NSMutableArray *laps;
+@property (nonatomic) NSMutableArray *lapStrings;
+@property (nonatomic) TimesTableView *timesTableView;
+@property (nonatomic) Timer *timer;
+@property (nonatomic) UIView *timerHeader;
 
-@property AVAudioPlayer *audioPlayer;
+@property (nonatomic) AVAudioPlayer *audioPlayer;
 
 @end

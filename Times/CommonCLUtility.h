@@ -40,6 +40,8 @@
 +(UIColor*) yellow;
 +(UIColor*) orange;
 
++(UIColor*)generateNewColor;
+
 @end
 
 /*

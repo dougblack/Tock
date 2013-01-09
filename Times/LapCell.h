@@ -10,9 +10,9 @@
 
 @interface LapCell : UITableViewCell
 
-@property NSTimeInterval lap;
-@property NSString *lapString;
-@property NSInteger lapNumber;
+@property (nonatomic) NSTimeInterval lap;
+@property (nonatomic) NSString *lapString;
+@property (nonatomic) NSInteger lapNumber;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 

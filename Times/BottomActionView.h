@@ -12,6 +12,6 @@
 @class TimesViewController;
 @interface BottomActionView : UIView
 
-@property TimesViewController* controller;
+@property (nonatomic) TimesViewController* controller;
 
 @end

@@ -16,21 +16,24 @@ typedef enum {
 
 @class DropDownTableView;
 @class SummaryViewController;
+@class Timer;
 
 @interface SummaryCell : UITableViewCell
 
-@property NSInteger lapNumber;
-@property NSTimeInterval lapTime;
-@property NSString *lapTimeString;
-@property NSString *lapDelta;
-@property NSTimeInterval deltaFromPrevious;
-@property NSTimeInterval deltaFromAverage;
-@property NSTimeInterval deltaFromGoal;
+@property (nonatomic) NSInteger lapNumber;
+@property (nonatomic) NSTimeInterval lapTime;
+@property (nonatomic) NSString *lapTimeString;
+@property (nonatomic) NSString *lapDelta;
+@property (nonatomic) NSTimeInterval deltaFromPrevious;
+@property (nonatomic) NSTimeInterval deltaFromAverage;
+@property (nonatomic) NSTimeInterval deltaFromGoal;
 
-@property UILabel *lapDeltaLabel;
-@property DeltaColor deltaColor;
+@property (nonatomic) Timer* timer;
 
-@property SummaryViewController *controller;
+@property (nonatomic) UILabel *lapDeltaLabel;
+@property (nonatomic) DeltaColor deltaColor;
+
+@property (nonatomic) SummaryViewController *controller;
 
 -(void)refresh;
 

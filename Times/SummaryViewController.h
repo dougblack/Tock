@@ -20,17 +20,17 @@ typedef enum {
 @class TimesViewController;
 @interface SummaryViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property SummaryTableView *tableView;
+@property (nonatomic) SummaryTableView *tableView;
 
-@property NSMutableArray *timers;
-@property NSMutableArray *timersData;
+@property (nonatomic) NSMutableArray *timers;
+@property (nonatomic) NSMutableArray *timersData;
 
-@property NSIndexPath *selectedRow;
-@property NSArray *colorArray;
-@property TimesViewController* timesViewController;
+@property (nonatomic) NSIndexPath *selectedRow;
+@property (nonatomic) NSArray *colorArray;
+@property (nonatomic) TimesViewController* timesViewController;
 
-@property DeltaType deltaType;
-@property AVAudioPlayer *audioPlayer;
+@property (nonatomic) DeltaType deltaType;
+@property (nonatomic) AVAudioPlayer *audioPlayer;
 
 
 - (id)initWithTimers:(NSMutableArray*)timers;

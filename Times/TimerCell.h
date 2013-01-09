@@ -15,18 +15,15 @@
 @class TimerSettingViewController;
 @interface TimerCell : UITableViewCell <UINavigationControllerDelegate, UITextFieldDelegate>
 
-@property TimesViewController *timesTable;
-@property Timer *timer;
+@property (nonatomic) TimesViewController *timesTable;
+@property (nonatomic) Timer *timer;
 
-@property UIColor *thumb;
-@property NSString *time;
-@property NSString *lapNumber;
+@property (nonatomic) UIColor *thumb;
+@property (nonatomic) NSString *time;
+@property (nonatomic) NSString *lapNumber;
 
-@property NSInteger row;
-@property NSMutableArray *movableViews;
-
-@property AVAudioPlayer *audioPlayer;
-
+@property (nonatomic) NSInteger row;
+@property (nonatomic) NSMutableArray *movableViews;
 
 -(void) tick:(NSString*)time withLap:(NSInteger)lapNumber;
 -(void) lastLapTimeChanged:(NSString*)lastLap;

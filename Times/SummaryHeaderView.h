@@ -11,8 +11,8 @@
 @class Timer;
 @interface SummaryHeaderView : UIView <UITextFieldDelegate>
 
-@property UITextField *nameTextField;
-@property Timer *timer;
+@property (nonatomic) UITextField *nameTextField;
+@property (nonatomic) Timer *timer;
 
 - (id)initWithThumb:(UIColor*)thumb andTimerNumber:(NSInteger)timerNumber andTimer:(Timer*)timer;
 

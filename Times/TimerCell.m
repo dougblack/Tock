@@ -13,13 +13,14 @@
 #import "LapViewController.h"
 #import "CommonCLUtility.h"
 #import "TimerSettingViewController.h"
+#import "TockSoundPlayer.h"
 
 @interface TimerCell ()
 
-@property UITextField *timerName;
-@property UILabel *deleteButton;
+@property (nonatomic) UITextField *timerName;
+@property (nonatomic) UILabel *deleteButton;
 
-@property BOOL isInDeleteMode;
+@property (nonatomic) BOOL isInDeleteMode;
 
 @end
 
@@ -250,14 +251,8 @@
     if (self.isInDeleteMode)
     {
         [self slideCellLeft];
-    } else
-    {
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"swish" ofType:@"wav"];
-        NSURL *clickURL = [[NSURL alloc] initFileURLWithPath:path];
-        NSError *clickError = [NSError new];
-        self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:clickURL error:&clickError];
-        self.audioPlayer.volume = 0.7;
-//        [self.audioPlayer play];
+    } else {
+        [TockSoundPlayer playSoundWithName:@"swish" andExtension:@"wav" andVolume:0.7];
         LapViewController *lapViewController = [[LapViewController alloc] init];
         [lapViewController setLaps:[[self timer] laps]];
         [lapViewController setLapStrings:[[self timer] lapStrings]];
@@ -392,16 +387,12 @@
             [self slideCellLeft];
             NSIndexPath *pathForThisCell = [(UITableView*)self.superview indexPathForCell:self];
             [self.timesTable.tableView beginUpdates];
-            [[self.timesTable timers] removeObjectAtIndex:[pathForThisCell row]];
-            [[self.timesTable tableView] deleteRowsAtIndexPaths:[NSArray arrayWithObject:pathForThisCell] withRowAnimation:UITableViewRowAnimationLeft];
+            [self.timesTable.timers removeObjectAtIndex:[pathForThisCell row]];
+            [self.timesTable.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:pathForThisCell] withRowAnimation:UITableViewRowAnimationLeft];
             self.timesTable.numTimers--;
-            [[self.timesTable tableView] endUpdates];
-            NSString *path = [[NSBundle mainBundle] pathForResource:@"swish" ofType:@"wav"];
-            NSURL *clickURL = [[NSURL alloc] initFileURLWithPath:path];
-            NSError *clickError = [NSError new];
-            self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:clickURL error:&clickError];
-            self.audioPlayer.volume = 0.01;
-            [self.audioPlayer play];
+            [self.timesTable.tableView endUpdates];
+            
+            [TockSoundPlayer playSoundWithName:@"swish" andExtension:@"wav" andVolume:0.05];
         } else if (self.isInDeleteMode)
         {
             [self.deleteButton setBackgroundColor:[UIColor colorWithRed:0.52 green:0 blue:0.08 alpha:1]];
@@ -411,43 +402,43 @@
 
 -(void) refresh
 {
-    [(UILabel*)[[self contentView] viewWithTag:1] setText:[[self timer] timeString]];
-    [(UILabel*)[[self contentView] viewWithTag:6] setText:[[self timer] lastLapString]];
-    [(UILabel*)[[self contentView] viewWithTag:2] setText:[NSString stringWithFormat:@"%d", [[self timer]lapNumber]]];
+    [(UILabel*)[self.contentView viewWithTag:1] setText:[[self timer] timeString]];
+    [(UILabel*)[self.contentView viewWithTag:6] setText:[[self timer] lastLapString]];
+    [(UILabel*)[self.contentView viewWithTag:2] setText:[NSString stringWithFormat:@"%d", [[self timer]lapNumber]]];
     
     self.timerName.backgroundColor = [self.timer thumb];
     self.timerName.text = self.timer.name;
-    // Set triangle type!
+    
     switch ([self.timer flagType]) {
             
         case FlagTypeGreen:
         {
-            [[[self contentView] viewWithTag:3] setBackgroundColor:[[self timer] thumb]];
+            [[self.contentView viewWithTag:3] setBackgroundColor:[[self timer] thumb]];
             UIColor *color = [[self timer] thumb];
             const float* colors = CGColorGetComponents(color.CGColor);
             NSLog(@"Row: %d, [UIColor colorWithRed:%f green:%f blue:%f alpha:1]", self.row, colors[0], colors[1], colors[2]);
             UIColor *lightColor = [UIColor colorWithRed:colors[0]+0.1 green:colors[1]+0.1 blue:colors[2]+0.1 alpha:1];
-            [[[self contentView] viewWithTag:10] setBackgroundColor:lightColor];
-            [[[self contentView] viewWithTag:11] setBackgroundColor:lightColor];
-            [[[self contentView] viewWithTag:12] setBackgroundColor:lightColor];
+            [[self.contentView viewWithTag:10] setBackgroundColor:lightColor];
+            [[self.contentView viewWithTag:11] setBackgroundColor:lightColor];
+            [[self.contentView viewWithTag:12] setBackgroundColor:lightColor];
             [[self.contentView viewWithTag:3] setBackgroundColor:[self.timer thumb]];
             [[self.contentView viewWithTag:4] setBackgroundColor:[self.timer thumb]];
             [[self.contentView viewWithTag:5] setBackgroundColor:[self.timer thumb]];
-            [self.contentView setBackgroundColor:[[self timer] thumb]];
+//            [self.contentView setBackgroundColor:[[self timer] thumb]];
             break;
         }
         default:
         {
             UIColor *offColor = [CommonCLUtility backgroundColor];
             UIColor *lightColor = [CommonCLUtility highlightColor];
-            [[[self contentView] viewWithTag:3] setBackgroundColor:offColor];
-            [[[self contentView] viewWithTag:10] setBackgroundColor:lightColor];
-            [[[self contentView] viewWithTag:11] setBackgroundColor:lightColor];
-            [[[self contentView] viewWithTag:12] setBackgroundColor:lightColor];
+            [[self.contentView viewWithTag:3] setBackgroundColor:offColor];
+            [[self.contentView viewWithTag:10] setBackgroundColor:lightColor];
+            [[self.contentView viewWithTag:11] setBackgroundColor:lightColor];
+            [[self.contentView viewWithTag:12] setBackgroundColor:lightColor];
             [[self.contentView viewWithTag:3] setBackgroundColor:offColor];
             [[self.contentView viewWithTag:4] setBackgroundColor:offColor];
             [[self.contentView viewWithTag:5] setBackgroundColor:offColor];
-            [self.contentView setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
+//            [self.contentView setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
             break;
         }
     }
@@ -464,30 +455,30 @@
     // Flag type is about to switch so check against previous type
     if (self.timer.flagType != FlagTypeGreen)
     {
-        [[[self contentView] viewWithTag:3] setBackgroundColor:[[self timer] thumb]];
+        [[self.contentView viewWithTag:3] setBackgroundColor:[[self timer] thumb]];
         UIColor *color = [[self timer] thumb];
         const float* colors = CGColorGetComponents(color.CGColor);
         UIColor *lightColor = [UIColor colorWithRed:colors[0]+0.1 green:colors[1]+0.1 blue:colors[2]+0.1 alpha:1];
-        [[[self contentView] viewWithTag:10] setBackgroundColor:lightColor];
-        [[[self contentView] viewWithTag:11] setBackgroundColor:lightColor];
-        [[[self contentView] viewWithTag:12] setBackgroundColor:lightColor];
+        [[self.contentView viewWithTag:10] setBackgroundColor:lightColor];
+        [[self.contentView viewWithTag:11] setBackgroundColor:lightColor];
+        [[self.contentView viewWithTag:12] setBackgroundColor:lightColor];
         [[self.contentView viewWithTag:3] setBackgroundColor:[self.timer thumb]];
         [[self.contentView viewWithTag:4] setBackgroundColor:[self.timer thumb]];
         [[self.contentView viewWithTag:5] setBackgroundColor:[self.timer thumb]];
-        [self.contentView setBackgroundColor:[[self timer] thumb]];
+//        [self.contentView setBackgroundColor:[[self timer] thumb]];
     }
     else
     {
         UIColor *offColor = [CommonCLUtility backgroundColor];
         UIColor *lightColor = [CommonCLUtility highlightColor];
-        [[[self contentView] viewWithTag:3] setBackgroundColor:offColor];
-        [[[self contentView] viewWithTag:10] setBackgroundColor:lightColor];
-        [[[self contentView] viewWithTag:11] setBackgroundColor:lightColor];
-        [[[self contentView] viewWithTag:12] setBackgroundColor:lightColor];
+        [[self.contentView viewWithTag:3] setBackgroundColor:offColor];
+        [[self.contentView viewWithTag:10] setBackgroundColor:lightColor];
+        [[self.contentView viewWithTag:11] setBackgroundColor:lightColor];
+        [[self.contentView viewWithTag:12] setBackgroundColor:lightColor];
         [[self.contentView viewWithTag:3] setBackgroundColor:offColor];
         [[self.contentView viewWithTag:4] setBackgroundColor:offColor];
         [[self.contentView viewWithTag:5] setBackgroundColor:offColor];
-        [self.contentView setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
+//        [self.contentView setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
     }
     [UIView commitAnimations];
 }
@@ -505,14 +496,14 @@
         UIColor *color = [[self timer] thumb];
         const float* colors = CGColorGetComponents(color.CGColor);
         UIColor *lightColor = [UIColor colorWithRed:colors[0]+0.1 green:colors[1]+0.1 blue:colors[2]+0.1 alpha:1];
-        [[[self contentView] viewWithTag:12] setBackgroundColor:lightColor];
+        [[self.contentView viewWithTag:12] setBackgroundColor:lightColor];
         [[self.contentView viewWithTag:5] setBackgroundColor:[self.timer thumb]];
     }
     else
     {
         UIColor *offColor = [CommonCLUtility backgroundColor];
         UIColor *lightColor = [CommonCLUtility highlightColor];
-        [[[self contentView] viewWithTag:12] setBackgroundColor:lightColor];
+        [[self.contentView viewWithTag:12] setBackgroundColor:lightColor];
         [[self.contentView viewWithTag:5] setBackgroundColor:offColor];
     }
     [UIView commitAnimations];
@@ -521,15 +512,15 @@
 -(void) tick:(NSString *)time withLap:(NSInteger)lap
 {
     [self setTime:time];
-    [(UILabel*)[[self contentView] viewWithTag:1] setText:time];
-    [(UILabel*)[[self contentView] viewWithTag:2] setText:[NSString stringWithFormat:@"%d", (int)lap]];
+    [(UILabel*)[self.contentView viewWithTag:1] setText:time];
+    [(UILabel*)[self.contentView viewWithTag:2] setText:[NSString stringWithFormat:@"%d", (int)lap]];
     [self setLapNumber:[NSString stringWithFormat:@"%d", (int)lap]];
 
 }
 
 -(void)lastLapTimeChanged:(NSString*)lapTime
 {
-    [(UILabel*)[[self contentView] viewWithTag:6] setText:[NSString stringWithFormat:@"%@", lapTime]];
+    [(UILabel*)[self.contentView viewWithTag:6] setText:[NSString stringWithFormat:@"%@", lapTime]];
 }
 
 - (void) setSelected:(BOOL)selected animated:(BOOL)animated
@@ -537,23 +528,28 @@
     [super setSelected:selected animated:animated];
 }
 
+#pragma mark - UITextFieldDelegate methods
+
+// Adjusts inset so that the cell is visible.
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     self.timesTable.tableView.contentInset = UIEdgeInsetsMake(0, 0, 200, 0);
     [self.timesTable.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.row inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-    
 }
 
+// Resets inset.
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
     self.timesTable.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
+// Makes all characters uppercase
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     textField.text = [textField.text stringByReplacingCharactersInRange:range withString:[string uppercaseString]]; return NO;
 }
 
+// Closes keyboard
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     self.timer.name = textField.text;

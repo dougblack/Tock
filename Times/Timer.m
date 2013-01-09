@@ -8,6 +8,23 @@
 
 #import "Timer.h"
 #import "TimerCell.h"
+#import "TockSoundPlayer.h"
+
+@interface Timer ()
+
+@property BOOL recentlyStopped;
+
+@property NSTimeInterval startTime;
+@property NSTimeInterval lastLapTime;
+@property NSTimeInterval currentTime;
+@property NSTimeInterval timeDelta;
+@property NSTimeInterval currentLapDelta;
+@property NSTimeInterval timeOfLastStop;
+
+@property BOOL started;
+@property BOOL stopped;
+
+@end
 
 @implementation Timer
 
@@ -17,31 +34,26 @@
     if (self)
     {
         self.running = NO;
-        self.timeString = @"00:00.0";
-        self.lastLapString = @"--:--.-";
         self.lapNumber = 1;
         self.timeDelta = 0;
         self.currentLapDelta = 0;
         self.recentlyStopped = NO;
         self.avgLap = 0;
         self.flagType = FlagTypeNone;
+        self.timeString = @"00:00.0";
+        self.lastLapString = @"--:--.-";
         self.name = @"TIMER";
     }
     return self;
 }
 
+#pragma mark - Time methods
+
 -(void) start
 {
 
-//    // PLAY A SOUND ON START
-//    NSString *path = [[NSBundle mainBundle] pathForResource:@"click_low" ofType:@"wav"];
-//    NSURL *clickURL = [[NSURL alloc] initFileURLWithPath:path];
-//    NSError *clickError = [NSError new];
-//    self.timerClick = [[AVAudioPlayer alloc] initWithContentsOfURL:clickURL error:&clickError];
-//    self.timerClick.volume = 0.4;
-//    [self.timerClick play];
-
-    [self setStartTime:[NSDate timeIntervalSinceReferenceDate]];
+    self.startTime = [NSDate timeIntervalSinceReferenceDate];
+//    [TockSoundPlayer playSoundWithName:@"start2" andExtension:@"wav" andVolume:1.0];
     
     if (self.started == YES)
     {
@@ -76,7 +88,7 @@
     NSTimeInterval timeSinceStart = [NSDate timeIntervalSinceReferenceDate];
     NSTimeInterval elapsed = timeSinceStart - [self startTime] + [self timeDelta];
     
-    self.current = elapsed;
+    self.currentTime = elapsed;
     
     NSString* newTimeString = [Timer stringFromTimeInterval:elapsed];
     
@@ -91,6 +103,7 @@
         return;
     }
     
+//    [TockSoundPlayer playSoundWithName:@"lap" andExtension:@"wav" andVolume:0.1];
     NSTimeInterval currentTime = [NSDate timeIntervalSinceReferenceDate];
     NSTimeInterval elapsed = (currentTime - [self lastLapTime]) - [self currentLapDelta];
     
@@ -99,7 +112,6 @@
     // Add new values to appropriate arrays.
     [self.lapStrings addObject:thisLapString];
     [self.laps addObject:[NSNumber numberWithDouble:elapsed]];
-    [self.timesAtLaps addObject:[NSNumber numberWithDouble:[self currentTime]]];
     
     self.lastLapTime = currentTime;
     self.lastLapString = thisLapString;
@@ -118,6 +130,7 @@
 
 -(void) stop
 {
+//    [TockSoundPlayer playSoundWithName:@"stop4" andExtension:@"wav" andVolume:1.0];
     NSTimeInterval currentTime = [NSDate timeIntervalSinceReferenceDate];
     NSTimeInterval elapsedSinceLastLap = currentTime - [self lastLapTime];
     
@@ -154,6 +167,8 @@
     self.timeDelta = 0;
     self.flagType = FlagTypeNone;
 }
+
+#pragma mark - copy methods
 
 -(id) copyWithZone:(NSZone *)zone
 {
