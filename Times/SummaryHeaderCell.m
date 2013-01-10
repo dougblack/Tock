@@ -24,7 +24,6 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        
     }
     return self;
 }
@@ -71,7 +70,7 @@
     self.currentTimeLabel.text = [@"TOTAL\n" stringByAppendingString:self.time];
     self.averageTimeLabel.text = [@"AVG\n" stringByAppendingString:self.avg];
     self.goalLapLabel.text = [@"GOAL\n" stringByAppendingString:self.goal];
-    [self.contentView setBackgroundColor:self.timer.thumb];
+    [self.contentView setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

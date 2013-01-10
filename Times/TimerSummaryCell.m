@@ -31,7 +31,6 @@
         [timerNameLabel setText:self.timerName];
         [timerNameLabel setFont:[UIFont boldSystemFontOfSize:20]];
         [timerNameLabel setBackgroundColor:foreColor];
-        //        [lapNumberLabel.layer setCornerRadius:2];
         self.timerNameLabel = timerNameLabel;
         [self.contentView addSubview:timerNameLabel];
         
@@ -41,7 +40,6 @@
         [lapStringLabel setText:self.lapString];
         [lapStringLabel setFont:[UIFont boldSystemFontOfSize:20]];
         [lapStringLabel setBackgroundColor:foreColor];
-        //        [lapStringLabel.layer setCornerRadius:2];
         self.lapStringLabel = lapStringLabel;
         [self.contentView addSubview:lapStringLabel];
         

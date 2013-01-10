@@ -18,14 +18,23 @@
     TimesViewController *timesTable = [[TimesViewController alloc] init];
 
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:timesTable];
-    [navigationController.navigationBar setTintColor:[UIColor colorWithRed:0.05 green:0.05 blue:0.05 alpha:1]];
-    
     [self setNavigationController:navigationController];
     [self.window setRootViewController:self.navigationController];
     [self.window addSubview:self.navigationController.view];
     [self.window makeKeyAndVisible];
-    [[UIBarButtonItem appearance] setTintColor:[CommonCLUtility viewDarkBackColor]];
-    [self.window makeKeyAndVisible];
+    
+    
+    UIImage *buttonColor = [CommonCLUtility imageFromColor:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1]];
+    
+    UIImage *barcolor = [CommonCLUtility imageFromColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1]];
+    // APPEARANCES
+    [[UIBarButtonItem appearance] setBackgroundImage:buttonColor forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    
+    [[UINavigationBar appearance] setBackgroundImage:barcolor forBarMetrics:UIBarMetricsDefault];
+    
+    [[UIToolbar appearance] setBackgroundImage:barcolor forToolbarPosition:UIToolbarPositionBottom barMetrics:UIBarMetricsDefault];
+    
+    
     return YES;
 }
 

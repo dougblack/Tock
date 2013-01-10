@@ -48,12 +48,11 @@
         [navBarLabel setShadowOffset:CGSizeMake(1,1)];
         [navBarLabel sizeToFit];
         [self.navigationItem setTitleView:navBarLabel];
+        
         UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(newTimer)];
         UIBarButtonItem *summaryButton = [[UIBarButtonItem alloc] initWithTitle:@"Summary" style:UIBarButtonItemStylePlain target:self action:@selector(openSummary)];
         [self.navigationItem setLeftBarButtonItem:summaryButton];
         [self.navigationItem setRightBarButtonItem:addButton];
-//        [self.navigationController setToolbarHidden:NO];
-//        self.navigationController.toolbarItems = [NSArray arrayWithObjects:addButton, nil];
         self.lastGeneratedColor = nil;
         
         // 40  - .15
@@ -170,6 +169,7 @@
     [super viewWillAppear:animated];
     
     [self.tableView setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
+//    [self.tableView setBackgroundColor:[UIColor blackColor]];
     [self.tableView reloadData];
     
 }

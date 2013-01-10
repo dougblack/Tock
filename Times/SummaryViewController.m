@@ -106,8 +106,10 @@
             NSMutableArray *currentLaps = [NSMutableArray array];
             for (Timer* timer in timers)
             {
-                if (i <= timer.laps.count-1)
+                if (i < timer.laps.count)
                     [currentLaps addObject:[timer.laps objectAtIndex:i]];
+                else
+                    [currentLaps addObject:[NSNull null]];
             }
             [self.arrayOfLaps addObject:currentLaps];
         }
@@ -163,8 +165,10 @@
 {
     if (item.tag == 0) {
         self.displayType = DisplayByLap;
+        self.deltaControl.hidden = YES;
     } else {
         self.displayType = DisplayByTimer;
+        self.deltaControl.hidden = NO;
     }
     
     [self.tableView reloadData];
@@ -183,11 +187,11 @@
             else if (i == 2)
                 self.deltaType = DeltaFromPreviousLap;
             
-            UIColor *tintcolor=[UIColor redColor];
-            [[control.subviews objectAtIndex:i] setTintColor:tintcolor];
+            UIColor *onColor = [UIColor colorWithRed:0.8 green:0 blue:0.1 alpha:1];
+            [self myShineGradient:[control.subviews objectAtIndex:i] withColor1:onColor withColor2:onColor];
         } else {
-            UIColor *tintcolor=[UIColor colorWithRed:0.05 green:0.05 blue:0.05 alpha:1]; // default color
-            [[control.subviews objectAtIndex:i] setTintColor:tintcolor];
+            UIColor *offColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1];
+            [self myShineGradient:[control.subviews objectAtIndex:i] withColor1:offColor withColor2:offColor];
         }
     }
     [self.tableView reloadData];
@@ -391,7 +395,10 @@
         NSMutableArray *timerLaps = [self.arrayOfLaps objectAtIndex:indexPath.section];
         Timer *timer = [self.timers objectAtIndex:indexPath.row];
         [cell setTimerName:timer.name];
-        [cell setLapString:[Timer stringFromTimeInterval:[[timerLaps objectAtIndex:indexPath.row] doubleValue]]];
+        if ([timerLaps objectAtIndex:indexPath.row] != [NSNull null]) // if a lap for this timer exists for this row
+            [cell setLapString:[Timer stringFromTimeInterval:[[timerLaps objectAtIndex:indexPath.row] doubleValue]]];
+        else
+            [cell setLapString:@"---"];
         [cell setNameColor:timer.thumb];
         [cell refresh];
         return cell;
@@ -431,6 +438,61 @@
     {
         [[header nameTextField] resignFirstResponder];
     }
+}
+
+- (void)myShineGradient:(UIView*)myView withColor1:(UIColor*)color1  withColor2:(UIColor*)color2
+{
+    //   remove old personal shine layer (if any exists):
+    int layerNumberNow = [[myView.layer sublayers] count];
+    if (layerNumberNow>2) {
+        [[[myView.layer sublayers] objectAtIndex:0] removeFromSuperlayer];
+    }
+    // add shine layer
+    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+    
+    [gradientLayer setBounds:[myView bounds]];
+    // Center the layer inside the parent layer
+    [gradientLayer setPosition:
+     CGPointMake([myView bounds].size.width/2,
+                 [myView bounds].size.height/2)];
+    
+    // Set the colors for the gradient to the
+    // two colors specified for high and low
+    [gradientLayer setColors:
+     [NSArray arrayWithObjects:
+      (id)[color1 CGColor],(id)[color2 CGColor], nil]];
+    [myView.layer insertSublayer:gradientLayer atIndex:layerNumberNow-2];
+    
+    
+}
+- (void)setColorForBackGround:(UIView*)myView withColor1:(UIColor*)color1 withColor2:(UIColor*)color2
+{
+    // add shine layer
+    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+    
+    [gradientLayer setBounds:[myView bounds]];
+    // Center the layer inside the parent layer
+    [gradientLayer setPosition:
+     CGPointMake([myView bounds].size.width/2,
+                 [myView bounds].size.height/2)];
+    
+    // Set the colors for the gradient to the
+    // two colors specified for high and low
+    [gradientLayer setColors:
+     [NSArray arrayWithObjects:
+      (id)[color1 CGColor],(id)[color2 CGColor], nil]];
+    
+    [myView.layer setBackgroundColor:[ [UIColor colorWithRed:0 green:0 blue:0 alpha:0] CGColor]];
+    
+    [myView.layer setCornerRadius:4];
+    [[myView layer] setMasksToBounds:YES];
+    
+    // Display a border around the button
+    // with a 1.0 pixel width
+    
+    [[myView layer] setBorderWidth:1.0f];
+    [[myView layer] setBorderColor:[ [UIColor colorWithRed:1 green:1 blue:1 alpha:.1] CGColor] ];
+    ///
 }
 
 @end

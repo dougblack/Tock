@@ -155,7 +155,7 @@
 +(UIColor*) backgroundColor
 {
     static UIColor* background = nil;
-    if (!background) background = [UIColor colorWithRed:0.18 green:0.18 blue:0.18 alpha:1];
+    if (!background) background = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1];
     return background;
 }
 
