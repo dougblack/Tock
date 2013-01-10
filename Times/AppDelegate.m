@@ -24,11 +24,7 @@
     [self.window makeKeyAndVisible];
     
     
-    UIImage *buttonColor = [CommonCLUtility imageFromColor:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1]];
-    
-    UIImage *barcolor = [CommonCLUtility imageFromColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1]];
-    
-    UIImage *navBarImage = [UIImage imageNamed:@"nav_bar.png"];
+    UIImage *navBarImage = [UIImage imageNamed:@"nav_bar_gray.png"];
     UIImage *buttonImage = [UIImage imageNamed:@"button.png"];
     // APPEARANCES
 //    [[UIBarButtonItem appearance] setBackgroundImage:buttonImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];

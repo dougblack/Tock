@@ -58,15 +58,15 @@
 
         
         
-        UIImage *buttonImage = [[UIImage imageNamed:@"button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 70, 0, 0)];
+        UIImage *buttonImage = [[UIImage imageNamed:@"summary_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 70, 0, 0)];
         
-        UIButton *summaryBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 70, 32)];
+        UIButton *summaryBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 32)];
         [summaryBtn setBackgroundImage:buttonImage forState:UIControlStateNormal];
         
         UIBarButtonItem *summaryButton = [[UIBarButtonItem alloc] initWithCustomView:summaryBtn];
         [summaryBtn addTarget:self action:@selector(openSummary) forControlEvents:UIControlEventTouchUpInside];
-        [summaryBtn setFont:[UIFont boldSystemFontOfSize:12]];
-        [summaryBtn setTitle:@"Summary" forState:UIControlStateNormal];
+//        [summaryBtn setFont:[UIFont boldSystemFontOfSize:12]];
+//        [summaryBtn setTitle:@"Summary" forState:UIControlStateNormal];
         [self.navigationItem setLeftBarButtonItem:summaryButton];
         [self.navigationItem setRightBarButtonItem:addButton];
         self.lastGeneratedColor = nil;
