@@ -98,7 +98,7 @@
         self.arrayOfLaps = [NSMutableArray array];
         for (int i = 0; i < self.mostLaps; i++)
         {
-            SummaryHeaderView *headerView = [[SummaryHeaderView alloc] initWithThumb:[UIColor blackColor] andTimerNumber:i andTimer:nil];
+            SummaryHeaderView *headerView = [[SummaryHeaderView alloc] initWithThumb:[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1] andTimerNumber:i+1 andTimer:nil];
             [headerView convertToLapHeader];
             
             [self.headerViewsByLap addObject:headerView];
@@ -150,10 +150,11 @@
     [self.view addSubview:summaryTableView];
     
     UITabBar *tabBar = [[UITabBar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-44, self.view.frame.size.width, 44)];
-    UITabBarItem *lapBarItem = [[UITabBarItem alloc] initWithTitle:@"By Lap" image:nil tag:0];
-    UITabBarItem *timerByItem = [[UITabBarItem alloc] initWithTitle:@"By Timer" image:nil tag:1];
+    UITabBarItem *lapBarItem = [[UITabBarItem alloc] initWithTitle:@"By Lap" image:[UIImage imageNamed:@"line.png"] tag:0];
+    UITabBarItem *timerByItem = [[UITabBarItem alloc] initWithTitle:@"By Timer" image:[UIImage imageNamed:@"bar.png"] tag:1];
     [tabBar setItems:[NSArray arrayWithObjects:lapBarItem, timerByItem, nil]];
     tabBar.delegate = self;
+    [tabBar setSelectedItem:timerByItem];
     [self.view addSubview:tabBar];
     
 }
@@ -235,7 +236,7 @@
             return 2;
         return [[timer laps] count]+1;
     } else {
-        return [[self.arrayOfLaps objectAtIndex:section] count]+1;
+        return [[self.arrayOfLaps objectAtIndex:section] count];
     }
 }
 
@@ -253,14 +254,12 @@
     static NSString *NoLapsCellIdentifier = @"NoLapsCell";
     static NSString *HeaderCellIdentifier = @"HeaderCell";
     
-    Timer *timer;
+    Timer *timer = nil;
     
     if (self.displayType == DisplayByTimer)
         timer = [[self timers] objectAtIndex:indexPath.section];
-    else
-        timer = [[self timers] objectAtIndex:0];
     
-    if (indexPath.row == 0)
+    if (indexPath.row == 0 && self.displayType == DisplayByTimer)
     {
         SummaryHeaderCell *header = (SummaryHeaderCell*) [tableView dequeueReusableCellWithIdentifier:HeaderCellIdentifier];
         if (header == nil)
@@ -281,7 +280,7 @@
         return header;
     }
 
-    if ([[timer laps] count] == 0 && indexPath.row == 1)
+    if ([[timer laps] count] == 0 && indexPath.row == 1 && self.displayType == DisplayByTimer)
     {
         NoLapsCell *noLapsCell = (NoLapsCell*) [tableView dequeueReusableCellWithIdentifier:NoLapsCellIdentifier];
         if (noLapsCell == nil)
@@ -390,8 +389,10 @@
             cell = [[TimerSummaryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TimerSummaryCell"];
         }
         NSMutableArray *timerLaps = [self.arrayOfLaps objectAtIndex:indexPath.section];
-        [cell setTimerName:@"Doug"];
-        [cell setLapString:[Timer stringFromTimeInterval:[[timerLaps objectAtIndex:indexPath.row-1] doubleValue]]];
+        Timer *timer = [self.timers objectAtIndex:indexPath.row];
+        [cell setTimerName:timer.name];
+        [cell setLapString:[Timer stringFromTimeInterval:[[timerLaps objectAtIndex:indexPath.row] doubleValue]]];
+        [cell setNameColor:timer.thumb];
         [cell refresh];
         return cell;
     }

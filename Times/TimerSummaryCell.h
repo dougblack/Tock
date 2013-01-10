@@ -13,6 +13,8 @@
 @property NSString *timerName;
 @property NSString *lapString;
 
+@property UIColor *nameColor;
+
 -(void)refresh;
 
 @end
