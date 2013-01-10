@@ -27,12 +27,15 @@
     UIImage *buttonColor = [CommonCLUtility imageFromColor:[UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1]];
     
     UIImage *barcolor = [CommonCLUtility imageFromColor:[UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1]];
+    
+    UIImage *navBarImage = [UIImage imageNamed:@"nav_bar.png"];
+    UIImage *buttonImage = [UIImage imageNamed:@"button.png"];
     // APPEARANCES
-    [[UIBarButtonItem appearance] setBackgroundImage:buttonColor forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+//    [[UIBarButtonItem appearance] setBackgroundImage:buttonImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     
-    [[UINavigationBar appearance] setBackgroundImage:barcolor forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setBackgroundImage:navBarImage forBarMetrics:UIBarMetricsDefault];
     
-    [[UIToolbar appearance] setBackgroundImage:barcolor forToolbarPosition:UIToolbarPositionBottom barMetrics:UIBarMetricsDefault];
+    [[UIToolbar appearance] setBackgroundImage:navBarImage forToolbarPosition:UIToolbarPositionBottom barMetrics:UIBarMetricsDefault];
     
     
     return YES;

@@ -49,8 +49,24 @@
         [navBarLabel sizeToFit];
         [self.navigationItem setTitleView:navBarLabel];
         
-        UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(newTimer)];
-        UIBarButtonItem *summaryButton = [[UIBarButtonItem alloc] initWithTitle:@"Summary" style:UIBarButtonItemStylePlain target:self action:@selector(openSummary)];
+        UIImage *plusImage = [UIImage imageNamed:@"plus_button.png"];
+        UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 32)];
+        [addBtn setBackgroundImage:plusImage forState:UIControlStateNormal];
+        [addBtn addTarget:self action:@selector(newTimer) forControlEvents:UIControlEventTouchUpInside];
+        
+        UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
+
+        
+        
+        UIImage *buttonImage = [[UIImage imageNamed:@"button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 70, 0, 0)];
+        
+        UIButton *summaryBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 70, 32)];
+        [summaryBtn setBackgroundImage:buttonImage forState:UIControlStateNormal];
+        
+        UIBarButtonItem *summaryButton = [[UIBarButtonItem alloc] initWithCustomView:summaryBtn];
+        [summaryBtn addTarget:self action:@selector(openSummary) forControlEvents:UIControlEventTouchUpInside];
+        [summaryBtn setFont:[UIFont boldSystemFontOfSize:12]];
+        [summaryBtn setTitle:@"Summary" forState:UIControlStateNormal];
         [self.navigationItem setLeftBarButtonItem:summaryButton];
         [self.navigationItem setRightBarButtonItem:addButton];
         self.lastGeneratedColor = nil;
@@ -90,7 +106,16 @@
     [summaryViewController setTimesViewController:self];
     UINavigationController *summaryNavigationController = [[UINavigationController alloc] initWithRootViewController:summaryViewController];
     [summaryNavigationController.navigationBar setTintColor:[UIColor colorWithRed:0.05 green:0.05 blue:0.05 alpha:1]];
-    [summaryViewController.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:summaryViewController action:@selector(back)]];
+    
+    UIImage *doneImage = [UIImage imageNamed:@"done_button.png"];
+    UIButton *doneBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 65, 32)];
+    [doneBtn setBackgroundImage:doneImage forState:UIControlStateNormal];
+    [doneBtn setTitle:@"Done" forState:UIControlStateNormal];
+    [doneBtn setFont:[UIFont boldSystemFontOfSize:12]];
+    [doneBtn addTarget:summaryViewController action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithCustomView:doneBtn];
+    
+    [summaryViewController.navigationItem setRightBarButtonItem:doneButton];
     [self.navigationController presentViewController:summaryNavigationController animated:YES completion:nil];
 
 }
@@ -168,7 +193,9 @@
 {
     [super viewWillAppear:animated];
     
-    [self.tableView setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
+    [self.tableView setBackgroundColor:[UIColor clearColor] ];
+    UIImageView *tableBack = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table_view_back.png"]];
+    [self.tableView setBackgroundView:tableBack];
 //    [self.tableView setBackgroundColor:[UIColor blackColor]];
     [self.tableView reloadData];
     
