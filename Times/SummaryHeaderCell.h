@@ -17,7 +17,7 @@
 @property (nonatomic) NSString *goal;
 @property (nonatomic) Timer* timer;
 
--(void)refresh;
+- (void)refresh;
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier andTimer:(Timer*)timer;
 
 @end

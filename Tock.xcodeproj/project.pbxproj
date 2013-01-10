@@ -37,6 +37,7 @@
 		913103BD16968B580064406A /* SummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 913103BC16968B580064406A /* SummaryViewController.m */; };
 		913103C016968B790064406A /* SummaryTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 913103BF16968B780064406A /* SummaryTableView.m */; };
 		913103C316968D520064406A /* SummaryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 913103C216968D520064406A /* SummaryCell.m */; };
+		9135A51F169E5C14002F79B8 /* TimerSummaryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9135A51E169E5C14002F79B8 /* TimerSummaryCell.m */; };
 		913A116E169B70EC00FBADC8 /* ClickButton.wav in Resources */ = {isa = PBXBuildFile; fileRef = 913A116D169B70EB00FBADC8 /* ClickButton.wav */; };
 		913A1173169B78D100FBADC8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 913A1172169B78D100FBADC8 /* AVFoundation.framework */; };
 		913A1175169BA6ED00FBADC8 /* nav_click.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 913A1174169BA6ED00FBADC8 /* nav_click.mp3 */; };
@@ -93,6 +94,8 @@
 		913103BF16968B780064406A /* SummaryTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SummaryTableView.m; sourceTree = "<group>"; };
 		913103C116968D520064406A /* SummaryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SummaryCell.h; sourceTree = "<group>"; };
 		913103C216968D520064406A /* SummaryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SummaryCell.m; sourceTree = "<group>"; };
+		9135A51D169E5C14002F79B8 /* TimerSummaryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimerSummaryCell.h; sourceTree = "<group>"; };
+		9135A51E169E5C14002F79B8 /* TimerSummaryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimerSummaryCell.m; sourceTree = "<group>"; };
 		913A116D169B70EB00FBADC8 /* ClickButton.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ClickButton.wav; sourceTree = "<group>"; };
 		913A1170169B71E500FBADC8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		913A1172169B78D100FBADC8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -332,6 +335,8 @@
 			children = (
 				91C40FFD1688090900092BF8 /* TimerCell.h */,
 				91C40FFE1688090900092BF8 /* TimerCell.m */,
+				9135A51D169E5C14002F79B8 /* TimerSummaryCell.h */,
+				9135A51E169E5C14002F79B8 /* TimerSummaryCell.m */,
 				913103C116968D520064406A /* SummaryCell.h */,
 				913103C216968D520064406A /* SummaryCell.m */,
 				91E05C691698C49700FE4A3B /* NoLapsCell.h */,
@@ -513,6 +518,7 @@
 				913A11A3169D095500FBADC8 /* GoalPickerView.m in Sources */,
 				913A11B6169E09B100FBADC8 /* SettingsViewController.m in Sources */,
 				913A11BB169E146800FBADC8 /* SettingsCell.m in Sources */,
+				9135A51F169E5C14002F79B8 /* TimerSummaryCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -56,6 +56,12 @@
     return self;
 }
 
+-(void)convertToLapHeader
+{
+    self.nameTextField.text = @"Lap";
+    self.nameTextField.enabled = NO;
+}
+
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];

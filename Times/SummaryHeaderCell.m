@@ -25,9 +25,6 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-
-
-        
     }
     return self;
 }

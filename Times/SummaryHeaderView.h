@@ -16,4 +16,6 @@
 
 - (id)initWithThumb:(UIColor*)thumb andTimerNumber:(NSInteger)timerNumber andTimer:(Timer*)timer;
 
+-(void)convertToLapHeader;
+
 @end

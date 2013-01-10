@@ -55,7 +55,6 @@
     [navBarLabel setOpaque:YES];
     [self.navigationItem setTitleView:navBarLabel];
 
-    
     self.tableView = [[UITableView alloc] initWithFrame:self.view.frame];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -67,6 +66,25 @@
     
     [self.tableView registerClass:[SettingsCell class] forCellReuseIdentifier:@"Settings"];
     [self.view addSubview:self.tableView];
+    
+    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-44, self.view.frame.size.width, 44)];
+    
+    UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] init];
+    [settingsButton setAction:@selector(openSettings)];
+    [settingsButton setTarget:self];
+    settingsButton.title = @"\u2699";
+    UIFont *f1 = [UIFont fontWithName:@"Helvetica" size:24.0];
+    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:f1, UITextAttributeFont, nil];
+    [settingsButton setTitleTextAttributes:dict forState:UIControlStateNormal];
+    [toolbar setTintColor:[UIColor blackColor]];
+    UIBarButtonItem *startAllButton = [[UIBarButtonItem alloc] initWithTitle:@"START ALL" style:UIBarButtonItemStylePlain target:self action:@selector(startAll)];
+    [startAllButton setTintColor:[UIColor colorWithRed:0.0 green:0.8 blue:0.3 alpha:1]];
+    [startAllButton setBackgroundImage:[CommonCLUtility imageFromColor:[UIColor colorWithRed:0 green:0.8 blue:0.3 alpha:1]] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    
+    NSArray *toolBarItems = [NSArray arrayWithObjects:startAllButton, flexibleSpace, settingsButton, nil];
+    [toolbar setItems:toolBarItems];
+    [self.view addSubview:toolbar];
 }
 
 - (void)didReceiveMemoryWarning

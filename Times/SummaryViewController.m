@@ -16,10 +16,12 @@
 #import "CommonCLUtility.h"
 #import "NoLapsCell.h"
 #import "TockSoundPlayer.h"
+#import "TimerSummaryCell.h"
 
 @interface SummaryViewController ()
 
 @property (nonatomic) NSMutableArray *headerViews;
+@property (nonatomic) NSMutableArray *headerViewsByLap;
 @property UISegmentedControl *deltaControl;
 
 @end
@@ -45,8 +47,15 @@
         self.headerViews = [NSMutableArray array];
         
         int i = 1;
+        self.mostLaps = -1;
         for (Timer *timer in timers)
         {
+            
+            NSLog(@"%d", timer.laps.count);
+            NSInteger count = timer.laps.count;
+            if (count > self.mostLaps)
+                self.mostLaps = timer.laps.count;
+            
             NSMutableDictionary *thisTimersDeltas = [[NSMutableDictionary alloc] init];
             NSMutableArray *previousLapDeltas = [NSMutableArray array];
             NSMutableArray *goalLapDeltas = [NSMutableArray array];
@@ -59,11 +68,11 @@
                 double lapDouble = [lap doubleValue];
                 if (previousLap == 0)
                     [previousLapDeltas addObject:[NSNull null]];
-                else
-                {
+                else {
                     double delta = lapDouble - previousLap;
                     [previousLapDeltas addObject:[NSNumber numberWithDouble:delta]];
                 }
+                
                 if (goal != -1)
                     [goalLapDeltas addObject:[NSNumber numberWithDouble:(lapDouble-goal)]];
                 else
@@ -72,6 +81,7 @@
                 [avgLapDeltas addObject:[NSNumber numberWithDouble:(lapDouble-avg)]];
                 previousLap = lapDouble;
             }
+            
             [thisTimersDeltas setObject:previousLapDeltas forKey:@"Previous"];
             [thisTimersDeltas setObject:goalLapDeltas forKey:@"Goal"];
             [thisTimersDeltas setObject:avgLapDeltas forKey:@"Avg"];
@@ -80,7 +90,28 @@
             [self.headerViews addObject:headerView];
             i++;
         }
+        
         self.timers = timers;
+        self.displayType = DisplayByTimer;
+        
+        self.headerViewsByLap = [NSMutableArray array];
+        self.arrayOfLaps = [NSMutableArray array];
+        for (int i = 0; i < self.mostLaps; i++)
+        {
+            SummaryHeaderView *headerView = [[SummaryHeaderView alloc] initWithThumb:[UIColor blackColor] andTimerNumber:i andTimer:nil];
+            [headerView convertToLapHeader];
+            
+            [self.headerViewsByLap addObject:headerView];
+            
+            NSMutableArray *currentLaps = [NSMutableArray array];
+            for (Timer* timer in timers)
+            {
+                if (i <= timer.laps.count-1)
+                    [currentLaps addObject:[timer.laps objectAtIndex:i]];
+            }
+            [self.arrayOfLaps addObject:currentLaps];
+        }
+        
     }
     return self;
 }
@@ -104,10 +135,11 @@
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
     [tapRecognizer setNumberOfTapsRequired:1];
     
-    SummaryTableView *summaryTableView = [[SummaryTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    SummaryTableView *summaryTableView = [[SummaryTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-44)];
     [summaryTableView registerClass:[SummaryCell class] forCellReuseIdentifier:@"SummaryCell"];
     [summaryTableView registerClass:[NoLapsCell class] forCellReuseIdentifier:@"NoLapsCell"];
     [summaryTableView registerClass:[SummaryHeaderCell class] forCellReuseIdentifier:@"HeaderCell"];
+    [summaryTableView registerClass:[TimerSummaryCell class] forCellReuseIdentifier:@"TimerSummaryCell"];
     [summaryTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [summaryTableView setDelegate:self];
     [summaryTableView setDataSource:self];
@@ -117,6 +149,24 @@
     [self setTableView:summaryTableView];
     [self.view addSubview:summaryTableView];
     
+    UITabBar *tabBar = [[UITabBar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-44, self.view.frame.size.width, 44)];
+    UITabBarItem *lapBarItem = [[UITabBarItem alloc] initWithTitle:@"By Lap" image:nil tag:0];
+    UITabBarItem *timerByItem = [[UITabBarItem alloc] initWithTitle:@"By Timer" image:nil tag:1];
+    [tabBar setItems:[NSArray arrayWithObjects:lapBarItem, timerByItem, nil]];
+    tabBar.delegate = self;
+    [self.view addSubview:tabBar];
+    
+}
+
+-(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
+{
+    if (item.tag == 0) {
+        self.displayType = DisplayByLap;
+    } else {
+        self.displayType = DisplayByTimer;
+    }
+    
+    [self.tableView reloadData];
 }
 
 -(void)deltaChanged:(UISegmentedControl*)control
@@ -171,20 +221,30 @@
 
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
 {
+    if (self.displayType == DisplayByLap)
+        return self.mostLaps;
     return [[self timers] count];
 }
 
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    Timer *timer = [[self timers] objectAtIndex:section];
-    if ([[timer laps] count] == 0)
-        return 2;
-    return [[timer laps] count]+1;
+    if (self.displayType == DisplayByTimer)
+    {
+        Timer *timer = [[self timers] objectAtIndex:section];
+        if ([[timer laps] count] == 0)
+            return 2;
+        return [[timer laps] count]+1;
+    } else {
+        return [[self.arrayOfLaps objectAtIndex:section] count]+1;
+    }
 }
 
 -(UIView*) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    return [self.headerViews objectAtIndex:section];
+    if (self.displayType == DisplayByTimer)
+        return [self.headerViews objectAtIndex:section];
+    else
+        return [self.headerViewsByLap objectAtIndex:section];
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -193,7 +253,12 @@
     static NSString *NoLapsCellIdentifier = @"NoLapsCell";
     static NSString *HeaderCellIdentifier = @"HeaderCell";
     
-    Timer *timer = [[self timers] objectAtIndex:indexPath.section];
+    Timer *timer;
+    
+    if (self.displayType == DisplayByTimer)
+        timer = [[self timers] objectAtIndex:indexPath.section];
+    else
+        timer = [[self timers] objectAtIndex:0];
     
     if (indexPath.row == 0)
     {
@@ -225,94 +290,113 @@
         }
         return noLapsCell;
     }
-    
     SummaryCell *summaryCell = (SummaryCell*) [tableView dequeueReusableCellWithIdentifier:SummaryCellIdentifier];
     
-    if (summaryCell == nil)
+    if (self.displayType == DisplayByTimer)
     {
-        summaryCell = [[SummaryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:SummaryCellIdentifier];
-    }
-    
-    [summaryCell setLapTimeString:[[timer lapStrings] objectAtIndex:indexPath.row-1]];
-    
-    NSMutableDictionary *timerDict = (NSMutableDictionary*)[self.timersData objectAtIndex:indexPath.section];
-    switch (self.deltaType) {
-        case DeltaFromPreviousLap:
+        
+        
+        if (summaryCell == nil)
         {
-            NSMutableArray *previousLapDeltas = [timerDict objectForKey:@"Previous"];
-            NSNumber *delta = [previousLapDeltas objectAtIndex:indexPath.row-1];
-            
-            if (delta != [NSNull null])
+            summaryCell = [[SummaryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:SummaryCellIdentifier];
+        }
+        
+        [summaryCell setLapTimeString:[[timer lapStrings] objectAtIndex:indexPath.row-1]];
+        
+        NSMutableDictionary *timerDict = (NSMutableDictionary*)[self.timersData objectAtIndex:indexPath.section];
+        switch (self.deltaType) {
+            case DeltaFromPreviousLap:
             {
-                NSString *lapDeltaString;
-                if ([delta doubleValue] < 0) {
-                    lapDeltaString = [NSString stringWithFormat:@"%.1f", [delta doubleValue]];
-                    [summaryCell setDeltaColor:DeltaIsGreen];
+                NSMutableArray *previousLapDeltas = [timerDict objectForKey:@"Previous"];
+                NSNumber *delta = [previousLapDeltas objectAtIndex:indexPath.row-1];
+                
+                if (delta != [NSNull null])
+                {
+                    NSString *lapDeltaString;
+                    if ([delta doubleValue] < 0) {
+                        lapDeltaString = [NSString stringWithFormat:@"%.1f", [delta doubleValue]];
+                        [summaryCell setDeltaColor:DeltaIsGreen];
+                    } else {
+                        lapDeltaString = [NSString stringWithFormat:@"+%.1f", [delta doubleValue]];
+                        [summaryCell setDeltaColor:DeltaIsRed];
+                    }
+                    
+                    if ([lapDeltaString isEqualToString:@"-0.0"] || [lapDeltaString isEqualToString:@"+0.0"]) {
+                        lapDeltaString = @"0.0";
+                        [summaryCell setDeltaColor:DeltaIsGray];
+                    }
+                    [summaryCell setLapDelta:lapDeltaString];
                 } else {
-                    lapDeltaString = [NSString stringWithFormat:@"+%.1f", [delta doubleValue]];
-                    [summaryCell setDeltaColor:DeltaIsRed];
-                }
-                
-                if ([lapDeltaString isEqualToString:@"-0.0"] || [lapDeltaString isEqualToString:@"+0.0"]) {
-                    lapDeltaString = @"0.0";
+                    [summaryCell setLapDelta:@"---"];
                     [summaryCell setDeltaColor:DeltaIsGray];
+                    
                 }
-                [summaryCell setLapDelta:lapDeltaString];
-            } else {
-                [summaryCell setLapDelta:@"---"];
-                [summaryCell setDeltaColor:DeltaIsGray];
+                summaryCell.lapDeltaLabel.hidden = NO;
+                break;
+            }
+            case DeltaFromAverageLap:
+            {
                 
+                NSMutableArray *avgLapDeltas = [timerDict objectForKey:@"Avg"];
+                NSNumber *delta = [avgLapDeltas objectAtIndex:indexPath.row-1];
+                NSString *deltaString = [self stringForDelta:delta];
+                DeltaColor deltaColor = [self colorForDeltaString:deltaString];
+                [summaryCell setDeltaColor:deltaColor];
+                [summaryCell setLapDelta:deltaString];
+                summaryCell.lapDeltaLabel.hidden = NO;
+                break;
             }
-            summaryCell.lapDeltaLabel.hidden = NO;
-            break;
-        }
-        case DeltaFromAverageLap:
-        {
-
-            NSMutableArray *avgLapDeltas = [timerDict objectForKey:@"Avg"];
-            NSNumber *delta = [avgLapDeltas objectAtIndex:indexPath.row-1];
-            NSString *deltaString = [self stringForDelta:delta];
-            DeltaColor deltaColor = [self colorForDeltaString:deltaString];
-            [summaryCell setDeltaColor:deltaColor];
-            [summaryCell setLapDelta:deltaString];
-            summaryCell.lapDeltaLabel.hidden = NO;
-            break;
-        }
-        case DeltaFromGoalLap:
-        {
-            NSMutableArray *goalLapDeltas = [timerDict objectForKey:@"Goal"];
-            NSNumber *delta = [goalLapDeltas objectAtIndex:indexPath.row-1];
-            NSString* deltaString;
-            DeltaColor deltaColor;
-            if (delta != [NSNull null])
+            case DeltaFromGoalLap:
             {
-                deltaString = [self stringForDelta:delta];
-                deltaColor = [self colorForDeltaString:deltaString];
-            } else
-            {
-                deltaString = @"---";
-                deltaColor = DeltaIsGray;
+                NSMutableArray *goalLapDeltas = [timerDict objectForKey:@"Goal"];
+                NSNumber *delta = [goalLapDeltas objectAtIndex:indexPath.row-1];
+                NSString* deltaString;
+                DeltaColor deltaColor;
+                if (delta != [NSNull null])
+                {
+                    deltaString = [self stringForDelta:delta];
+                    deltaColor = [self colorForDeltaString:deltaString];
+                } else
+                {
+                    deltaString = @"---";
+                    deltaColor = DeltaIsGray;
+                }
+                
+                [summaryCell setLapDelta:deltaString];
+                [summaryCell setDeltaColor:deltaColor];
+                summaryCell.lapDeltaLabel.hidden = NO;
+                break;
             }
-            
-            [summaryCell setLapDelta:deltaString];
-            [summaryCell setDeltaColor:deltaColor];
-            summaryCell.lapDeltaLabel.hidden = NO;
-            break;
+            case None:
+            {
+                summaryCell.lapDeltaLabel.hidden = YES;
+                break;
+            }
+            default:
+                break;
         }
-        case None:
+        
+        [summaryCell setLapNumber:indexPath.row];
+        summaryCell.controller = self;
+        summaryCell.timer = timer;
+        [summaryCell refresh];
+        return summaryCell;
+    } else
+    {
+        TimerSummaryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TimerSummaryCell"];
+        
+        if (cell == nil)
         {
-            summaryCell.lapDeltaLabel.hidden = YES;
-            break;
+            cell = [[TimerSummaryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TimerSummaryCell"];
         }
-        default:
-            break;
+        NSMutableArray *timerLaps = [self.arrayOfLaps objectAtIndex:indexPath.section];
+        [cell setTimerName:@"Doug"];
+        [cell setLapString:[Timer stringFromTimeInterval:[[timerLaps objectAtIndex:indexPath.row-1] doubleValue]]];
+        [cell refresh];
+        return cell;
     }
     
-    [summaryCell setLapNumber:indexPath.row];
-    summaryCell.controller = self;
-    summaryCell.timer = timer;
-    [summaryCell refresh];
-    return summaryCell;
+    
 }
 
 -(DeltaColor) colorForDeltaString:(NSString*)deltaString

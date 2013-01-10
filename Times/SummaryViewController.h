@@ -16,14 +16,21 @@ typedef enum {
     None
 } DeltaType;
 
+typedef enum {
+    DisplayByLap,
+    DisplayByTimer
+} DisplayType;
+
 @class SummaryTableView;
 @class TimesViewController;
-@interface SummaryViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface SummaryViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UITabBarDelegate>
 
 @property (nonatomic) SummaryTableView *tableView;
 
 @property (nonatomic) NSMutableArray *timers;
 @property (nonatomic) NSMutableArray *timersData;
+
+@property (nonatomic) NSMutableArray *arrayOfLaps;
 
 @property (nonatomic) NSIndexPath *selectedRow;
 @property (nonatomic) NSArray *colorArray;
@@ -32,6 +39,8 @@ typedef enum {
 @property (nonatomic) DeltaType deltaType;
 @property (nonatomic) AVAudioPlayer *audioPlayer;
 
+@property DisplayType displayType;
+@property int mostLaps;
 
 - (id)initWithTimers:(NSMutableArray*)timers;
 
