@@ -155,7 +155,7 @@
 +(UIColor*) backgroundColor
 {
     static UIColor* background = nil;
-    if (!background) background = [UIColor colorWithRed:0.13 green:0.13 blue:0.13 alpha:1];
+    if (!background) background = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1];
     return background;
 }
 
@@ -169,7 +169,7 @@
 +(UIColor*) highlightColor
 {
     static UIColor *highlight = nil;
-    if (!highlight) highlight = [UIColor colorWithRed:0.25 green:0.25 blue:0.25 alpha:1];
+    if (!highlight) highlight = [UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1];
     return highlight;
 }
 
@@ -225,7 +225,7 @@
     do {
         CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
         CGFloat saturation = 1;
-        CGFloat brightness = 0.8;  //  0.5 to 1.0, away from black
+        CGFloat brightness = 0.7;  //  0.5 to 1.0, away from black
         
         color = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
         

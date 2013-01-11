@@ -25,13 +25,14 @@
     
     
     UIImage *navBarImage = [UIImage imageNamed:@"nav_bar_gray.png"];
+    UIImage *bottomBarImage = [UIImage imageNamed:@"bottom_bar.png"];
     UIImage *buttonImage = [UIImage imageNamed:@"button.png"];
     // APPEARANCES
 //    [[UIBarButtonItem appearance] setBackgroundImage:buttonImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     
     [[UINavigationBar appearance] setBackgroundImage:navBarImage forBarMetrics:UIBarMetricsDefault];
     
-    [[UIToolbar appearance] setBackgroundImage:navBarImage forToolbarPosition:UIToolbarPositionBottom barMetrics:UIBarMetricsDefault];
+    [[UIToolbar appearance] setBackgroundImage:bottomBarImage forToolbarPosition:UIToolbarPositionBottom barMetrics:UIBarMetricsDefault];
     
     
     return YES;

@@ -50,7 +50,7 @@
         [self.navigationItem setTitleView:navBarLabel];
         
         UIImage *plusImage = [UIImage imageNamed:@"plus_button.png"];
-        UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 32)];
+        UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 45, 32)];
         [addBtn setBackgroundImage:plusImage forState:UIControlStateNormal];
         [addBtn addTarget:self action:@selector(newTimer) forControlEvents:UIControlEventTouchUpInside];
         
@@ -60,7 +60,7 @@
         
         UIImage *buttonImage = [[UIImage imageNamed:@"summary_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 70, 0, 0)];
         
-        UIButton *summaryBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 32)];
+        UIButton *summaryBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 32)];
         [summaryBtn setBackgroundImage:buttonImage forState:UIControlStateNormal];
         
         UIBarButtonItem *summaryButton = [[UIBarButtonItem alloc] initWithCustomView:summaryBtn];
@@ -108,9 +108,10 @@
     [summaryNavigationController.navigationBar setTintColor:[UIColor colorWithRed:0.05 green:0.05 blue:0.05 alpha:1]];
     
     UIImage *doneImage = [UIImage imageNamed:@"done_button.png"];
-    UIButton *doneBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 65, 32)];
+    UIButton *doneBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 32)];
     [doneBtn setBackgroundImage:doneImage forState:UIControlStateNormal];
     [doneBtn setTitle:@"Done" forState:UIControlStateNormal];
+    [doneBtn setTitleEdgeInsets:UIEdgeInsetsMake(1, 2, 0, 0)];
     [doneBtn setFont:[UIFont boldSystemFontOfSize:12]];
     [doneBtn addTarget:summaryViewController action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithCustomView:doneBtn];
@@ -129,9 +130,15 @@
     UINavigationController *settingsNavigationController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
     [settingsNavigationController.navigationBar setTintColor:[UIColor colorWithRed:0.05 green:0.05 blue:0.05 alpha:1]];
     
-    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:settingsViewController action:@selector(saveAndClose)];
-    saveButton.tintColor =[UIColor colorWithRed:0.3 green:0.0 blue:0.8 alpha:1];
-    [settingsViewController.navigationItem setRightBarButtonItem:saveButton];
+    UIImage *doneImage = [UIImage imageNamed:@"done_button.png"];
+    UIButton *doneBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 32)];
+    [doneBtn setBackgroundImage:doneImage forState:UIControlStateNormal];
+    [doneBtn setTitle:@"Done" forState:UIControlStateNormal];
+    [doneBtn setTitleEdgeInsets:UIEdgeInsetsMake(1, 2, 0, 0)];
+    [doneBtn setFont:[UIFont boldSystemFontOfSize:12]];
+    [doneBtn addTarget:settingsViewController action:@selector(saveAndClose) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithCustomView:doneBtn];
+    [settingsViewController.navigationItem setRightBarButtonItem:doneButton];
     
     
     [self.navigationController presentViewController:settingsNavigationController animated:YES completion:nil];
