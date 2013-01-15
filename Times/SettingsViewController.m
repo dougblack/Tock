@@ -58,7 +58,7 @@
     self.tableView = [[UITableView alloc] initWithFrame:self.view.frame];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.backgroundColor = [CommonCLUtility viewDarkBackColor];
+    self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"settings_back.png"]];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     UIEdgeInsets inset = UIEdgeInsetsMake(20, 0, 0, 0);

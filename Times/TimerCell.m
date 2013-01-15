@@ -21,6 +21,10 @@
 @property (nonatomic) UILabel *timeLabel;
 @property (nonatomic) UILabel *lapNumberLabel;
 @property (nonatomic) UILabel *flashLabel;
+@property (nonatomic) UIView *timerNameBack;
+
+@property (nonatomic) UIImageView *bullsEyeImageView;
+@property (nonatomic) BOOL hasGoal;
 
 @property (nonatomic) BOOL isInDeleteMode;
 
@@ -32,6 +36,8 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        
+        
         self.movableViews = [NSMutableArray array];
         self.isInDeleteMode = NO;
         
@@ -57,8 +63,8 @@
         [deleteBtn setFont:[UIFont boldSystemFontOfSize:30]];
         [deleteBtn setTextAlignment:NSTextAlignmentCenter];
         [deleteBtn setTextColor:[UIColor whiteColor]];
-        [deleteBtn setShadowColor:[UIColor blackColor]];
-        [deleteBtn setShadowOffset:CGSizeMake(0, -1)];
+//        [deleteBtn setShadowColor:[UIColor blackColor]];
+//        [deleteBtn setShadowOffset:CGSizeMake(0, -1)];
         [deleteBtn setBackgroundColor:[UIColor colorWithRed:0.52 green:0 blue:0.08 alpha:1]];
         [deleteBtn setTag:9];
         [deleteBtn addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)]];
@@ -83,6 +89,12 @@
         [thumbBackView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)]];
         [self.contentView addSubview:thumbBackView];
         [self.movableViews addObject:thumbBackView];
+        
+        UIImageView *bullsEyeImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bulls_eye"]];
+        [bullsEyeImage setFrame:CGRectMake(26.5, 52, 30, 30)];
+        self.bullsEyeImageView = bullsEyeImage;
+        [self.movableViews addObject:bullsEyeImage];
+        [self.contentView addSubview:bullsEyeImage];
         
         UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10.0, 10.0, 63, 20)];
         [nameLabel setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.3]];
@@ -127,8 +139,8 @@
         [timeLabel setOpaque:NO];
         [timeLabel setBackgroundColor:[UIColor clearColor]];
         [timeLabel setTextColor:[UIColor whiteColor]];
-        [timeLabel setShadowColor:[UIColor blackColor]];
-        [timeLabel setShadowOffset:CGSizeMake(0, -1)];
+//        [timeLabel setShadowColor:[UIColor blackColor]];
+//        [timeLabel setShadowOffset:CGSizeMake(0, -1)];
         [timeLabel setFont:cellFont];
         [timeLabel setTextAlignment:NSTextAlignmentCenter];
         [timeLabel setTag:1];
@@ -142,8 +154,8 @@
         [lastLapLabel setOpaque:NO];
         [lastLapLabel setBackgroundColor:[UIColor clearColor]];
         [lastLapLabel setTextColor:[UIColor whiteColor]];
-        [lastLapLabel setShadowColor:[UIColor blackColor]];
-        [lastLapLabel setShadowOffset:CGSizeMake(0, -1)];
+//        [lastLapLabel setShadowColor:[UIColor blackColor]];
+//        [lastLapLabel setShadowOffset:CGSizeMake(0, -1)];
         [lastLapLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:15]];
         [lastLapLabel setTextAlignment:NSTextAlignmentCenter];
         [lastLapLabel setTag:6];
@@ -156,8 +168,8 @@
         [lapLabel setOpaque:NO];
         [lapLabel setBackgroundColor:[UIColor clearColor]];
         [lapLabel setTextColor:[UIColor whiteColor]];
-        [lapLabel setShadowColor:[UIColor blackColor]];
-        [lapLabel setShadowOffset:CGSizeMake(0, -1)];
+//        [lapLabel setShadowColor:[UIColor blackColor]];
+//        [lapLabel setShadowOffset:CGSizeMake(0, -1)];
         [lapLabel setFont:cellFont];
         [lapLabel setTextAlignment:NSTextAlignmentCenter];
         [lapLabel setTag:2];
@@ -171,8 +183,8 @@
         [lapTextLabel setOpaque:NO];
         [lapTextLabel setBackgroundColor:[UIColor clearColor]];
         [lapTextLabel setTextColor:[UIColor whiteColor]];
-        [lapTextLabel setShadowColor:[UIColor blackColor]];
-        [lapTextLabel setShadowOffset:CGSizeMake(0, -1)];
+//        [lapTextLabel setShadowColor:[UIColor blackColor]];
+//        [lapTextLabel setShadowOffset:CGSizeMake(0, -1)];
         [lapTextLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:15]];
         [lapTextLabel setTextAlignment:NSTextAlignmentCenter];
         [self.contentView addSubview:lapTextLabel];
@@ -204,6 +216,7 @@
         
         UIView *timerNameBack = [[UIView alloc] initWithFrame:CGRectMake(9, 9, 65, 32)];
         [timerNameBack setBackgroundColor:[CommonCLUtility highlightColor]];
+        self.timerNameBack = timerNameBack;
         [self.movableViews addObject:timerNameBack];
         [self.contentView addSubview:timerNameBack];
 
@@ -440,6 +453,19 @@
     [(UILabel*)[self.contentView viewWithTag:6] setText:[[self timer] lastLapString]];
     [(UILabel*)[self.contentView viewWithTag:2] setText:[NSString stringWithFormat:@"%d", [[self timer]lapNumber]]];
     
+    [self.bullsEyeImageView removeFromSuperview];
+    [self.movableViews removeObject:self.bullsEyeImageView];
+    if (self.timer.goalLap != -1) {
+        self.bullsEyeImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bulls_eye_white_nostroke.png"]];
+    } else {
+        self.bullsEyeImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bulls_eye.png"]];
+    }
+    [self.bullsEyeImageView setFrame:CGRectMake(26.5, 52, 30, 30)];
+    [self.movableViews addObject:self.bullsEyeImageView];
+    [self.contentView addSubview:self.bullsEyeImageView];
+    
+    
+    
     self.timerName.backgroundColor = [self.timer thumb];
     self.timerName.text = self.timer.name;
     
@@ -455,6 +481,7 @@
             [[self.contentView viewWithTag:10] setBackgroundColor:lightColor];
             [[self.contentView viewWithTag:11] setBackgroundColor:lightColor];
             [[self.contentView viewWithTag:12] setBackgroundColor:lightColor];
+            [self.timerNameBack setBackgroundColor:lightColor];
             [[self.contentView viewWithTag:3] setBackgroundColor:[self.timer thumb]];
             [[self.contentView viewWithTag:4] setBackgroundColor:[self.timer thumb]];
             [[self.contentView viewWithTag:5] setBackgroundColor:[self.timer thumb]];
@@ -469,6 +496,7 @@
             [[self.contentView viewWithTag:10] setBackgroundColor:lightColor];
             [[self.contentView viewWithTag:11] setBackgroundColor:lightColor];
             [[self.contentView viewWithTag:12] setBackgroundColor:lightColor];
+            [self.timerNameBack setBackgroundColor:lightColor];
             [[self.contentView viewWithTag:3] setBackgroundColor:offColor];
             [[self.contentView viewWithTag:4] setBackgroundColor:offColor];
             [[self.contentView viewWithTag:5] setBackgroundColor:offColor];
@@ -496,6 +524,7 @@
         [[self.contentView viewWithTag:10] setBackgroundColor:lightColor];
         [[self.contentView viewWithTag:11] setBackgroundColor:lightColor];
         [[self.contentView viewWithTag:12] setBackgroundColor:lightColor];
+        [self.timerNameBack setBackgroundColor:lightColor];
         [[self.contentView viewWithTag:3] setBackgroundColor:[self.timer thumb]];
         [[self.contentView viewWithTag:4] setBackgroundColor:[self.timer thumb]];
         [[self.contentView viewWithTag:5] setBackgroundColor:[self.timer thumb]];
@@ -509,6 +538,7 @@
         [[self.contentView viewWithTag:10] setBackgroundColor:lightColor];
         [[self.contentView viewWithTag:11] setBackgroundColor:lightColor];
         [[self.contentView viewWithTag:12] setBackgroundColor:lightColor];
+        [self.timerNameBack setBackgroundColor:lightColor];
         [[self.contentView viewWithTag:3] setBackgroundColor:offColor];
         [[self.contentView viewWithTag:4] setBackgroundColor:offColor];
         [[self.contentView viewWithTag:5] setBackgroundColor:offColor];

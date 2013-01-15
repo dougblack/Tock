@@ -79,6 +79,7 @@
 {
     [self.timer calculateGoalPaceFromMinutes: [self.goalLapPicker selectedRowInComponent:0] andSeconds: [self.goalLapPicker selectedRowInComponent:1] andTenths: [self.goalLapPicker selectedRowInComponent:2] ];
     [self.timer.delegate showFlash:@"GOAL TIME SET"];
+    [self.timer.delegate refresh];
     [self.controller hidePickerView];
 }
 

@@ -152,8 +152,8 @@
     [self.view addSubview:summaryTableView];
     
     UITabBar *tabBar = [[UITabBar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-44, self.view.frame.size.width, 44)];
-    UITabBarItem *lapBarItem = [[UITabBarItem alloc] initWithTitle:@"By Lap" image:[UIImage imageNamed:@"line.png"] tag:0];
-    UITabBarItem *timerByItem = [[UITabBarItem alloc] initWithTitle:@"By Timer" image:[UIImage imageNamed:@"bar.png"] tag:1];
+    UITabBarItem *lapBarItem = [[UITabBarItem alloc] initWithTitle:@"By Lap" image:[UIImage imageNamed:@"by_lap.png"] tag:0];
+    UITabBarItem *timerByItem = [[UITabBarItem alloc] initWithTitle:@"By Timer" image:[UIImage imageNamed:@"by_timer.png"] tag:1];
     [tabBar setItems:[NSArray arrayWithObjects:lapBarItem, timerByItem, nil]];
     tabBar.delegate = self;
     [tabBar setSelectedItem:timerByItem];
