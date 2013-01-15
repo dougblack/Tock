@@ -187,13 +187,9 @@
             else if (i == 2)
                 self.deltaType = DeltaFromPreviousLap;
             
-            [[control.subviews objectAtIndex:i] setTintColor:[UIColor colorWithRed:0.8 green:0 blue:0.3 alpha:1]];
-//            UIColor *onColor = [UIColor colorWithRed:0.8 green:0 blue:0.1 alpha:1];
-//            [self myShineGradient:[control.subviews objectAtIndex:i] withColor1:onColor withColor2:onColor];
-        } else {
-//            UIColor *offColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1];
             [[control.subviews objectAtIndex:i] setTintColor:[UIColor colorWithRed:0.4 green:0.4 blue:0.4 alpha:1]];
-//            [self myShineGradient:[control.subviews objectAtIndex:i] withColor1:offColor withColor2:offColor];
+        } else {
+            [[control.subviews objectAtIndex:i] setTintColor:[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1]];
         }
     }
     [self.tableView reloadData];

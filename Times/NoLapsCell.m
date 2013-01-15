@@ -29,7 +29,7 @@
         [self.contentView addSubview:emptyLabel];
         [self setSelectionStyle:UITableViewCellEditingStyleNone];
         self.opaque = YES;
-        [self.contentView setBackgroundColor:[CommonCLUtility backgroundColor]];
+        [self.contentView setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
     }
     return self;
 }

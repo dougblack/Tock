@@ -58,7 +58,7 @@
         [deleteBtn setTextAlignment:NSTextAlignmentCenter];
         [deleteBtn setTextColor:[UIColor whiteColor]];
         [deleteBtn setShadowColor:[UIColor blackColor]];
-        [deleteBtn setShadowOffset:CGSizeMake(0, -2)];
+        [deleteBtn setShadowOffset:CGSizeMake(0, -1)];
         [deleteBtn setBackgroundColor:[UIColor colorWithRed:0.52 green:0 blue:0.08 alpha:1]];
         [deleteBtn setTag:9];
         [deleteBtn addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)]];
@@ -71,13 +71,13 @@
         [self.contentView addSubview:shadowView];
         [self.movableViews addObject:shadowView];
         
-        UIView *thumbLightView = [[UIView alloc] initWithFrame:CGRectMake(9.0, 9.0, 65, 82)];
+        UIView *thumbLightView = [[UIView alloc] initWithFrame:CGRectMake(9.0, 43, 65, 48)];
         [thumbLightView setBackgroundColor:[CommonCLUtility highlightColor]];
         [thumbLightView setTag:10];
         [self.contentView addSubview:thumbLightView];
         [self.movableViews addObject:thumbLightView];
         
-        UIView *thumbBackView = [[UIView alloc] initWithFrame:CGRectMake(10.0, 10.0, 63, 80)];
+        UIView *thumbBackView = [[UIView alloc] initWithFrame:CGRectMake(10.0, 44, 63, 46)];
         [thumbBackView setBackgroundColor:[CommonCLUtility backgroundColor]];
         [thumbBackView setTag:3];
         [thumbBackView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)]];
@@ -91,7 +91,6 @@
         [nameLabel setFont:[UIFont boldSystemFontOfSize:18]];
         [nameLabel setText:@"CHRISTIAN"];
         [nameLabel setAdjustsFontSizeToFitWidth:YES];
-//        [self.contentView addSubview:nameLabel];
         
         UIView *timeLightView = [[UIView alloc] initWithFrame:CGRectMake(76, 9.0, 168, 82)];
         [timeLightView setBackgroundColor:[CommonCLUtility highlightColor]];
@@ -180,14 +179,14 @@
         [self.movableViews addObject:lapTextLabel];
         
         UILabel *flashLabel = [[UILabel alloc] initWithFrame:CGRectMake(77, 20, 166, 59)];
-        [flashLabel setTextColor:[UIColor redColor]];
-        [flashLabel setText:@"GOAL TIME SET"];
-        [flashLabel setFont:[UIFont boldSystemFontOfSize:20]];
+        [flashLabel setTextColor:[UIColor colorWithRed:0.8 green:0 blue:0 alpha:1]];
+        [flashLabel setText:@"GOAL TIME\nSET"];
+        [flashLabel setFont:[UIFont boldSystemFontOfSize:18]];
         [flashLabel setBackgroundColor:[UIColor clearColor]];
         [flashLabel setTextAlignment:NSTextAlignmentCenter];
         [flashLabel setAdjustsFontSizeToFitWidth:YES];
-        [flashLabel setNumberOfLines:1];
         flashLabel.alpha = 0.0;
+        flashLabel.numberOfLines = 2;
         self.flashLabel = flashLabel;
         [self.contentView addSubview:flashLabel];
         
@@ -202,6 +201,11 @@
         timerName.textAlignment = NSTextAlignmentCenter;
         timerName.delegate = self;
         timerName.autocorrectionType = UITextAutocorrectionTypeNo;
+        
+        UIView *timerNameBack = [[UIView alloc] initWithFrame:CGRectMake(9, 9, 65, 32)];
+        [timerNameBack setBackgroundColor:[CommonCLUtility highlightColor]];
+        [self.movableViews addObject:timerNameBack];
+        [self.contentView addSubview:timerNameBack];
 
         self.timerName = timerName;
         [self.movableViews addObject:timerName];

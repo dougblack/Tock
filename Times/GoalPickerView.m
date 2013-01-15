@@ -62,19 +62,13 @@
         [tenthsLabel setTextColor:softColor];
         [self addSubview:tenthsLabel];
         
-        UIView *border = [[UIView alloc] initWithFrame:CGRectMake(7, 223, 306, 60)];
-        [border setBackgroundColor:[UIColor blackColor]];
-        [self addSubview:border];
-        
-        UIButton *setButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 226, 300, 54)];
-        [setButton setTitle:@"LOCK GOAL PACE" forState:UIControlStateNormal];
-        [setButton setBackgroundColor:[UIColor colorWithRed:0.52 green:0 blue:0.08 alpha:1]];
-        [setButton setBackgroundImage:[CommonCLUtility imageFromColor:[UIColor colorWithRed:0.32 green:0 blue:0 alpha:1]] forState:UIControlStateHighlighted];
-        setButton.titleLabel.font = [UIFont boldSystemFontOfSize:15];
+        UIButton *setButton = [[UIButton alloc] initWithFrame:CGRectMake(17.5, 226, 285, 50)];
+        [setButton setBackgroundImage:[UIImage imageNamed:@"lock_button.png"] forState:UIControlStateNormal];
         [setButton addTarget:self action:@selector(setGoalPace) forControlEvents:UIControlEventTouchUpInside];
+        [setButton setBackgroundColor:[UIColor clearColor]];
         [self addSubview:setButton];
         self.opaque = YES;
-        [self setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
+        [self setBackgroundColor:[CommonCLUtility viewDarkerBackColor]];
         self.userInteractionEnabled = YES;
         
     }

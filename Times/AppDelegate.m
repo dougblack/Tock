@@ -24,11 +24,8 @@
     [self.window makeKeyAndVisible];
     
     
-    UIImage *navBarImage = [UIImage imageNamed:@"nav_bar_gray.png"];
+    UIImage *navBarImage = [UIImage imageNamed:@"top_bar.png"];
     UIImage *bottomBarImage = [UIImage imageNamed:@"bottom_bar.png"];
-    UIImage *buttonImage = [UIImage imageNamed:@"button.png"];
-    // APPEARANCES
-//    [[UIBarButtonItem appearance] setBackgroundImage:buttonImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     
     [[UINavigationBar appearance] setBackgroundImage:navBarImage forBarMetrics:UIBarMetricsDefault];
     

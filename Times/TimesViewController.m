@@ -22,7 +22,7 @@
 @property (nonatomic) UIColor *lastGeneratedColor;
 @property BOOL allowSound;
 @property UIBarButtonItem *startAllButton;
-
+@property UIBarButtonItem *plusButton;
 @end
 
 @implementation TimesViewController
@@ -65,9 +65,8 @@
         
         UIBarButtonItem *summaryButton = [[UIBarButtonItem alloc] initWithCustomView:summaryBtn];
         [summaryBtn addTarget:self action:@selector(openSummary) forControlEvents:UIControlEventTouchUpInside];
-//        [summaryBtn setFont:[UIFont boldSystemFontOfSize:12]];
-//        [summaryBtn setTitle:@"Summary" forState:UIControlStateNormal];
         [self.navigationItem setLeftBarButtonItem:summaryButton];
+        self.plusButton = addButton;
         [self.navigationItem setRightBarButtonItem:addButton];
         self.lastGeneratedColor = nil;
         
@@ -107,7 +106,7 @@
     UINavigationController *summaryNavigationController = [[UINavigationController alloc] initWithRootViewController:summaryViewController];
     [summaryNavigationController.navigationBar setTintColor:[UIColor colorWithRed:0.05 green:0.05 blue:0.05 alpha:1]];
     
-    UIImage *doneImage = [UIImage imageNamed:@"done_button.png"];
+    UIImage *doneImage = [UIImage imageNamed:@"button.png"];
     UIButton *doneBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 32)];
     [doneBtn setBackgroundImage:doneImage forState:UIControlStateNormal];
     [doneBtn setTitle:@"Done" forState:UIControlStateNormal];
@@ -130,7 +129,7 @@
     UINavigationController *settingsNavigationController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
     [settingsNavigationController.navigationBar setTintColor:[UIColor colorWithRed:0.05 green:0.05 blue:0.05 alpha:1]];
     
-    UIImage *doneImage = [UIImage imageNamed:@"done_button.png"];
+    UIImage *doneImage = [UIImage imageNamed:@"button.png"];
     UIButton *doneBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 32)];
     [doneBtn setBackgroundImage:doneImage forState:UIControlStateNormal];
     [doneBtn setTitle:@"Done" forState:UIControlStateNormal];
@@ -203,14 +202,12 @@
     [self.tableView setBackgroundColor:[UIColor clearColor] ];
     UIImageView *tableBack = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table_view_back.png"]];
     [self.tableView setBackgroundView:tableBack];
-//    [self.tableView setBackgroundColor:[UIColor blackColor]];
     [self.tableView reloadData];
     
 }
 
 -(void)showPickerViewForTimer:(Timer*)timer;
 {
-    [self hideBottomView];
     
     self.goalPickerView.timer = timer;
     [UIView beginAnimations:nil context:nil];
@@ -218,6 +215,15 @@
     [UIView setAnimationDuration:0.3];
     [self.goalPickerView setFrame:CGRectMake(0, self.view.frame.size.height-291, self.view.frame.size.width, self.goalPickerView.frame.size.height)];
     [UIView commitAnimations];
+    UIImage *cancelImage = [UIImage imageNamed:@"button.png"];
+    UIButton *cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 65, 32)];
+    [cancelBtn setBackgroundImage:cancelImage forState:UIControlStateNormal];
+    [cancelBtn setTitle:@"Cancel" forState:UIControlStateNormal];
+    [cancelBtn setTitleEdgeInsets:UIEdgeInsetsMake(1, 2, 0, 0)];
+    [cancelBtn setFont:[UIFont boldSystemFontOfSize:12]];
+    [cancelBtn addTarget:self action:@selector(hidePickerView) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithCustomView:cancelBtn];
+    [self.navigationItem setRightBarButtonItem:cancelItem];
     self.isShowingGoalPicker = YES;
 }
 
@@ -229,30 +235,9 @@
     [UIView setAnimationDuration:0.3];
     [self.goalPickerView setFrame:CGRectMake(0, self.view.frame.size.height+291, self.view.frame.size.width, self.goalPickerView.frame.size.height)];
     [UIView commitAnimations];
+    [self.navigationItem setRightBarButtonItem:self.plusButton];
     self.isShowingGoalPicker = YES;
 }
-
--(void)hideBottomView
-{
-//    [[self tableView] setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-//    [UIView beginAnimations:nil context:nil];
-//    [UIView setAnimationDelay:0];
-//    [UIView setAnimationDuration:0.3];
-//    [self.bottomActionView setFrame:CGRectMake(0, self.view.frame.size.height+74, self.view.frame.size.width, self.bottomActionView.frame.size.height)];
-//    [UIView commitAnimations];
-}
-
--(void)showBottomView
-{
-
-//    [UIView beginAnimations:nil context:nil];
-//    [UIView setAnimationDelay:0];
-//    [UIView setAnimationDuration:0.3];
-//    [self.bottomActionView setFrame:CGRectMake(0, self.view.frame.size.height-74, self.view.frame.size.width, self.bottomActionView.frame.size.height)];
-//    [[self tableView] setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-74)];
-//    [UIView commitAnimations];
-}
-
 
 - (void)newTimer
 {

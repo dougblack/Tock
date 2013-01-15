@@ -34,7 +34,7 @@
         [nameTextField setTextColor:[UIColor whiteColor]];
         
         [nameTextField setText:[timer name]];
-        [nameTextField setFont:[UIFont boldSystemFontOfSize:25]];
+        [nameTextField setFont:[UIFont boldSystemFontOfSize:18]];
         [nameTextField setBackgroundColor:[UIColor clearColor]];
         [nameTextField setBorderStyle:UITextBorderStyleNone];
         [nameTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
@@ -46,7 +46,7 @@
         [numberLabel setTextAlignment:NSTextAlignmentCenter];
         [numberLabel setTextColor:[UIColor whiteColor]];
         [numberLabel setText:[NSString stringWithFormat:@"%d", timerNumber]];
-        [numberLabel setFont:[UIFont boldSystemFontOfSize:25]];
+        [numberLabel setFont:[UIFont boldSystemFontOfSize:18]];
         [numberLabel setBackgroundColor:[UIColor clearColor]];
         [self addSubview:numberLabel];
         [self setOpaque:YES];
