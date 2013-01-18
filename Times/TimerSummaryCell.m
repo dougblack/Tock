@@ -25,20 +25,20 @@
         
         UIColor *foreColor = [CommonCLUtility backgroundColor];
         
-        UILabel* timerNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 80, 40)];
+        UILabel* timerNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 14, 80, 32)];
         [timerNameLabel setTextAlignment:NSTextAlignmentCenter];
         [timerNameLabel setTextColor:[UIColor whiteColor]];
         [timerNameLabel setText:self.timerName];
-        [timerNameLabel setFont:[UIFont boldSystemFontOfSize:20]];
+        [timerNameLabel setFont:[UIFont boldSystemFontOfSize:16]];
         [timerNameLabel setBackgroundColor:foreColor];
         self.timerNameLabel = timerNameLabel;
         [self.contentView addSubview:timerNameLabel];
         
-        UILabel* lapStringLabel = [[UILabel alloc] initWithFrame:CGRectMake(230, 10, 80, 40)];
+        UILabel* lapStringLabel = [[UILabel alloc] initWithFrame:CGRectMake(230, 14, 80, 32)];
         [lapStringLabel setTextAlignment:NSTextAlignmentCenter];
         [lapStringLabel setTextColor:[UIColor whiteColor]];
         [lapStringLabel setText:self.lapString];
-        [lapStringLabel setFont:[UIFont boldSystemFontOfSize:20]];
+        [lapStringLabel setFont:[UIFont boldSystemFontOfSize:16]];
         [lapStringLabel setBackgroundColor:foreColor];
         self.lapStringLabel = lapStringLabel;
         [self.contentView addSubview:lapStringLabel];

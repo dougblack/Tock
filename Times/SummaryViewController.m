@@ -50,8 +50,6 @@
         self.mostLaps = -1;
         for (Timer *timer in timers)
         {
-            
-            NSLog(@"%d", timer.laps.count);
             NSInteger count = timer.laps.count;
             if (count > self.mostLaps)
                 self.mostLaps = timer.laps.count;
@@ -60,11 +58,13 @@
             NSMutableArray *previousLapDeltas = [NSMutableArray array];
             NSMutableArray *goalLapDeltas = [NSMutableArray array];
             NSMutableArray *avgLapDeltas = [NSMutableArray array];
+            NSMutableArray *lapDisplayTypes = [NSMutableArray array];
             NSTimeInterval previousLap = 0;
             double goal = [timer goalLap];
             double avg = [timer avgLap];
             for (NSNumber *lap in [timer laps])
             {
+                [lapDisplayTypes addObject:[NSNumber numberWithInt:DisplayLap]];
                 double lapDouble = [lap doubleValue];
                 if (previousLap == 0)
                     [previousLapDeltas addObject:[NSNull null]];
@@ -85,6 +85,7 @@
             [thisTimersDeltas setObject:previousLapDeltas forKey:@"Previous"];
             [thisTimersDeltas setObject:goalLapDeltas forKey:@"Goal"];
             [thisTimersDeltas setObject:avgLapDeltas forKey:@"Avg"];
+            [thisTimersDeltas setObject:lapDisplayTypes forKey:@"LapDisplayType"];
             [self.timersData addObject:thisTimersDeltas];
             SummaryHeaderView *headerView = [[SummaryHeaderView alloc] initWithThumb:timer.thumb andTimerNumber:i andTimer:timer];
             [self.headerViews addObject:headerView];
@@ -154,7 +155,7 @@
     UITabBar *tabBar = [[UITabBar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-44, self.view.frame.size.width, 44)];
     UITabBarItem *lapBarItem = [[UITabBarItem alloc] initWithTitle:@"By Lap" image:[UIImage imageNamed:@"by_lap.png"] tag:0];
     UITabBarItem *timerByItem = [[UITabBarItem alloc] initWithTitle:@"By Timer" image:[UIImage imageNamed:@"by_timer.png"] tag:1];
-    [tabBar setItems:[NSArray arrayWithObjects:lapBarItem, timerByItem, nil]];
+    [tabBar setItems:[NSArray arrayWithObjects:timerByItem, lapBarItem, nil]];
     tabBar.delegate = self;
     [tabBar setSelectedItem:timerByItem];
     [self.view addSubview:tabBar];
@@ -219,7 +220,7 @@
 
 -(CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 60;
+    return 50;
 }
 
 -(NSInteger) numberOfSectionsInTableView:(UITableView *)tableView
@@ -241,7 +242,7 @@
     {
         Timer *timer = [[self timers] objectAtIndex:section];
         if ([[timer laps] count] == 0)
-            return 2;
+            return 1;
         return [[timer laps] count]+1;
     } else {
         return [[self.arrayOfLaps objectAtIndex:section] count];
@@ -269,6 +270,7 @@
     
     if (indexPath.row == 0 && self.displayType == DisplayByTimer)
     {
+        // Construct and return a header for "By Timer" mode
         SummaryHeaderCell *header = (SummaryHeaderCell*) [tableView dequeueReusableCellWithIdentifier:HeaderCellIdentifier];
         if (header == nil)
         {
@@ -290,6 +292,7 @@
 
     if ([[timer laps] count] == 0 && indexPath.row == 1 && self.displayType == DisplayByTimer)
     {
+        // Construct and return a "No Laps" cell for "By Timer" mode
         NoLapsCell *noLapsCell = (NoLapsCell*) [tableView dequeueReusableCellWithIdentifier:NoLapsCellIdentifier];
         if (noLapsCell == nil)
         {
@@ -297,19 +300,23 @@
         }
         return noLapsCell;
     }
+    
     SummaryCell *summaryCell = (SummaryCell*) [tableView dequeueReusableCellWithIdentifier:SummaryCellIdentifier];
     
     if (self.displayType == DisplayByTimer)
     {
-        
-        
+        // return a regular cell for the "By Timer" mode
         if (summaryCell == nil)
         {
             summaryCell = [[SummaryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:SummaryCellIdentifier];
         }
         
         [summaryCell setLapTimeString:[[timer lapStrings] objectAtIndex:indexPath.row-1]];
-        
+        NSString *timeAtLap = [timer.timeOfLapStrings objectAtIndex:indexPath.row-1];
+        [summaryCell setTimeAtLapString:timeAtLap];
+        DisplayType displayType = [[[[self.timersData objectAtIndex:indexPath.section] objectForKey:@"LapDisplayType"] objectAtIndex:indexPath.row-1] intValue];
+        [summaryCell setStringDisplayType:displayType];
+        [summaryCell setTimerNumber:indexPath.section];
         NSMutableDictionary *timerDict = (NSMutableDictionary*)[self.timersData objectAtIndex:indexPath.section];
         switch (self.deltaType) {
             case DeltaFromPreviousLap:
@@ -317,7 +324,7 @@
                 NSMutableArray *previousLapDeltas = [timerDict objectForKey:@"Previous"];
                 NSNumber *delta = [previousLapDeltas objectAtIndex:indexPath.row-1];
                 
-                if (delta != [NSNull null])
+                if (delta != [NSNull null]) // A delta exists
                 {
                     NSString *lapDeltaString;
                     if ([delta doubleValue] < 0) {
@@ -332,8 +339,9 @@
                         lapDeltaString = @"0.0";
                         [summaryCell setDeltaColor:DeltaIsGray];
                     }
+                    
                     [summaryCell setLapDelta:lapDeltaString];
-                } else {
+                } else { // A delta does not exist
                     [summaryCell setLapDelta:@"---"];
                     [summaryCell setDeltaColor:DeltaIsGray];
                     
@@ -343,7 +351,6 @@
             }
             case DeltaFromAverageLap:
             {
-                
                 NSMutableArray *avgLapDeltas = [timerDict objectForKey:@"Avg"];
                 NSNumber *delta = [avgLapDeltas objectAtIndex:indexPath.row-1];
                 NSString *deltaString = [self stringForDelta:delta];
@@ -390,6 +397,7 @@
         return summaryCell;
     } else
     {
+        // Return a cell for the "By Lap" mode
         TimerSummaryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TimerSummaryCell"];
         
         if (cell == nil)

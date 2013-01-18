@@ -67,6 +67,7 @@
         self.lastLapTime = self.startTime;
         self.laps = [NSMutableArray array];
         self.lapStrings = [NSMutableArray array];
+        self.timeOfLapStrings = [NSMutableArray array];
     }
 
     self.started = YES;
@@ -106,13 +107,14 @@
     
 //    [TockSoundPlayer playSoundWithName:@"lap" andExtension:@"wav" andVolume:0.1];
     NSTimeInterval currentTime = [NSDate timeIntervalSinceReferenceDate];
-    NSTimeInterval elapsed = (currentTime - [self lastLapTime]) - [self currentLapDelta];
+    NSTimeInterval elapsedSinceLastLap = (currentTime - [self lastLapTime]) - [self currentLapDelta];
     
-    NSString* thisLapString = [Timer stringFromTimeInterval:elapsed];
+    NSString* thisLapString = [Timer stringFromTimeInterval:elapsedSinceLastLap];
     
     // Add new values to appropriate arrays.
     [self.lapStrings addObject:thisLapString];
-    [self.laps addObject:[NSNumber numberWithDouble:elapsed]];
+    [self.laps addObject:[NSNumber numberWithDouble:elapsedSinceLastLap]];
+    [self.timeOfLapStrings addObject:self.timeString];
     
     self.lastLapTime = currentTime;
     self.lastLapString = thisLapString;
@@ -124,7 +126,7 @@
         self.recentlyStopped = NO;
     }
     
-    self.lapSum = self.lapSum + elapsed;
+    self.lapSum = self.lapSum + elapsedSinceLastLap;
     self.avgLap = self.lapSum / [self.laps count];
     [self.delegate lastLapTimeChanged:thisLapString];
 }
@@ -165,6 +167,7 @@
     self.lapNumber = 1;
     self.laps = [NSMutableArray array];
     self.lapStrings = [NSMutableArray array];
+    self.timeOfLapStrings = [NSMutableArray array];
     self.timeDelta = 0;
     self.flagType = FlagTypeNone;
 }

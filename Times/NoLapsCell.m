@@ -24,7 +24,7 @@
         [emptyLabel setTextAlignment:NSTextAlignmentCenter];
         [emptyLabel setTextColor:[UIColor whiteColor]];
         [emptyLabel setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
-        [emptyLabel setFont:[UIFont boldSystemFontOfSize:25]];
+        [emptyLabel setFont:[UIFont boldSystemFontOfSize:15]];
         [emptyLabel setText:@"No laps"];
         [self.contentView addSubview:emptyLabel];
         [self setSelectionStyle:UITableViewCellEditingStyleNone];

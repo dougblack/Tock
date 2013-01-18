@@ -14,6 +14,8 @@
 
 @interface SummaryHeaderView ()
 
+@property (nonatomic) UILabel *numberLabel;
+
 @end
 
 
@@ -25,16 +27,16 @@
     if (self) {
         [self setBackgroundColor:[CommonCLUtility viewBackgroundColor]];
         
-        UIView *thumbView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
+        UIView *thumbView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
         [thumbView setBackgroundColor:thumb];
         [self addSubview:thumbView];
         
-        UITextField *nameTextField = [[UITextField alloc] initWithFrame:CGRectMake(10, 0, 250, 60)];
+        UITextField *nameTextField = [[UITextField alloc] initWithFrame:CGRectMake(10, 0, 250, 50)];
         [nameTextField setTextAlignment:NSTextAlignmentLeft];
         [nameTextField setTextColor:[UIColor whiteColor]];
         
         [nameTextField setText:[timer name]];
-        [nameTextField setFont:[UIFont boldSystemFontOfSize:18]];
+        [nameTextField setFont:[UIFont boldSystemFontOfSize:20]];
         [nameTextField setBackgroundColor:[UIColor clearColor]];
         [nameTextField setBorderStyle:UITextBorderStyleNone];
         [nameTextField setContentVerticalAlignment:UIControlContentVerticalAlignmentCenter];
@@ -42,12 +44,14 @@
         self.nameTextField.delegate = self;
         [self addSubview:nameTextField];
         
-        UILabel* numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(280, 0, 30, 60)];
+        UILabel* numberLabel = [[UILabel alloc] initWithFrame:CGRectMake(280, 0, 30, 50)];
         [numberLabel setTextAlignment:NSTextAlignmentCenter];
         [numberLabel setTextColor:[UIColor whiteColor]];
         [numberLabel setText:[NSString stringWithFormat:@"%d", timerNumber]];
-        [numberLabel setFont:[UIFont boldSystemFontOfSize:18]];
+        [numberLabel setFont:[UIFont boldSystemFontOfSize:20]];
         [numberLabel setBackgroundColor:[UIColor clearColor]];
+        [numberLabel setHidden:YES];
+        self.numberLabel = numberLabel;
         [self addSubview:numberLabel];
         [self setOpaque:YES];
         
@@ -58,7 +62,8 @@
 
 -(void)convertToLapHeader
 {
-    self.nameTextField.text = @"Lap";
+    self.numberLabel.hidden = NO;
+    self.nameTextField.text = @"LAP";
     self.nameTextField.enabled = NO;
 }
 

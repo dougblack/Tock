@@ -171,13 +171,9 @@
     UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-viewHeight, self.view.frame.size.width, viewHeight)];
 
     UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] init];
-    [settingsButton setAction:@selector(openSettings)];
-    [settingsButton setTarget:self];
-    settingsButton.title = @"\u2699";
-    UIFont *f1 = [UIFont fontWithName:@"Helvetica" size:24.0];
-    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:f1, UITextAttributeFont, nil];
-    [settingsButton setTitleTextAttributes:dict forState:UIControlStateNormal];
+    UIButton* settingsButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
+    [settingsButton addTarget:self action:@selector(openSettings) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *modalButton = [[UIBarButtonItem alloc] initWithCustomView:settingsButton];
     [toolbar setTintColor:[UIColor blackColor]];
     UIBarButtonItem *startAllButton = [[UIBarButtonItem alloc] initWithTitle:@"START ALL" style:UIBarButtonItemStylePlain target:self action:@selector(startAll)];
     [startAllButton setTintColor:[UIColor colorWithRed:0.0 green:0.8 blue:0.3 alpha:1]];
@@ -185,7 +181,7 @@
     
     self.startAllButton = startAllButton;
     
-    NSArray *toolBarItems = [NSArray arrayWithObjects:startAllButton, flexibleSpace, settingsButton, nil];
+    NSArray *toolBarItems = [NSArray arrayWithObjects:startAllButton, flexibleSpace, modalButton, nil];
     [toolbar setItems:toolBarItems];
     [self.view addSubview:toolbar];
     

@@ -33,7 +33,7 @@ typedef enum {
 
 @property (nonatomic) NSMutableArray *laps;
 @property (nonatomic) NSMutableArray *lapStrings;
-@property (nonatomic) NSMutableArray *timesAtLaps;
+@property (nonatomic) NSMutableArray *timeOfLapStrings;
 
 @property (nonatomic) TimerCell *delegate;
 

@@ -36,17 +36,17 @@
         [lapNumberLabel setText:[NSString stringWithFormat:@"%d", self.lapNumber]];
         [lapNumberLabel setFont:[UIFont boldSystemFontOfSize:25]];
         [lapNumberLabel setBackgroundColor:foreColor];
-//        [lapNumberLabel.layer setCornerRadius:2];
         self.lapNumberLabel = lapNumberLabel;
         [self.contentView addSubview:lapNumberLabel];
         
+        UITapGestureRecognizer *lapTappedRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(flipLapString:)];        
         UILabel* lapStringLabel = [[UILabel alloc] initWithFrame:CGRectMake(120, 10, 80, 40)];
         [lapStringLabel setTextAlignment:NSTextAlignmentCenter];
         [lapStringLabel setTextColor:[UIColor whiteColor]];
         [lapStringLabel setText:self.lapTimeString];
         [lapStringLabel setFont:[UIFont boldSystemFontOfSize:20]];
         [lapStringLabel setBackgroundColor:foreColor];
-//        [lapStringLabel.layer setCornerRadius:2];
+        [self addGestureRecognizer:lapTappedRecognizer];
         self.lapStringLabel = lapStringLabel;
         [self.contentView addSubview:lapStringLabel];
         
@@ -56,7 +56,6 @@
         [lapDeltaLabel setText:@"---"];
         [lapDeltaLabel setFont:[UIFont boldSystemFontOfSize:20]];
         [lapDeltaLabel setBackgroundColor:foreColor];
-//        [lapDeltaLabel.layer setCornerRadius:2];
         [lapDeltaLabel setAdjustsFontSizeToFitWidth:YES];
         self.lapDeltaLabel = lapDeltaLabel;
         self.lapDeltaLabel.hidden = YES;
@@ -70,8 +69,19 @@
         [self.contentView setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
         self.opaque = YES;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.userInteractionEnabled = YES;
     }
     return self;
+}
+
+-(void)flipLapString:(id)sender
+{
+    if (self.stringDisplayType == DisplayLap)
+        self.stringDisplayType = DisplayTime;
+    else
+        self.stringDisplayType = DisplayLap;
+    [[[self.controller.timersData objectAtIndex:(unsigned int)self.timerNumber] objectForKey:@"LapDisplayType"] setObject:[NSNumber numberWithInt:self.stringDisplayType] atIndex:(unsigned int)self.lapNumber-1];
+    [self refresh];
 }
 
 -(void)refresh
@@ -90,10 +100,17 @@
             break;
     }
     
-//    [self.contentView setBackgroundColor:self.timer.thumb];
     
     [self.lapDeltaLabel setText:self.lapDelta];
-    [self.lapStringLabel setText:self.lapTimeString];
+    if (self.stringDisplayType == DisplayLap) {
+        [self.lapStringLabel setText:self.lapTimeString];
+        self.lapStringLabel.backgroundColor = [CommonCLUtility backgroundColor];
+    }
+    else {
+        [self.lapStringLabel setText:self.timeAtLapString];
+        self.lapStringLabel.backgroundColor = self.timer.thumb;
+    }
+    
     [self.lapNumberLabel setText:[NSString stringWithFormat:@"%d", self.lapNumber]];
 }
 

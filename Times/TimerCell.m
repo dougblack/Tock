@@ -63,8 +63,6 @@
         [deleteBtn setFont:[UIFont boldSystemFontOfSize:30]];
         [deleteBtn setTextAlignment:NSTextAlignmentCenter];
         [deleteBtn setTextColor:[UIColor whiteColor]];
-//        [deleteBtn setShadowColor:[UIColor blackColor]];
-//        [deleteBtn setShadowOffset:CGSizeMake(0, -1)];
         [deleteBtn setBackgroundColor:[UIColor colorWithRed:0.52 green:0 blue:0.08 alpha:1]];
         [deleteBtn setTag:9];
         [deleteBtn addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)]];
@@ -139,8 +137,6 @@
         [timeLabel setOpaque:NO];
         [timeLabel setBackgroundColor:[UIColor clearColor]];
         [timeLabel setTextColor:[UIColor whiteColor]];
-//        [timeLabel setShadowColor:[UIColor blackColor]];
-//        [timeLabel setShadowOffset:CGSizeMake(0, -1)];
         [timeLabel setFont:cellFont];
         [timeLabel setTextAlignment:NSTextAlignmentCenter];
         [timeLabel setTag:1];
@@ -154,8 +150,6 @@
         [lastLapLabel setOpaque:NO];
         [lastLapLabel setBackgroundColor:[UIColor clearColor]];
         [lastLapLabel setTextColor:[UIColor whiteColor]];
-//        [lastLapLabel setShadowColor:[UIColor blackColor]];
-//        [lastLapLabel setShadowOffset:CGSizeMake(0, -1)];
         [lastLapLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:15]];
         [lastLapLabel setTextAlignment:NSTextAlignmentCenter];
         [lastLapLabel setTag:6];
@@ -168,8 +162,6 @@
         [lapLabel setOpaque:NO];
         [lapLabel setBackgroundColor:[UIColor clearColor]];
         [lapLabel setTextColor:[UIColor whiteColor]];
-//        [lapLabel setShadowColor:[UIColor blackColor]];
-//        [lapLabel setShadowOffset:CGSizeMake(0, -1)];
         [lapLabel setFont:cellFont];
         [lapLabel setTextAlignment:NSTextAlignmentCenter];
         [lapLabel setTag:2];
@@ -183,15 +175,13 @@
         [lapTextLabel setOpaque:NO];
         [lapTextLabel setBackgroundColor:[UIColor clearColor]];
         [lapTextLabel setTextColor:[UIColor whiteColor]];
-//        [lapTextLabel setShadowColor:[UIColor blackColor]];
-//        [lapTextLabel setShadowOffset:CGSizeMake(0, -1)];
         [lapTextLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:15]];
         [lapTextLabel setTextAlignment:NSTextAlignmentCenter];
         [self.contentView addSubview:lapTextLabel];
         [self.movableViews addObject:lapTextLabel];
         
         UILabel *flashLabel = [[UILabel alloc] initWithFrame:CGRectMake(77, 20, 166, 59)];
-        [flashLabel setTextColor:[UIColor colorWithRed:0.8 green:0 blue:0 alpha:1]];
+        [flashLabel setTextColor:[UIColor whiteColor]];
         [flashLabel setText:@"GOAL TIME\nSET"];
         [flashLabel setFont:[UIFont boldSystemFontOfSize:18]];
         [flashLabel setBackgroundColor:[UIColor clearColor]];
@@ -250,7 +240,6 @@
 {
     if (sender.state == UIGestureRecognizerStateRecognized)
     {
-        NSLog(@"SPLIT TIMER");
         Timer *newTimer = [Timer alloc];
         newTimer = [[self timer] copyWithZone:NSZoneFromPointer((__bridge void *)(newTimer))];
         [self.timesTable.timers insertObject:newTimer atIndex:self.row+1];
@@ -476,7 +465,6 @@
             [[self.contentView viewWithTag:3] setBackgroundColor:[[self timer] thumb]];
             UIColor *color = [[self timer] thumb];
             const float* colors = CGColorGetComponents(color.CGColor);
-            NSLog(@"Row: %d, [UIColor colorWithRed:%f green:%f blue:%f alpha:1]", self.row, colors[0], colors[1], colors[2]);
             UIColor *lightColor = [UIColor colorWithRed:colors[0]+0.1 green:colors[1]+0.1 blue:colors[2]+0.1 alpha:1];
             [[self.contentView viewWithTag:10] setBackgroundColor:lightColor];
             [[self.contentView viewWithTag:11] setBackgroundColor:lightColor];
@@ -485,7 +473,6 @@
             [[self.contentView viewWithTag:3] setBackgroundColor:[self.timer thumb]];
             [[self.contentView viewWithTag:4] setBackgroundColor:[self.timer thumb]];
             [[self.contentView viewWithTag:5] setBackgroundColor:[self.timer thumb]];
-//            [self.contentView setBackgroundColor:[[self timer] thumb]];
             break;
         }
         default:
@@ -528,7 +515,6 @@
         [[self.contentView viewWithTag:3] setBackgroundColor:[self.timer thumb]];
         [[self.contentView viewWithTag:4] setBackgroundColor:[self.timer thumb]];
         [[self.contentView viewWithTag:5] setBackgroundColor:[self.timer thumb]];
-//        [self.contentView setBackgroundColor:[[self timer] thumb]];
     }
     else
     {
@@ -542,7 +528,6 @@
         [[self.contentView viewWithTag:3] setBackgroundColor:offColor];
         [[self.contentView viewWithTag:4] setBackgroundColor:offColor];
         [[self.contentView viewWithTag:5] setBackgroundColor:offColor];
-//        [self.contentView setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
     }
     [UIView commitAnimations];
 }

@@ -14,6 +14,11 @@ typedef enum {
     DeltaIsGray
 } DeltaColor;
 
+typedef enum {
+    DisplayLap,
+    DisplayTime
+} StringDisplayType;
+
 @class DropDownTableView;
 @class SummaryViewController;
 @class Timer;
@@ -24,14 +29,18 @@ typedef enum {
 @property (nonatomic) NSTimeInterval lapTime;
 @property (nonatomic) NSString *lapTimeString;
 @property (nonatomic) NSString *lapDelta;
+@property (nonatomic) NSString *timeAtLapString;
 @property (nonatomic) NSTimeInterval deltaFromPrevious;
 @property (nonatomic) NSTimeInterval deltaFromAverage;
 @property (nonatomic) NSTimeInterval deltaFromGoal;
+
+@property (nonatomic) NSInteger timerNumber;
 
 @property (nonatomic) Timer* timer;
 
 @property (nonatomic) UILabel *lapDeltaLabel;
 @property (nonatomic) DeltaColor deltaColor;
+@property (nonatomic) StringDisplayType stringDisplayType;
 
 @property (nonatomic) SummaryViewController *controller;
 
