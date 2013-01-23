@@ -220,6 +220,8 @@
 
 -(CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    if (self.displayType == DisplayByLap && (!self.arrayOfLaps || !self.arrayOfLaps.count))
+        return 0;
     return 50;
 }
 
@@ -227,10 +229,10 @@
 {
     if (self.displayType == DisplayByLap)
     {
-        if (self.mostLaps >= 0)
+        if (self.mostLaps > 0)
             return self.mostLaps;
         else
-            return 0;
+            return 1;
         
     }
     return [[self timers] count];
@@ -241,10 +243,12 @@
     if (self.displayType == DisplayByTimer)
     {
         Timer *timer = [[self timers] objectAtIndex:section];
-        if ([[timer laps] count] == 0)
+        if (timer.laps.count == 0)
             return 1;
         return [[timer laps] count]+1;
     } else {
+        if (!(self.arrayOfLaps) || !(self.arrayOfLaps.count))
+            return 1;
         return [[self.arrayOfLaps objectAtIndex:section] count];
     }
 }
@@ -255,6 +259,7 @@
         return [self.headerViews objectAtIndex:section];
     else
         return [self.headerViewsByLap objectAtIndex:section];
+    return nil;
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -277,20 +282,23 @@
             header = [[SummaryHeaderCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:HeaderCellIdentifier andTimer:timer];
         }
         [header setTime:[timer timeString]];
+        
+        [header setAvg:@"---"];
+        [header setGoal:@"---"];
+        
         if ([timer avgLap] != 0)
             [header setAvg:[Timer stringFromTimeInterval:[timer avgLap]]];
-        else
-            [header setAvg:@"---"];
+        
         if ([timer goalLap] != -1)
             [header setGoal:[Timer stringFromTimeInterval:[timer goalLap]]];
-        else
-            [header setGoal:@"---"];
+        
         [header setTimer:timer];
         [header refresh];
         return header;
     }
 
-    if ([[timer laps] count] == 0 && indexPath.row == 1 && self.displayType == DisplayByTimer)
+    if ((timer.laps.count == 0 && indexPath.row == 1 && self.displayType == DisplayByTimer) ||
+        (self.displayType == DisplayByLap && indexPath.row == 0 && self.arrayOfLaps.count == 0))
     {
         // Construct and return a "No Laps" cell for "By Timer" mode
         NoLapsCell *noLapsCell = (NoLapsCell*) [tableView dequeueReusableCellWithIdentifier:NoLapsCellIdentifier];

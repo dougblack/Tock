@@ -239,8 +239,6 @@
 			children = (
 				91C40FF51688010400092BF8 /* TimesViewController.h */,
 				91C40FF61688010400092BF8 /* TimesViewController.m */,
-				915DFE4C169F5B3C0011D453 /* nav_bar_gray@2x~iphone.png */,
-				915DFE4A169F54400011D453 /* table_view_back@2x~iphone.png */,
 				913103BB16968B580064406A /* SummaryViewController.h */,
 				913103BC16968B580064406A /* SummaryViewController.m */,
 				913A11B4169E09B100FBADC8 /* SettingsViewController.h */,
@@ -256,8 +254,6 @@
 			children = (
 				91C4100D16891D5900092BF8 /* Timer.h */,
 				91C4100E16891D5900092BF8 /* Timer.m */,
-				913A119F169CE5BE00FBADC8 /* lap.wav */,
-				913A119D169CE54400FBADC8 /* start2.wav */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -272,6 +268,14 @@
 		913A118C169CC43100FBADC8 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				915B27E716A508F200D30644 /* bulls_eye_white_nostroke@2x~iphone.png */,
+				915B27E516A5088A00D30644 /* bulls_eye_white@2x~iphone.png */,
+				918773A816A4BADB000105DE /* cancel_button@2x~iphone.png */,
+				913A119F169CE5BE00FBADC8 /* lap.wav */,
+				915DFE4E169F5BE00011D453 /* button_gray@2x~iphone.png */,
+				913A119D169CE54400FBADC8 /* start2.wav */,
+				915DFE4C169F5B3C0011D453 /* nav_bar_gray@2x~iphone.png */,
+				915DFE4A169F54400011D453 /* table_view_back@2x~iphone.png */,
 				915B27F516A8586600D30644 /* Icon.png */,
 				915B27F316A8586400D30644 /* Icon@2x.png */,
 				915B27F116A50F1400D30644 /* settings_back@2x~iphone.png */,
@@ -374,7 +378,6 @@
 			children = (
 				91C40FAB1687F7EE00092BF8 /* AppDelegate.h */,
 				91C40FAC1687F7EE00092BF8 /* AppDelegate.m */,
-				915DFE4E169F5BE00011D453 /* button_gray@2x~iphone.png */,
 				912648F61694CE89004D552F /* Models */,
 				912648F51694CE74004D552F /* Controllers */,
 				91C40FFC168808CC00092BF8 /* Cells */,
@@ -406,9 +409,6 @@
 			children = (
 				91C40FFD1688090900092BF8 /* TimerCell.h */,
 				91C40FFE1688090900092BF8 /* TimerCell.m */,
-				915B27E716A508F200D30644 /* bulls_eye_white_nostroke@2x~iphone.png */,
-				915B27E516A5088A00D30644 /* bulls_eye_white@2x~iphone.png */,
-				918773A816A4BADB000105DE /* cancel_button@2x~iphone.png */,
 				9135A51D169E5C14002F79B8 /* TimerSummaryCell.h */,
 				9135A51E169E5C14002F79B8 /* TimerSummaryCell.m */,
 				913103C116968D520064406A /* SummaryCell.h */,

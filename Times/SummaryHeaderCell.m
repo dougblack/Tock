@@ -64,6 +64,9 @@
     [self.contentView addSubview:goalLapLabel];
     [self.contentView setBackgroundColor:self.timer.thumb];
 
+    UIView *bottomBorder = [[UIView alloc] initWithFrame:CGRectMake(0, 58, 320, 2)];
+    [bottomBorder setBackgroundColor:[CommonCLUtility backgroundColor]];
+    [self.contentView addSubview:bottomBorder];
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.opaque = YES;

@@ -259,7 +259,7 @@
     {
         return 100;
     }
-    return 100;
+    return 95;
 }
 
 - (void)didReceiveMemoryWarning

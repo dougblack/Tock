@@ -37,7 +37,6 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-        
         self.movableViews = [NSMutableArray array];
         self.isInDeleteMode = NO;
         
