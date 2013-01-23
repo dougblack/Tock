@@ -121,7 +121,6 @@
 
 -(void)loadView
 {
-    
     [super loadView];
     int navBarHeight = self.navigationController.navigationBar.frame.size.height;
     int frameHeight = [[UIScreen mainScreen] applicationFrame].size.height;

@@ -61,7 +61,7 @@
 		913A11A0169CE5BE00FBADC8 /* lap.wav in Resources */ = {isa = PBXBuildFile; fileRef = 913A119F169CE5BE00FBADC8 /* lap.wav */; };
 		913A11A3169D095500FBADC8 /* GoalPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 913A11A2169D095500FBADC8 /* GoalPickerView.m */; };
 		913A11B3169E08EE00FBADC8 /* settings@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 913A11B2169E08EE00FBADC8 /* settings@2x~iphone.png */; };
-		913A11B6169E09B100FBADC8 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 913A11B5169E09B100FBADC8 /* SettingsViewController.m */; };
+		913A11B6169E09B100FBADC8 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 913A11B5169E09B100FBADC8 /* AboutViewController.m */; };
 		913A11BB169E146800FBADC8 /* SettingsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 913A11BA169E146800FBADC8 /* SettingsCell.m */; };
 		914BD5F1168CF9D10068BFC4 /* TimesTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 914BD5F0168CF9D10068BFC4 /* TimesTableView.m */; };
 		914CD591168E667E0087C263 /* CommonCLUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 914CD590168E667E0087C263 /* CommonCLUtility.m */; };
@@ -75,7 +75,6 @@
 		915B27F216A50F1400D30644 /* settings_back@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 915B27F116A50F1400D30644 /* settings_back@2x~iphone.png */; };
 		915B27F416A8586400D30644 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 915B27F316A8586400D30644 /* Icon@2x.png */; };
 		915B27F616A8586600D30644 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 915B27F516A8586600D30644 /* Icon.png */; };
-		915B27F916A8656B00D30644 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 915B27F816A8656B00D30644 /* AboutViewController.m */; };
 		915DFE3B169F466E0011D453 /* nav_bar@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 915DFE3A169F466E0011D453 /* nav_bar@2x~iphone.png */; };
 		915DFE4B169F54400011D453 /* table_view_back@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 915DFE4A169F54400011D453 /* table_view_back@2x~iphone.png */; };
 		915DFE4D169F5B3C0011D453 /* nav_bar_gray@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 915DFE4C169F5B3C0011D453 /* nav_bar_gray@2x~iphone.png */; };
@@ -146,8 +145,8 @@
 		913A11A1169D095500FBADC8 /* GoalPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoalPickerView.h; sourceTree = "<group>"; };
 		913A11A2169D095500FBADC8 /* GoalPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoalPickerView.m; sourceTree = "<group>"; };
 		913A11B2169E08EE00FBADC8 /* settings@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "settings@2x~iphone.png"; path = "../settings@2x~iphone.png"; sourceTree = "<group>"; };
-		913A11B4169E09B100FBADC8 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
-		913A11B5169E09B100FBADC8 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		913A11B4169E09B100FBADC8 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		913A11B5169E09B100FBADC8 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		913A11B9169E146800FBADC8 /* SettingsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsCell.h; sourceTree = "<group>"; };
 		913A11BA169E146800FBADC8 /* SettingsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsCell.m; sourceTree = "<group>"; };
 		914BD5EF168CF9D10068BFC4 /* TimesTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimesTableView.h; sourceTree = "<group>"; };
@@ -165,8 +164,6 @@
 		915B27F116A50F1400D30644 /* settings_back@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "settings_back@2x~iphone.png"; path = "../settings_back@2x~iphone.png"; sourceTree = "<group>"; };
 		915B27F316A8586400D30644 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../Icon@2x.png"; sourceTree = "<group>"; };
 		915B27F516A8586600D30644 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../Icon.png; sourceTree = "<group>"; };
-		915B27F716A8656B00D30644 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
-		915B27F816A8656B00D30644 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		915DFE3A169F466E0011D453 /* nav_bar@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "nav_bar@2x~iphone.png"; path = "../nav_bar@2x~iphone.png"; sourceTree = "<group>"; };
 		915DFE4A169F54400011D453 /* table_view_back@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "table_view_back@2x~iphone.png"; sourceTree = "<group>"; };
 		915DFE4C169F5B3C0011D453 /* nav_bar_gray@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_bar_gray@2x~iphone.png"; sourceTree = "<group>"; };
@@ -241,10 +238,8 @@
 				91C40FF61688010400092BF8 /* TimesViewController.m */,
 				913103BB16968B580064406A /* SummaryViewController.h */,
 				913103BC16968B580064406A /* SummaryViewController.m */,
-				913A11B4169E09B100FBADC8 /* SettingsViewController.h */,
-				913A11B5169E09B100FBADC8 /* SettingsViewController.m */,
-				915B27F716A8656B00D30644 /* AboutViewController.h */,
-				915B27F816A8656B00D30644 /* AboutViewController.m */,
+				913A11B4169E09B100FBADC8 /* AboutViewController.h */,
+				913A11B5169E09B100FBADC8 /* AboutViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -613,10 +608,9 @@
 				9155E042169A184F00425B22 /* SummaryHeaderCell.m in Sources */,
 				913A1190169CC4D300FBADC8 /* TockSoundPlayer.m in Sources */,
 				913A11A3169D095500FBADC8 /* GoalPickerView.m in Sources */,
-				913A11B6169E09B100FBADC8 /* SettingsViewController.m in Sources */,
+				913A11B6169E09B100FBADC8 /* AboutViewController.m in Sources */,
 				913A11BB169E146800FBADC8 /* SettingsCell.m in Sources */,
 				9135A51F169E5C14002F79B8 /* TimerSummaryCell.m in Sources */,
-				915B27F916A8656B00D30644 /* AboutViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

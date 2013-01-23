@@ -15,7 +15,8 @@ typedef enum {
 
 @interface SettingsCell : UITableViewCell
 
-@property NSString* settingName;
+@property NSString* leftString;
+@property NSString* rightString;
 @property SettingType settingType;
 
 -(void)refresh;

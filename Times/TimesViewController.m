@@ -15,7 +15,8 @@
 #import "Timer.h"
 #import "TockSoundPlayer.h"
 #import "GoalPickerView.h"
-#import "SettingsViewController.h"
+#import "AboutViewController.h"
+#import "AboutViewController.h"
 
 @interface TimesViewController ()
 
@@ -120,14 +121,14 @@
 
 }
 
--(void)openSettings
+-(void)openAbout
 {
-    SettingsViewController *settingsViewController = [[SettingsViewController alloc] init];
-    settingsViewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    settingsViewController.timesViewController = self;
+    AboutViewController *aboutViewController = [[AboutViewController alloc] init];
+    aboutViewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    aboutViewController.timesViewController = self;
     
-    UINavigationController *settingsNavigationController = [[UINavigationController alloc] initWithRootViewController:settingsViewController];
-    [settingsNavigationController.navigationBar setTintColor:[UIColor colorWithRed:0.05 green:0.05 blue:0.05 alpha:1]];
+    UINavigationController *aboutNavigationController = [[UINavigationController alloc] initWithRootViewController:aboutViewController];
+    [aboutNavigationController.navigationBar setTintColor:[UIColor colorWithRed:0.05 green:0.05 blue:0.05 alpha:1]];
     
     UIImage *doneImage = [UIImage imageNamed:@"button.png"];
     UIButton *doneBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 32)];
@@ -135,12 +136,12 @@
     [doneBtn setTitle:@"Done" forState:UIControlStateNormal];
     [doneBtn setTitleEdgeInsets:UIEdgeInsetsMake(1, 2, 0, 0)];
     [doneBtn setFont:[UIFont boldSystemFontOfSize:12]];
-    [doneBtn addTarget:settingsViewController action:@selector(saveAndClose) forControlEvents:UIControlEventTouchUpInside];
+    [doneBtn addTarget:aboutViewController action:@selector(saveAndClose) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithCustomView:doneBtn];
-    [settingsViewController.navigationItem setRightBarButtonItem:doneButton];
+    [aboutViewController.navigationItem setRightBarButtonItem:doneButton];
     
     
-    [self.navigationController presentViewController:settingsNavigationController animated:YES completion:nil];
+    [self.navigationController presentViewController:aboutNavigationController animated:YES completion:nil];
 }
 
 -(void)loadView
@@ -172,7 +173,7 @@
 
     UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     UIButton* settingsButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
-    [settingsButton addTarget:self action:@selector(openSettings) forControlEvents:UIControlEventTouchUpInside];
+    [settingsButton addTarget:self action:@selector(openAbout) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *modalButton = [[UIBarButtonItem alloc] initWithCustomView:settingsButton];
     [toolbar setTintColor:[UIColor blackColor]];
     UIBarButtonItem *startAllButton = [[UIBarButtonItem alloc] initWithTitle:@"START ALL" style:UIBarButtonItemStylePlain target:self action:@selector(startAll)];
