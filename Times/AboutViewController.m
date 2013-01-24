@@ -22,8 +22,8 @@
     self = [super init];
     if (self) {
 
-        self.leftStrings = [NSMutableArray arrayWithObjects:@"Updates", @"Developer", nil];
-        self.rightStrings = [NSMutableArray arrayWithObjects:@"@thetockapp", @"@dougblackgt", nil];
+        self.leftStrings = [NSMutableArray arrayWithObjects:@"Developer", @"Twitter", @"Twitter", nil];
+        self.rightStrings = [NSMutableArray arrayWithObjects:@"Doug Black", @"@thetockapp", @"@dougblackgt", nil];
         NSNumber *settingTypeSwitch = [NSNumber numberWithInt:SettingTypeSwitch];
         NSNumber *settingTypeSelectable = [NSNumber numberWithInt:SettingTypeSelectable];
         self.settingType = [NSMutableArray arrayWithObjects:settingTypeSelectable, settingTypeSelectable, settingTypeSelectable, nil];
@@ -93,6 +93,15 @@
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+//    if (indexPath.row == 0)
+//    {
+//        UITableViewCell *imageCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Image"];
+//
+//        imageCell.backgroundColor = [UIColor clearColor];
+//        [imageCell.contentView addSubview:image];
+//        return imageCell;
+//    }
+//    
     static NSString *SettingsCellIdentifier = @"Settings";
     
     SettingsCell *settingsCell = [tableView dequeueReusableCellWithIdentifier:SettingsCellIdentifier];
@@ -118,15 +127,18 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 30;
+    return 340;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *tempView=[[UIView alloc]initWithFrame:CGRectMake(0,200,300,40)];
+    UIView *tempView=[[UIView alloc]initWithFrame:CGRectMake(0,200,300,240)];
     tempView.backgroundColor=[UIColor clearColor];
     
-    UILabel *tempLabel=[[UILabel alloc]initWithFrame:CGRectMake(20,0,300,30)];
+    UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tock_logo.png"]];
+    image.frame = CGRectMake(0, 50, 320, 200);
+    
+    UILabel *tempLabel=[[UILabel alloc]initWithFrame:CGRectMake(20,270,300,30)];
     tempLabel.backgroundColor=[UIColor clearColor];
     tempLabel.shadowColor = [UIColor blackColor];
     tempLabel.shadowOffset = CGSizeMake(0,-2);
@@ -134,7 +146,8 @@
     tempLabel.font = [UIFont boldSystemFontOfSize:15.0];
     tempLabel.text=@"Connect";
     
-    [tempView addSubview:tempLabel];
+    [tempView addSubview:image];
+//    [tempView addSubview:tempLabel];
     return tempView;
 }
 
