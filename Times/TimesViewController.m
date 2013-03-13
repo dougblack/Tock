@@ -10,7 +10,6 @@
 #import "SummaryViewController.h"
 #import "TimerCell.h"
 #import "TimesTableView.h"
-#import "BottomActionView.h"
 #import "CommonCLUtility.h"
 #import "Timer.h"
 #import "TockSoundPlayer.h"
@@ -29,7 +28,7 @@
 
 @implementation TimesViewController
 
-@synthesize numTimers, tableView, bottomActionView;
+@synthesize numTimers, tableView;
 
 - (id)init{
     self = [super init];

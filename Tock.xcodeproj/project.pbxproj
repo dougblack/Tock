@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		912648F41693B1DD004D552F /* BottomActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 912648F31693B1DD004D552F /* BottomActionView.m */; };
 		912CB587169B47CD00A76138 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 91C40FA81687F7EE00092BF8 /* main.m */; };
 		912CB588169B47CD00A76138 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 91C40FAC1687F7EE00092BF8 /* AppDelegate.m */; };
 		912CB589169B47CD00A76138 /* TimesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91C40FF61688010400092BF8 /* TimesViewController.m */; };
@@ -15,7 +14,6 @@
 		912CB58B169B47CD00A76138 /* Timer.m in Sources */ = {isa = PBXBuildFile; fileRef = 91C4100E16891D5900092BF8 /* Timer.m */; };
 		912CB58C169B47CD00A76138 /* TimesTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 914BD5F0168CF9D10068BFC4 /* TimesTableView.m */; };
 		912CB58D169B47CD00A76138 /* CommonCLUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 914CD590168E667E0087C263 /* CommonCLUtility.m */; };
-		912CB593169B47CD00A76138 /* BottomActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 912648F31693B1DD004D552F /* BottomActionView.m */; };
 		912CB594169B47CD00A76138 /* SummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 913103BC16968B580064406A /* SummaryViewController.m */; };
 		912CB595169B47CD00A76138 /* SummaryTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 913103BF16968B780064406A /* SummaryTableView.m */; };
 		912CB596169B47CD00A76138 /* SummaryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 913103C216968D520064406A /* SummaryCell.m */; };
@@ -108,8 +106,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		912648F21693B1DD004D552F /* BottomActionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomActionView.h; sourceTree = "<group>"; };
-		912648F31693B1DD004D552F /* BottomActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomActionView.m; sourceTree = "<group>"; };
 		912CB5AD169B47CD00A76138 /* Tock-iPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tock-iPad.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		912CB5B0169B47CE00A76138 /* Tock copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tock copy-Info.plist"; sourceTree = "<group>"; };
 		913103BB16968B580064406A /* SummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SummaryViewController.h; sourceTree = "<group>"; };
@@ -324,8 +320,6 @@
 			children = (
 				914BD5EF168CF9D10068BFC4 /* TimesTableView.h */,
 				914BD5F0168CF9D10068BFC4 /* TimesTableView.m */,
-				912648F21693B1DD004D552F /* BottomActionView.h */,
-				912648F31693B1DD004D552F /* BottomActionView.m */,
 				913103BE16968B780064406A /* SummaryTableView.h */,
 				913103BF16968B780064406A /* SummaryTableView.m */,
 				91E05C661698B59000FE4A3B /* SummaryHeaderView.h */,
@@ -582,7 +576,6 @@
 				912CB58B169B47CD00A76138 /* Timer.m in Sources */,
 				912CB58C169B47CD00A76138 /* TimesTableView.m in Sources */,
 				912CB58D169B47CD00A76138 /* CommonCLUtility.m in Sources */,
-				912CB593169B47CD00A76138 /* BottomActionView.m in Sources */,
 				912CB594169B47CD00A76138 /* SummaryViewController.m in Sources */,
 				912CB595169B47CD00A76138 /* SummaryTableView.m in Sources */,
 				912CB596169B47CD00A76138 /* SummaryCell.m in Sources */,
@@ -603,7 +596,6 @@
 				91C4100F16891D5900092BF8 /* Timer.m in Sources */,
 				914BD5F1168CF9D10068BFC4 /* TimesTableView.m in Sources */,
 				914CD591168E667E0087C263 /* CommonCLUtility.m in Sources */,
-				912648F41693B1DD004D552F /* BottomActionView.m in Sources */,
 				913103BD16968B580064406A /* SummaryViewController.m in Sources */,
 				913103C016968B790064406A /* SummaryTableView.m in Sources */,
 				913103C316968D520064406A /* SummaryCell.m in Sources */,

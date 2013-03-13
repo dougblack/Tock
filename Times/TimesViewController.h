@@ -10,7 +10,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import <AVFoundation/AVFoundation.h>
 
-@class BottomActionView;
 @class TimesTableView;
 @class GoalPickerView;
 @class Timer;
@@ -20,7 +19,6 @@
 @property (nonatomic) NSInteger numSections;
 @property (nonatomic) NSMutableArray *timers;
 @property (nonatomic) TimesTableView *tableView;
-@property (nonatomic) BottomActionView *bottomActionView;
 @property (nonatomic) NSArray *colors;
 @property (nonatomic) NSInteger colorIndex;
 
