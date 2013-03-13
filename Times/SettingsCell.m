@@ -40,8 +40,6 @@
         [self.contentView addSubview:lapBackView];
         
         UILabel *leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 3, 150, 43)];
-//        [leftLabel setShadowColor:[UIColor blackColor]];
-//        [leftLabel setShadowOffset:CGSizeMake(0, -2)];
         [leftLabel setTextColor:[UIColor whiteColor]];
         [leftLabel setBackgroundColor:[UIColor clearColor]];
         [leftLabel setTextAlignment:NSTextAlignmentLeft];
@@ -51,8 +49,6 @@
         [self.contentView addSubview:leftLabel];
         
         UILabel *rightLabel = [[UILabel alloc] initWithFrame:CGRectMake(150, 3, 135, 43)];
-//        [rightLabel setShadowColor:[UIColor blackColor]];
-//        [rightLabel setShadowOffset:CGSizeMake(0, -2)];
         [rightLabel setTextColor:[UIColor whiteColor]];
         [rightLabel setBackgroundColor:[UIColor clearColor]];
         [rightLabel setTextAlignment:NSTextAlignmentRight];

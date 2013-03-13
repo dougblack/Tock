@@ -93,15 +93,6 @@
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-//    if (indexPath.row == 0)
-//    {
-//        UITableViewCell *imageCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Image"];
-//
-//        imageCell.backgroundColor = [UIColor clearColor];
-//        [imageCell.contentView addSubview:image];
-//        return imageCell;
-//    }
-//    
     static NSString *SettingsCellIdentifier = @"Settings";
     
     SettingsCell *settingsCell = [tableView dequeueReusableCellWithIdentifier:SettingsCellIdentifier];
@@ -119,11 +110,6 @@
     
     return settingsCell;
 }
-
-//-(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    return @"Connect";
-//}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {

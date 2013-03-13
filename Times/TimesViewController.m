@@ -24,6 +24,7 @@
 @property BOOL allowSound;
 @property UIBarButtonItem *startAllButton;
 @property UIBarButtonItem *plusButton;
+
 @end
 
 @implementation TimesViewController
