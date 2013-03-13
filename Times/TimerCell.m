@@ -13,6 +13,8 @@
 #import "CommonCLUtility.h"
 #import "TockSoundPlayer.h"
 
+#define MAX_TIMER_NAME_LENGTH 6
+
 @interface TimerCell ()
 
 @property (nonatomic) UITextField *timerName;
@@ -189,6 +191,7 @@
         flashLabel.alpha = 0.0;
         flashLabel.numberOfLines = 2;
         self.flashLabel = flashLabel;
+        [self.movableViews addObject:flashLabel];
         [self.contentView addSubview:flashLabel];
         
         UITextField *timerName = [[UITextField alloc] initWithFrame:CGRectMake(10, 10, 63, 30)];
@@ -588,13 +591,17 @@
 // Resets inset.
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
+    [self.timer setName:textField.text];
     self.timesTable.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
 // Makes all characters uppercase
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    textField.text = [textField.text stringByReplacingCharactersInRange:range withString:[string uppercaseString]]; return NO;
+    int newLength = (textField.text.length - range.length) + string.length;
+    if (newLength <= MAX_TIMER_NAME_LENGTH)
+        textField.text = [textField.text stringByReplacingCharactersInRange:range withString:[string uppercaseString]];
+    return NO;
 }
 
 // Closes keyboard
