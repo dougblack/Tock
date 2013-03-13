@@ -62,7 +62,7 @@
 		913A11A3169D095500FBADC8 /* GoalPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 913A11A2169D095500FBADC8 /* GoalPickerView.m */; };
 		913A11B3169E08EE00FBADC8 /* settings@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 913A11B2169E08EE00FBADC8 /* settings@2x~iphone.png */; };
 		913A11B6169E09B100FBADC8 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 913A11B5169E09B100FBADC8 /* AboutViewController.m */; };
-		913A11BB169E146800FBADC8 /* SettingsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 913A11BA169E146800FBADC8 /* SettingsCell.m */; };
+		913A11BB169E146800FBADC8 /* ContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 913A11BA169E146800FBADC8 /* ContactCell.m */; };
 		914BD5F1168CF9D10068BFC4 /* TimesTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 914BD5F0168CF9D10068BFC4 /* TimesTableView.m */; };
 		914CD591168E667E0087C263 /* CommonCLUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 914CD590168E667E0087C263 /* CommonCLUtility.m */; };
 		9155E042169A184F00425B22 /* SummaryHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9155E041169A184F00425B22 /* SummaryHeaderCell.m */; };
@@ -75,7 +75,6 @@
 		915B27F216A50F1400D30644 /* settings_back@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 915B27F116A50F1400D30644 /* settings_back@2x~iphone.png */; };
 		915B27F416A8586400D30644 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 915B27F316A8586400D30644 /* Icon@2x.png */; };
 		915B27F616A8586600D30644 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 915B27F516A8586600D30644 /* Icon.png */; };
-		915B492316B0B63C00B64E77 /* tock_logo@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 915B492216B0B63C00B64E77 /* tock_logo@2x~iphone.png */; };
 		915B492516B0B94600B64E77 /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = 915B492416B0B94600B64E77 /* View.xib */; };
 		915DFE3B169F466E0011D453 /* nav_bar@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 915DFE3A169F466E0011D453 /* nav_bar@2x~iphone.png */; };
 		915DFE4B169F54400011D453 /* table_view_back@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 915DFE4A169F54400011D453 /* table_view_back@2x~iphone.png */; };
@@ -149,8 +148,8 @@
 		913A11B2169E08EE00FBADC8 /* settings@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "settings@2x~iphone.png"; path = "../settings@2x~iphone.png"; sourceTree = "<group>"; };
 		913A11B4169E09B100FBADC8 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		913A11B5169E09B100FBADC8 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
-		913A11B9169E146800FBADC8 /* SettingsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsCell.h; sourceTree = "<group>"; };
-		913A11BA169E146800FBADC8 /* SettingsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsCell.m; sourceTree = "<group>"; };
+		913A11B9169E146800FBADC8 /* ContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactCell.h; sourceTree = "<group>"; };
+		913A11BA169E146800FBADC8 /* ContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactCell.m; sourceTree = "<group>"; };
 		914BD5EF168CF9D10068BFC4 /* TimesTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimesTableView.h; sourceTree = "<group>"; };
 		914BD5F0168CF9D10068BFC4 /* TimesTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimesTableView.m; sourceTree = "<group>"; };
 		914CD58F168E667E0087C263 /* CommonCLUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonCLUtility.h; sourceTree = "<group>"; };
@@ -166,7 +165,6 @@
 		915B27F116A50F1400D30644 /* settings_back@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "settings_back@2x~iphone.png"; path = "../settings_back@2x~iphone.png"; sourceTree = "<group>"; };
 		915B27F316A8586400D30644 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../Icon@2x.png"; sourceTree = "<group>"; };
 		915B27F516A8586600D30644 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../Icon.png; sourceTree = "<group>"; };
-		915B492216B0B63C00B64E77 /* tock_logo@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tock_logo@2x~iphone.png"; path = "../../../Desktop/Assets/tock_logo@2x~iphone.png"; sourceTree = "<group>"; };
 		915B492416B0B94600B64E77 /* View.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
 		915DFE3A169F466E0011D453 /* nav_bar@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "nav_bar@2x~iphone.png"; path = "../nav_bar@2x~iphone.png"; sourceTree = "<group>"; };
 		915DFE4A169F54400011D453 /* table_view_back@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "table_view_back@2x~iphone.png"; sourceTree = "<group>"; };
@@ -341,7 +339,6 @@
 		91C40F8D1687F7EE00092BF8 = {
 			isa = PBXGroup;
 			children = (
-				915B492216B0B63C00B64E77 /* tock_logo@2x~iphone.png */,
 				913A1172169B78D100FBADC8 /* AVFoundation.framework */,
 				913A1170169B71E500FBADC8 /* AudioToolbox.framework */,
 				91E1A545168B45C30026DF49 /* QuartzCore.framework */,
@@ -417,8 +414,8 @@
 				91E05C6A1698C49700FE4A3B /* NoLapsCell.m */,
 				9155E040169A184F00425B22 /* SummaryHeaderCell.h */,
 				9155E041169A184F00425B22 /* SummaryHeaderCell.m */,
-				913A11B9169E146800FBADC8 /* SettingsCell.h */,
-				913A11BA169E146800FBADC8 /* SettingsCell.m */,
+				913A11B9169E146800FBADC8 /* ContactCell.h */,
+				913A11BA169E146800FBADC8 /* ContactCell.m */,
 				915B492416B0B94600B64E77 /* View.xib */,
 			);
 			name = Cells;
@@ -567,7 +564,6 @@
 				915B27F216A50F1400D30644 /* settings_back@2x~iphone.png in Resources */,
 				915B27F416A8586400D30644 /* Icon@2x.png in Resources */,
 				915B27F616A8586600D30644 /* Icon.png in Resources */,
-				915B492316B0B63C00B64E77 /* tock_logo@2x~iphone.png in Resources */,
 				915B492516B0B94600B64E77 /* View.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -617,7 +613,7 @@
 				913A1190169CC4D300FBADC8 /* TockSoundPlayer.m in Sources */,
 				913A11A3169D095500FBADC8 /* GoalPickerView.m in Sources */,
 				913A11B6169E09B100FBADC8 /* AboutViewController.m in Sources */,
-				913A11BB169E146800FBADC8 /* SettingsCell.m in Sources */,
+				913A11BB169E146800FBADC8 /* ContactCell.m in Sources */,
 				9135A51F169E5C14002F79B8 /* TimerSummaryCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

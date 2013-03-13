@@ -9,7 +9,7 @@
 #import "AboutViewController.h"
 #import "TimesViewController.h"
 #import "CommonCLUtility.h"
-#import "SettingsCell.h"
+#import "ContactCell.h"
 
 @interface AboutViewController ()
 
@@ -67,7 +67,7 @@
     UIEdgeInsets inset = UIEdgeInsetsMake(10, 0, 0, 0);
     self.tableView.contentInset = inset;
     
-    [self.tableView registerClass:[SettingsCell class] forCellReuseIdentifier:@"Settings"];
+    [self.tableView registerClass:[ContactCell class] forCellReuseIdentifier:@"Settings"];
     [self.view addSubview:self.tableView];
     
 }
@@ -95,20 +95,19 @@
     
     static NSString *SettingsCellIdentifier = @"Settings";
     
-    SettingsCell *settingsCell = [tableView dequeueReusableCellWithIdentifier:SettingsCellIdentifier];
+    ContactCell *contactCell = [tableView dequeueReusableCellWithIdentifier:SettingsCellIdentifier];
     
-    if (settingsCell == nil)
+    if (contactCell == nil)
     {
-        settingsCell = [[SettingsCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:SettingsCellIdentifier];
+        contactCell = [[ContactCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:SettingsCellIdentifier];
     }
-    settingsCell.leftString = [self.leftStrings objectAtIndex:indexPath.row];
-    settingsCell.rightString = [self.rightStrings objectAtIndex:indexPath.row];
-    settingsCell.settingType = [[self.settingType objectAtIndex:indexPath.row] intValue];
-    settingsCell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [settingsCell refresh];
+    contactCell.leftString = [self.leftStrings objectAtIndex:indexPath.row];
+    contactCell.rightString = [self.rightStrings objectAtIndex:indexPath.row];
+    contactCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    [contactCell refresh];
     
     
-    return settingsCell;
+    return contactCell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -133,8 +132,32 @@
     tempLabel.text=@"Connect";
     
     [tempView addSubview:image];
-//    [tempView addSubview:tempLabel];
+
     return tempView;
+}
+
+-(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSURL *url;
+    switch (indexPath.row) {
+        case 0:
+            url = [NSURL URLWithString:@"http://dougblack.io"];
+            break;
+        case 1:
+            url = [NSURL URLWithString:@"http://twitter.com/thetockapp"];
+            break;
+        case 2:
+            url = [NSURL URLWithString:@"http://twitter.com/dougblackgt"];
+            break;
+            
+        default:
+            break;
+    }
+    
+    if (![[UIApplication sharedApplication] openURL:url]) {
+        NSLog(@"Failed to open URL.");
+    }
+    
 }
 
 @end

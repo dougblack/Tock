@@ -6,19 +6,18 @@
 //  Copyright (c) 2013 Doug Black. All rights reserved.
 //
 
-#import "SettingsCell.h"
+#import "ContactCell.h"
 #import "CommonCLUtility.h"
 
-@interface SettingsCell ()
+@interface ContactCell ()
 
 @property UILabel *leftLabel;
 @property UILabel *rightLabel;
-@property UISwitch *settingSwitch;
 @property UIView *backView;
 
 @end
 
-@implementation SettingsCell
+@implementation ContactCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -56,20 +55,12 @@
         [rightLabel setTag:31];
         self.rightLabel = rightLabel;
         [self.contentView addSubview:rightLabel];
-        
-        self.settingSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(218, 12, 95, 27)];
-        [self.settingSwitch setOn:YES];
-        [self.contentView addSubview:self.settingSwitch];
     }
     return self;
 }
 
 -(void)refresh
 {
-    if (self.settingType == SettingTypeSwitch)
-        self.settingSwitch.hidden = NO;
-    else if (self.settingType == SettingTypeSelectable)
-        self.settingSwitch.hidden = YES;
     self.leftLabel.text = self.leftString;
     self.rightLabel.text = self.rightString;
 }
@@ -77,7 +68,6 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-
     
 }
 

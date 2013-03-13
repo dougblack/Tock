@@ -13,7 +13,7 @@ typedef enum {
     SettingTypeSelectable
 } SettingType;
 
-@interface SettingsCell : UITableViewCell
+@interface ContactCell : UITableViewCell
 
 @property NSString* leftString;
 @property NSString* rightString;
