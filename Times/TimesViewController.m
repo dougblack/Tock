@@ -31,49 +31,50 @@
 @synthesize numTimers, tableView;
 
 - (id)init{
+    
     self = [super init];
     if (self) {
-        self.allowSound = NO;
+        
+        /* Set up */
         self.title = NSLocalizedString(@"Tock", @"Tock");
         self.numTimers = 0;
         self.numSections = 1;
+        self.colorIndex = (arc4random() % 11);
+        self.isShowingGoalPicker = NO;
+        self.allowSound = YES;
+        self.lastGeneratedColor = nil;
         self.timers = [[NSMutableArray alloc] init];
         
+        /* Display title label */
         UILabel *navBarLabel = [[UILabel alloc] init];
         [navBarLabel setText:@"Tock"];
         [navBarLabel setBackgroundColor:[UIColor clearColor]];
         [navBarLabel setFont:[UIFont boldSystemFontOfSize:20]];
         [navBarLabel setTextAlignment:NSTextAlignmentCenter];
         [navBarLabel setTextColor:[UIColor whiteColor]];
-
         [navBarLabel setShadowOffset:CGSizeMake(1,1)];
         [navBarLabel sizeToFit];
         [self.navigationItem setTitleView:navBarLabel];
         
+        /* Display new timer button */
         UIImage *plusImage = [UIImage imageNamed:@"plus_button.png"];
         UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 45, 32)];
         [addBtn setBackgroundImage:plusImage forState:UIControlStateNormal];
         [addBtn addTarget:self action:@selector(newTimer) forControlEvents:UIControlEventTouchUpInside];
-        
         UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithCustomView:addBtn];
+        self.plusButton = addButton;
+        [self.navigationItem setRightBarButtonItem:addButton];
 
-        
-        
+        /* Display summary button */
         UIImage *buttonImage = [[UIImage imageNamed:@"summary_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 70, 0, 0)];
-        
         UIButton *summaryBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 32)];
         [summaryBtn setBackgroundImage:buttonImage forState:UIControlStateNormal];
-        
         UIBarButtonItem *summaryButton = [[UIBarButtonItem alloc] initWithCustomView:summaryBtn];
         [summaryBtn addTarget:self action:@selector(openSummary) forControlEvents:UIControlEventTouchUpInside];
         [self.navigationItem setLeftBarButtonItem:summaryButton];
-        self.plusButton = addButton;
-        [self.navigationItem setRightBarButtonItem:addButton];
-        self.lastGeneratedColor = nil;
-        
-        // 40  - .15
-        // 120 - .47
-        // 240 - .94
+
+        /* Timer color palette */
+
         self.colors = [NSArray arrayWithObjects:
                        [UIColor colorWithRed:0.94 green:0.94 blue:0.15 alpha:1],
                        [UIColor colorWithRed:0.94 green:0.15 blue:0.15 alpha:1],
@@ -89,24 +90,29 @@
                        [UIColor colorWithRed:0.94 green:0.47 blue:0.94 alpha:1],
                        nil];
         
-        self.colorIndex = (arc4random() % 11);
+
+        /* Create initial two timers */
         [self newTimer];
         [self newTimer];
-        self.allowSound = YES;
-        self.isShowingGoalPicker = NO;
+
     }
     return self;
 }
 
+/* Slide up the summary view */
 -(void)openSummary
 {
+    /* Play button click sound */
     [TockSoundPlayer playSoundWithName:@"high_click" andExtension:@"wav" andVolume:1.0];
+    
+    /* Build controller */
     SummaryViewController *summaryViewController = [[SummaryViewController alloc] initWithTimers:[self timers]];
     [summaryViewController setDeltaType:DeltaFromPreviousLap];
     [summaryViewController setTimesViewController:self];
     UINavigationController *summaryNavigationController = [[UINavigationController alloc] initWithRootViewController:summaryViewController];
     [summaryNavigationController.navigationBar setTintColor:[UIColor colorWithRed:0.05 green:0.05 blue:0.05 alpha:1]];
     
+    /* Build new nav bar */
     UIImage *doneImage = [UIImage imageNamed:@"button.png"];
     UIButton *doneBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 32)];
     [doneBtn setBackgroundImage:doneImage forState:UIControlStateNormal];
@@ -121,12 +127,15 @@
 
 }
 
+/* Flip to about view */
 -(void)openAbout
 {
+    /* Build controller */
     AboutViewController *aboutViewController = [[AboutViewController alloc] init];
     aboutViewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     aboutViewController.timesViewController = self;
     
+    /* Build new nav bar */
     UINavigationController *aboutNavigationController = [[UINavigationController alloc] initWithRootViewController:aboutViewController];
     [aboutNavigationController.navigationBar setTintColor:[UIColor colorWithRed:0.05 green:0.05 blue:0.05 alpha:1]];
     
@@ -140,13 +149,14 @@
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithCustomView:doneBtn];
     [aboutViewController.navigationItem setRightBarButtonItem:doneButton];
     
-    
     [self.navigationController presentViewController:aboutNavigationController animated:YES completion:nil];
 }
 
 -(void)loadView
 {
     [super loadView];
+    
+    /* Calculate view dimensions */
     int navBarHeight = self.navigationController.navigationBar.frame.size.height;
     int frameHeight = [[UIScreen mainScreen] applicationFrame].size.height;
     self.view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, frameHeight-navBarHeight)];
@@ -159,6 +169,7 @@
     int viewHeight = 44;
     int navBarHeight = self.navigationController.navigationBar.frame.size.height;
     
+    /* Build TableView */
     TimesTableView *timesTableView = [[TimesTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-navBarHeight) style:UITableViewStylePlain];
     [timesTableView registerClass:[TimerCell class] forCellReuseIdentifier:@"Cell"];
     [timesTableView setRowHeight:95];
@@ -169,8 +180,8 @@
     [self setTableView:timesTableView];
     [self.view addSubview:timesTableView];
     
+    /* Build ToolBar */
     UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height-viewHeight, self.view.frame.size.width, viewHeight)];
-
     UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     UIButton* settingsButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
     [settingsButton addTarget:self action:@selector(openAbout) forControlEvents:UIControlEventTouchUpInside];
@@ -179,13 +190,12 @@
     UIBarButtonItem *startAllButton = [[UIBarButtonItem alloc] initWithTitle:@"START ALL" style:UIBarButtonItemStylePlain target:self action:@selector(startAll)];
     [startAllButton setTintColor:[UIColor colorWithRed:0.0 green:0.8 blue:0.3 alpha:1]];
     [startAllButton setBackgroundImage:[CommonCLUtility imageFromColor:[UIColor colorWithRed:0 green:0.8 blue:0.3 alpha:1]] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    
     self.startAllButton = startAllButton;
-    
     NSArray *toolBarItems = [NSArray arrayWithObjects:startAllButton, flexibleSpace, modalButton, nil];
     [toolbar setItems:toolBarItems];
     [self.view addSubview:toolbar];
     
+    /* Build GoalPickerView */
     GoalPickerView *goalPickerView = [[GoalPickerView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height+291, self.view.frame.size.width, 291)];
     goalPickerView.controller = self;
     self.goalPickerView = goalPickerView;
@@ -196,6 +206,7 @@
 {
     [super viewWillAppear:animated];
     
+    /* Prepare TableView for cells */
     [self.tableView setBackgroundColor:[UIColor clearColor] ];
     UIImageView *tableBack = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table_view_back.png"]];
     [self.tableView setBackgroundView:tableBack];
@@ -203,6 +214,7 @@
     
 }
 
+/* Slide up the GoalPicker */
 -(void)showPickerViewForTimer:(Timer*)timer;
 {
     
@@ -224,6 +236,7 @@
     self.isShowingGoalPicker = YES;
 }
 
+/* Slide down the GoalPicker */
 -(void)hidePickerView
 {
     [self checkTimers];
@@ -236,6 +249,7 @@
     self.isShowingGoalPicker = YES;
 }
 
+/* Create a new timer */
 - (void)newTimer
 {
     if (self.allowSound)
@@ -243,12 +257,18 @@
     
     self.numTimers++;;
     Timer* newTimer = [[Timer alloc] init];
-
+    
+    /* Generate and set a new color for this timer */
     UIColor *generatedColor = [CommonCLUtility generateNewColor];
     [newTimer setThumb:generatedColor];
+    
+    /* Update TableView data */
     [newTimer setRow:numTimers-1];
     [[self timers] addObject:newTimer];
     [self.tableView reloadData];
+
+    
+    /* Scroll to show newly added Timer */
     NSIndexPath *indexOfNew = [NSIndexPath indexPathForRow:[self numTimers]-1 inSection:0];
     [self.tableView scrollToRowAtIndexPath:indexOfNew atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 
@@ -266,7 +286,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
@@ -302,8 +321,7 @@
     return timerCell;
 }
 
-// Check if any timers are running and then set the StartAll
-// button accordingly.
+/* Check if any timers are running and then set the StartAll button accordingly. */
 -(void) checkTimers
 {
     BOOL hide = NO;

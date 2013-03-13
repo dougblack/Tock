@@ -511,7 +511,6 @@
     
     [[myView layer] setBorderWidth:1.0f];
     [[myView layer] setBorderColor:[ [UIColor colorWithRed:1 green:1 blue:1 alpha:.1] CGColor] ];
-    ///
 }
 
 @end
