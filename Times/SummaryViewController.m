@@ -48,22 +48,29 @@
         
         int i = 1;
         self.mostLaps = -1;
+        
+        /* Retrieve all necessary data from each timer, calculate, curate and store it locally for simple access. */
         for (Timer *timer in timers)
         {
+            /* Find the timer with most laps. */
             NSInteger count = timer.laps.count;
             if (count > self.mostLaps)
                 self.mostLaps = timer.laps.count;
             
+            /* Dictionaries for data. */
             NSMutableDictionary *thisTimersDeltas = [[NSMutableDictionary alloc] init];
             NSMutableArray *previousLapDeltas = [NSMutableArray array];
             NSMutableArray *goalLapDeltas = [NSMutableArray array];
             NSMutableArray *avgLapDeltas = [NSMutableArray array];
             NSMutableArray *lapDisplayTypes = [NSMutableArray array];
             NSTimeInterval previousLap = 0;
+            
             double goal = [timer goalLap];
             double avg = [timer avgLap];
+            /* Process the timer's laps. */
             for (NSNumber *lap in [timer laps])
             {
+                /* Calculate delta from previous lap. */
                 [lapDisplayTypes addObject:[NSNumber numberWithInt:DisplayLap]];
                 double lapDouble = [lap doubleValue];
                 if (previousLap == 0)
@@ -73,15 +80,18 @@
                     [previousLapDeltas addObject:[NSNumber numberWithDouble:delta]];
                 }
                 
+                /* Calculate delta from goal time. */
                 if (goal != -1)
                     [goalLapDeltas addObject:[NSNumber numberWithDouble:(lapDouble-goal)]];
                 else
                     [goalLapDeltas addObject:[NSNull null]];
                 
+                /* Calculate delta from average lap time. */
                 [avgLapDeltas addObject:[NSNumber numberWithDouble:(lapDouble-avg)]];
                 previousLap = lapDouble;
             }
             
+            /* Store all the data! */
             [thisTimersDeltas setObject:previousLapDeltas forKey:@"Previous"];
             [thisTimersDeltas setObject:goalLapDeltas forKey:@"Goal"];
             [thisTimersDeltas setObject:avgLapDeltas forKey:@"Avg"];
@@ -95,13 +105,14 @@
         self.timers = timers;
         self.displayType = DisplayByTimer;
         
+        /* Read all the data necessary for the ByLap Summary view. */
         self.headerViewsByLap = [NSMutableArray array];
         self.arrayOfLaps = [NSMutableArray array];
         for (int i = 0; i < self.mostLaps; i++)
         {
+            /* Build the header for each given lap and store it */
             SummaryHeaderView *headerView = [[SummaryHeaderView alloc] initWithThumb:[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1] andTimerNumber:i+1 andTimer:nil];
             [headerView convertToLapHeader];
-            
             [self.headerViewsByLap addObject:headerView];
             
             NSMutableArray *currentLaps = [NSMutableArray array];
@@ -161,6 +172,7 @@
     
 }
 
+/* Switch between ByTimer and ByLap views. */
 -(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
 {
     if (item.tag == 0) {
@@ -174,6 +186,7 @@
     [self.tableView reloadData];
 }
 
+/* Switch between Average, Previous, and Goal delta times */
 -(void)deltaChanged:(UISegmentedControl*)control
 {
     for (int i=0; i<[control.subviews count]; i++)
@@ -200,6 +213,7 @@
     [self deltaChanged:self.deltaControl];
 }
 
+/* Close the summary view. */
 -(void)back
 {
     [TockSoundPlayer playSoundWithName:@"high_click" andExtension:@"wav" andVolume:1.0];
@@ -325,6 +339,8 @@
         [summaryCell setStringDisplayType:displayType];
         [summaryCell setTimerNumber:indexPath.section];
         NSMutableDictionary *timerDict = (NSMutableDictionary*)[self.timersData objectAtIndex:indexPath.section];
+        
+        /* Set values in the SummaryCell based on which DeltaType the user has selected. */
         switch (self.deltaType) {
             case DeltaFromPreviousLap:
             {
@@ -402,9 +418,10 @@
         summaryCell.timer = timer;
         [summaryCell refresh];
         return summaryCell;
+        
     } else
     {
-        // Return a cell for the "By Lap" mode
+        /* Return a cell for the "By Lap" mode */
         TimerSummaryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TimerSummaryCell"];
         
         if (cell == nil)
@@ -436,6 +453,7 @@
         return DeltaIsGray;
 }
 
+/* Color the 'delta' string based on positivity or negativity */
 -(NSString*)stringForDelta:(NSNumber*)delta
 {
     if ([[NSString stringWithFormat:@"%.1f", [delta doubleValue]] isEqualToString:@"0.0"])
@@ -451,6 +469,7 @@
         
 }
 
+/* Close the keyboard, if open */
 -(void)tapped:(UITapGestureRecognizer*)recognizer
 {
     for (SummaryHeaderView *header in self.headerViews)

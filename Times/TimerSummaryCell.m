@@ -16,6 +16,7 @@
 
 @end
 
+/* This poorly named class is used in the ByLap mode. */
 @implementation TimerSummaryCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier

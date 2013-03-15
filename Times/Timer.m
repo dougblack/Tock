@@ -50,12 +50,12 @@
 
 #pragma mark - Time methods
 
+/* Called to start the timer. Sets correct state then calls updateTime */
 -(void) start
 {
-
     self.startTime = [NSDate timeIntervalSinceReferenceDate];
-//    [TockSoundPlayer playSoundWithName:@"start2" andExtension:@"wav" andVolume:1.0];
     
+    /* Check to see if this timer being resumed, or if its starting from 0 */
     if (self.started == YES)
     {
         NSTimeInterval timeOfStart = [NSDate timeIntervalSinceReferenceDate];
@@ -78,13 +78,15 @@
     [self updateTime];
 }
 
+/* This is where the actual timing happens. */
+/* Notifies the listening object every 0.1 seconds of the new time */
 -(void) updateTime
 {
     if (self.running == NO) {
         return;
     }
     
-    // Schedule another update in 1 millisecond.
+    // Schedule another update in 0.1 seconds.
     [self performSelector:@selector(updateTime) withObject:self afterDelay:0.1];
     
     NSTimeInterval timeSinceStart = [NSDate timeIntervalSinceReferenceDate];
@@ -98,20 +100,21 @@
     [self.delegate tick:newTimeString withLap:self.lapNumber];
 }
 
+/* Take a split and store it. */
 -(void) lap
 {
+    /* Ignore if stopped. */
     if (self.running == NO || self.stopped == YES)
     {
         return;
     }
     
-//    [TockSoundPlayer playSoundWithName:@"lap" andExtension:@"wav" andVolume:0.1];
     NSTimeInterval currentTime = [NSDate timeIntervalSinceReferenceDate];
     NSTimeInterval elapsedSinceLastLap = (currentTime - [self lastLapTime]) - [self currentLapDelta];
     
     NSString* thisLapString = [Timer stringFromTimeInterval:elapsedSinceLastLap];
     
-    // Add new values to appropriate arrays.
+    /* Add new values to appropriate arrays. */
     [self.lapStrings addObject:thisLapString];
     [self.laps addObject:[NSNumber numberWithDouble:elapsedSinceLastLap]];
     [self.timeOfLapStrings addObject:self.timeString];
@@ -120,6 +123,7 @@
     self.lastLapString = thisLapString;
     self.lapNumber++;
     
+    /* If this is the first lap since resume, start delta from this lap */
     if ([self recentlyStopped])
     {
         self.currentLapDelta = 0;
@@ -128,12 +132,14 @@
     
     self.lapSum = self.lapSum + elapsedSinceLastLap;
     self.avgLap = self.lapSum / [self.laps count];
+    
+    /* Send a message to delgate. */
     [self.delegate lastLapTimeChanged:thisLapString];
 }
 
+/* Stop the timer. */
 -(void) stop
 {
-//    [TockSoundPlayer playSoundWithName:@"stop4" andExtension:@"wav" andVolume:1.0];
     NSTimeInterval currentTime = [NSDate timeIntervalSinceReferenceDate];
     NSTimeInterval elapsedSinceLastLap = currentTime - [self lastLapTime];
     
@@ -177,27 +183,6 @@
 {
     NSTimeInterval goalTime = (tenths / 10.0) + (seconds) + (minutes*60.0);
     self.goalLap = goalTime;
-}
-
-#pragma mark - copy methods
-
--(id) copyWithZone:(NSZone *)zone
-{
-    Timer* newTimer = [[Timer alloc] init];
-    newTimer.startTime = [self startTime];
-    newTimer.lastLapTime = [self lastLapTime];
-    newTimer.running = [self running];
-    newTimer.started = [self started];
-    newTimer.stopped = [self stopped];
-    newTimer.timeString = [[self timeString] copyWithZone:zone];
-    newTimer.currentTime = [self currentTime];
-    newTimer.lastLapString = [[self lastLapString] copyWithZone:zone];
-    newTimer.laps = [[self laps] copyWithZone:zone];
-    newTimer.lapStrings = [[self lapStrings] copyWithZone:zone];
-    newTimer.row = [self row];
-    newTimer.thumb = [[self thumb] copyWithZone:zone];
-    newTimer.timeDelta = [self timeDelta];
-    return newTimer;
 }
 
 #pragma mark - static methods

@@ -220,6 +220,7 @@
     return self;
 }
 
+/* Show the flash method over top of the TimerCell. */
 -(void)showFlash:(NSString*)flashString;
 {
     self.flashLabel.text = flashString;
@@ -238,6 +239,7 @@
     [UIView commitAnimations];
 }
 
+/* Not currently used */
 -(void)splitTimer:(UITapGestureRecognizer*)sender
 {
     if (sender.state == UIGestureRecognizerStateRecognized)
@@ -250,6 +252,7 @@
     
 }
 
+/* Recognizer right swipe. */
 -(void) swipeRight:(UISwipeGestureRecognizer*)sender
 {
     if (!self.isInDeleteMode)
@@ -259,6 +262,7 @@
     
 }
 
+/* Show delete button. */
 -(void) slideCellRight
 {
     self.isInDeleteMode = YES;
@@ -272,6 +276,7 @@
     [UIView commitAnimations];
 }
 
+/* Close delete button. */
 -(void) slideCellLeft
 {
     [UIView beginAnimations:nil context:nil];
@@ -285,6 +290,7 @@
     self.isInDeleteMode = NO;
 }
 
+/* Process a tap on the TimerCell */
 -(void)handleTap:(UITapGestureRecognizer*)sender
 {
     UIView *senderView = (UIView*)sender.view;
@@ -327,6 +333,7 @@
     }
 }
 
+/* Reset the timer. */
 -(void)handleLongPress:(UILongPressGestureRecognizer*)sender
 {
     if ([[self timer] running]) // ignore if currently running
@@ -338,6 +345,7 @@
 
 }
 
+/* We override touchesBegan so we can set the color on Touch */
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     if ([touches count] > 1)
@@ -438,6 +446,7 @@
     }
 }
 
+/* Called when a TimerCell needs to redraw itself with the data from its specified timer */
 -(void) refresh
 {
     [(UILabel*)[self.contentView viewWithTag:1] setText:[[self timer] timeString]];
@@ -489,13 +498,13 @@
             [[self.contentView viewWithTag:3] setBackgroundColor:offColor];
             [[self.contentView viewWithTag:4] setBackgroundColor:offColor];
             [[self.contentView viewWithTag:5] setBackgroundColor:offColor];
-//            [self.contentView setBackgroundColor:[CommonCLUtility viewDarkBackColor]];
             break;
         }
     }
     [[self timesTable] performSelector:@selector(checkTimers) withObject:nil afterDelay:0];
 }
 
+/* The click color animation. */
 -(void)highlightAll:(UIView *)view withDuration:(NSTimeInterval)duration andWait:(NSTimeInterval)wait
 {
 
@@ -560,6 +569,7 @@
     [UIView commitAnimations];
 }
 
+/* The Timer calls this method. Update the UI to match the new time values. */
 -(void) tick:(NSString *)time withLap:(NSInteger)lap
 {
     [self setTime:time];
@@ -579,6 +589,7 @@
     [super setSelected:selected animated:animated];
 }
 
+/* These methods are for setting the Timer label. */
 #pragma mark - UITextFieldDelegate methods
 
 // Adjusts inset so that the cell is visible.

@@ -42,14 +42,14 @@ typedef enum {
 @property (nonatomic) FlagType flagType;
 @property (nonatomic) AVAudioPlayer *timerClick;
 
-+(NSString*)stringFromTimeInterval:(NSTimeInterval)timeInterval;
-
--(void)calculateGoalPaceFromMinutes:(NSInteger)minutes andSeconds:(NSInteger)seconds andTenths:(NSInteger)tenths;
 
 -(void)toggle;
 -(void)start;
 -(void)lap;
 -(void)stop;
 -(void)reset;
+-(void)calculateGoalPaceFromMinutes:(NSInteger)minutes andSeconds:(NSInteger)seconds andTenths:(NSInteger)tenths;
+
++(NSString*)stringFromTimeInterval:(NSTimeInterval)timeInterval;
 
 @end

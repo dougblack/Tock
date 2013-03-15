@@ -21,6 +21,7 @@
 
 @end
 
+/* This cell is used by the SummaryView. It can toggle between both the ByTimer and ByLap modes. */
 @implementation SummaryCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier

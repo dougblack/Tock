@@ -18,6 +18,7 @@
 
 @end
 
+/* This is displayed at the top of a section--be it Timers or Laps--in the SummaryView */
 @implementation SummaryHeaderCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier andTimer:(Timer*)timer

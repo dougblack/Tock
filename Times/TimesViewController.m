@@ -321,7 +321,7 @@
     return timerCell;
 }
 
-/* Check if any timers are running and then set the StartAll button accordingly. */
+/* Check if any timers are running and then enable/disable the StartAll button accordingly. */
 -(void) checkTimers
 {
     BOOL hide = NO;

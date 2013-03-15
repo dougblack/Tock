@@ -15,22 +15,21 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    /* Create initial controller and corresponding NavigationController */
     TimesViewController *timesTable = [[TimesViewController alloc] init];
-
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:timesTable];
+    
     [self setNavigationController:navigationController];
     [self.window setRootViewController:self.navigationController];
     [self.window addSubview:self.navigationController.view];
     [self.window makeKeyAndVisible];
     
-    
+    /* Set custom images for top and bottom bar */
     UIImage *navBarImage = [UIImage imageNamed:@"top_bar.png"];
     UIImage *bottomBarImage = [UIImage imageNamed:@"bottom_bar.png"];
-    
     [[UINavigationBar appearance] setBackgroundImage:navBarImage forBarMetrics:UIBarMetricsDefault];
-    
     [[UIToolbar appearance] setBackgroundImage:bottomBarImage forToolbarPosition:UIToolbarPositionBottom barMetrics:UIBarMetricsDefault];
-    
     
     return YES;
 }

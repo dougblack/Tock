@@ -9,6 +9,7 @@
 #import "NoLapsCell.h"
 #import "CommonCLUtility.h"
 
+/* Displayed when there aren't any laps. */
 @implementation NoLapsCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
