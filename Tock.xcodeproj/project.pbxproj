@@ -101,6 +101,7 @@
 		912B7F1016F29DF100A3FA9A /* start2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = start2.wav; sourceTree = "<group>"; };
 		912B7F1116F29DF100A3FA9A /* high_click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = high_click.wav; sourceTree = "<group>"; };
 		912B7F1216F29DF100A3FA9A /* swish.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = swish.wav; sourceTree = "<group>"; };
+		912B7F4816F2A4D800A3FA9A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		912CB5AD169B47CD00A76138 /* Tock-iPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tock-iPad.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		912CB5B0169B47CE00A76138 /* Tock copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tock copy-Info.plist"; sourceTree = "<group>"; };
 		913103BB16968B580064406A /* SummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SummaryViewController.h; sourceTree = "<group>"; };
@@ -274,6 +275,7 @@
 		91C40F8D1687F7EE00092BF8 = {
 			isa = PBXGroup;
 			children = (
+				912B7F4816F2A4D800A3FA9A /* Default.png */,
 				913A1172169B78D100FBADC8 /* AVFoundation.framework */,
 				913A1170169B71E500FBADC8 /* AudioToolbox.framework */,
 				91E1A545168B45C30026DF49 /* QuartzCore.framework */,
