@@ -102,7 +102,6 @@
 		912B7F1116F29DF100A3FA9A /* high_click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = high_click.wav; sourceTree = "<group>"; };
 		912B7F1216F29DF100A3FA9A /* swish.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = swish.wav; sourceTree = "<group>"; };
 		912CB5AD169B47CD00A76138 /* Tock-iPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Tock-iPad.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		912CB5B0169B47CE00A76138 /* Tock copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tock copy-Info.plist"; sourceTree = "<group>"; };
 		913103BB16968B580064406A /* SummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SummaryViewController.h; sourceTree = "<group>"; };
 		913103BC16968B580064406A /* SummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SummaryViewController.m; sourceTree = "<group>"; };
 		913103BE16968B780064406A /* SummaryTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SummaryTableView.h; sourceTree = "<group>"; };
@@ -282,7 +281,6 @@
 				91C40F991687F7EE00092BF8 /* Products */,
 				91C410001688E03B00092BF8 /* Resources */,
 				912CB5AF169B47CD00A76138 /* Resources-iPad */,
-				912CB5B0169B47CE00A76138 /* Tock copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};

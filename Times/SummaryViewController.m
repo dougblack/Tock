@@ -96,6 +96,7 @@
             [thisTimersDeltas setObject:goalLapDeltas forKey:@"Goal"];
             [thisTimersDeltas setObject:avgLapDeltas forKey:@"Avg"];
             [thisTimersDeltas setObject:lapDisplayTypes forKey:@"LapDisplayType"];
+            
             [self.timersData addObject:thisTimersDeltas];
             SummaryHeaderView *headerView = [[SummaryHeaderView alloc] initWithThumb:timer.thumb andTimerNumber:i andTimer:timer];
             [self.headerViews addObject:headerView];
@@ -189,18 +190,16 @@
 /* Switch between Average, Previous, and Goal delta times */
 -(void)deltaChanged:(UISegmentedControl*)control
 {
+    
+    DeltaType deltas[3] = {DeltaFromAverageLap, DeltaFromGoalLap, DeltaFromPreviousLap};
+    
     for (int i=0; i<[control.subviews count]; i++)
     {
         if ([[control.subviews objectAtIndex:i] isSelected] )
         {
-            if (i == 0)
-                self.deltaType = DeltaFromAverageLap;
-            else if (i == 1)
-                self.deltaType = DeltaFromGoalLap;
-            else if (i == 2)
-                self.deltaType = DeltaFromPreviousLap;
-            
+            self.deltaType = deltas[i];
             [[control.subviews objectAtIndex:i] setTintColor:[UIColor colorWithRed:0.4 green:0.4 blue:0.4 alpha:1]];
+            
         } else {
             [[control.subviews objectAtIndex:i] setTintColor:[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:1]];
         }
@@ -272,7 +271,6 @@
         return [self.headerViews objectAtIndex:section];
     else
         return [self.headerViewsByLap objectAtIndex:section];
-    return nil;
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -389,6 +387,7 @@
                 NSNumber *delta = [goalLapDeltas objectAtIndex:indexPath.row-1];
                 NSString* deltaString;
                 DeltaColor deltaColor;
+                
                 if (delta != [NSNull null])
                 {
                     deltaString = [self stringForDelta:delta];

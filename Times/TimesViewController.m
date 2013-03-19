@@ -56,7 +56,7 @@
         [navBarLabel sizeToFit];
         [self.navigationItem setTitleView:navBarLabel];
         
-        /* Display new timer button */
+        /* Create new timer button */
         UIImage *plusImage = [UIImage imageNamed:@"plus_button.png"];
         UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 45, 32)];
         [addBtn setBackgroundImage:plusImage forState:UIControlStateNormal];
@@ -65,7 +65,7 @@
         self.plusButton = addButton;
         [self.navigationItem setRightBarButtonItem:addButton];
 
-        /* Display summary button */
+        /* Create summary button */
         UIImage *buttonImage = [[UIImage imageNamed:@"summary_button.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 70, 0, 0)];
         UIButton *summaryBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 32)];
         [summaryBtn setBackgroundImage:buttonImage forState:UIControlStateNormal];

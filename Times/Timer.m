@@ -217,4 +217,72 @@
         return [NSString stringWithFormat:@"%u.%u", secs, tenths];
 }
 
+#pragma mark - NSCoding delegate methods
+
+-(void) encodeWithCoder:(NSCoder *)encoder
+{
+    [encoder encodeDouble:self.goalLap forKey:@"goalLap"];
+    [encoder encodeDouble:self.avgLap forKey:@"avgLap"];
+    [encoder encodeDouble:self.lapSum forKey:@"avgSum"];
+    [encoder encodeInteger:self.lapNumber forKey:@"lapNumber"];
+    [encoder encodeInteger:self.row forKey:@"row"];
+    [encoder encodeObject:self.timeString forKey:@"timeString"];
+    [encoder encodeObject:self.lastLapString forKey:@"lastLapString"];
+    [encoder encodeObject:self.name forKey:@"name"];
+    [encoder encodeObject:self.laps forKey:@"laps"];
+    [encoder encodeObject:self.lapStrings forKey:@"lapStrings"];
+    [encoder encodeObject:self.timeOfLapStrings forKey:@"timeOfLapStrings"];
+    [encoder encodeObject:self.delegate forKey:@"delegate"];
+    [encoder encodeObject:self.thumb forKey:@"thumb"];
+    [encoder encodeInteger:self.flagType forKey:@"flagType"];
+    [encoder encodeObject:self.timerClick forKey:@"timerClick"];
+    [encoder encodeBool:self.running forKey:@"running"];
+    [encoder encodeBool:self.stopped forKey:@"stopped"];
+    [encoder encodeBool:self.started forKey:@"started"];
+    [encoder encodeBool:self.recentlyStopped forKey:@"recentlyStopped"];
+    [encoder encodeDouble:self.startTime forKey:@"startTime"];
+    [encoder encodeDouble:self.lastLapTime forKey:@"lastLapTime"];
+    [encoder encodeDouble:self.currentTime forKey:@"currentTime"];
+    [encoder encodeDouble:self.timeDelta forKey:@"timeDelta"];
+    [encoder encodeDouble:self.currentLapDelta forKey:@"currentLapDelta"];
+    [encoder encodeDouble:self.timeOfLastStop forKey:@"timeOfLastStop"];
+}
+
+-(id) initWithCoder:(NSCoder *)decoder
+{
+    
+    self = [super init];
+    if (self) {
+        self.timeString = [decoder decodeObjectForKey:@"timeString"];
+        self.lastLapString = [decoder decodeObjectForKey:@"lastLapString"];
+        self.name = [decoder decodeObjectForKey:@"name"];
+        self.laps = [decoder decodeObjectForKey:@"laps"];
+        self.lapStrings = [decoder decodeObjectForKey:@"lapStrings"];
+        self.timeOfLapStrings = [decoder decodeObjectForKey:@"timeOfLapStrings"];
+        self.delegate = [decoder decodeObjectForKey:@"delegate"];
+        self.thumb = [decoder decodeObjectForKey:@"thumb"];
+        self.timerClick = [decoder decodeObjectForKey:@"timerClick"];
+        self.goalLap = [decoder decodeDoubleForKey:@"goalLap"];
+        self.avgLap = [decoder decodeDoubleForKey:@"avgLap"];
+        self.lapSum = [decoder decodeDoubleForKey:@"lapSum"];
+        self.startTime = [decoder decodeDoubleForKey:@"startTime"];
+        self.lastLapTime = [decoder decodeDoubleForKey:@"lastLapTime"];
+        self.currentTime = [decoder decodeDoubleForKey:@"currentTime"];
+        self.timeDelta = [decoder decodeDoubleForKey:@"timeDelta"];
+        self.currentLapDelta = [decoder decodeDoubleForKey:@"currentLapDelta"];
+        self.timeOfLastStop = [decoder decodeDoubleForKey:@"timeOfLastStop"];
+        self.running = [decoder decodeBoolForKey:@"running"];
+        self.stopped = [decoder decodeBoolForKey:@"stopped"];
+        self.started = [decoder decodeBoolForKey:@"started"];
+        self.recentlyStopped = [decoder decodeBoolForKey:@"recentlyStopped"];
+        self.lapNumber = [decoder decodeIntegerForKey:@"lapNumber"];
+        self.row = [decoder decodeIntegerForKey:@"row"];
+        self.flagType = [decoder decodeIntegerForKey:@"flagType"];
+        
+    }
+    
+    return self;
+    
+}
+
 @end

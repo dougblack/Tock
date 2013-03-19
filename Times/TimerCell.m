@@ -239,19 +239,6 @@
     [UIView commitAnimations];
 }
 
-/* Not currently used */
--(void)splitTimer:(UITapGestureRecognizer*)sender
-{
-    if (sender.state == UIGestureRecognizerStateRecognized)
-    {
-        Timer *newTimer = [Timer alloc];
-        newTimer = [[self timer] copyWithZone:NSZoneFromPointer((__bridge void *)(newTimer))];
-        [self.timesTable.timers insertObject:newTimer atIndex:self.row+1];
-        [self.timesTable.tableView reloadData];
-    }
-    
-}
-
 /* Recognizer right swipe. */
 -(void) swipeRight:(UISwipeGestureRecognizer*)sender
 {

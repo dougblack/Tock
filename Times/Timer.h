@@ -16,7 +16,7 @@ typedef enum {
 } FlagType;
 
 @class TimerCell;
-@interface Timer : NSObject <NSCopying>
+@interface Timer : NSObject <NSCoding>
 
 @property (nonatomic) BOOL running;
 
